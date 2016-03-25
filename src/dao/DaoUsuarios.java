@@ -95,6 +95,9 @@ public class DaoUsuarios {
 		         String sql = "DELETE FROM usuarios WHERE id = '" + id + "';";
 		         stmt.executeUpdate(sql);
 		         c.commit();
+		         
+		         c.close();
+				 stmt.close();
 				
 	      } catch ( Exception e ) {
 	          System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -114,6 +117,9 @@ public class DaoUsuarios {
 		         String sql = "UPDATE usuarios set nome = '"+ nome +"' where id='"+ id +"';";
 		         stmt.executeUpdate(sql);
 		         c.commit();
+		         
+		         c.close();
+				 stmt.close();
 				
 	      } catch ( Exception e ) {
 	          System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -131,11 +137,14 @@ public class DaoUsuarios {
 			System.out.println("conectado com sucesso");
 			stmt = c.createStatement();
 			//String sql = "INSERT INTO usuarios (nome,senha,email) values ('"+nome+"','"+senha+"','"+email+"');";
-			String sql = "INSERT INTO usuarios (nome,senha,email) values ('nome','senha','email');";
-			
+			String sql = "INSERT INTO usuarios (nome,senha,email) values ('"+nome+"','"+senha+"','"+email+"');";
+			 
 			stmt.executeUpdate(sql);
+			c.commit();
+			
 			stmt.close();
 			c.close();
+			
        } catch ( Exception e ) {
          System.err.println( e.getClass().getName()+": "+ e.getMessage() );
          System.exit(0);
