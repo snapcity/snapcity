@@ -1,7 +1,8 @@
 package snapcity;
 
 import java.util.*; 
-import java.util.Vector; 
+
+import dao.DaoEventos;
 import dao.DaoUsuarios;
 
 public class teste {
@@ -11,9 +12,16 @@ public class teste {
 	
 
 	//usuarios.insereUsuarios("teste2","4545"," marcelohcer@outlook.com");
-	//usuarios.mostrarUsuarios();
+	usuarios.mostrarUsuarios();
 	//usuarios.buscaUsuarios(2);
-	//usuarios.atualizaUsuarios(2, "Marcelo Hotmail");
+	//usuarios.atualizaUsuarios(2, "Marcelo S. Rodrigues");
 	//usuarios.excluiUsuario(3);
+	
+	// Teste eventos
+	
+	dao.DaoEventos eventos = new DaoEventos();
+	
+	//eventos.mostrarEventos();
+	//eventos.buscaEventos("Por");
 	}
 }

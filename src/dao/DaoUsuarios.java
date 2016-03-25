@@ -17,12 +17,7 @@ public class DaoUsuarios {
 
 		try {
 			
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection(
-					"jdbc:postgresql://localhost:5432/snapcity", "postgres",
-					"snap");
-			c.setAutoCommit(false);
-			System.out.println("conectado com sucesso");
+			conecta();
 
 			stmt = c.createStatement();
 
@@ -52,10 +47,7 @@ public class DaoUsuarios {
 	public void buscaUsuarios(int id) {  
 		try {
 			
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-			c.setAutoCommit(false);
-			System.out.println("conectado com sucesso");
+			conecta();
 
 			stmt = c.createStatement();
 
@@ -86,10 +78,7 @@ public class DaoUsuarios {
 
 	 public void excluiUsuario(int id) {    
 	      try {  
-	    	  Class.forName("org.postgresql.Driver");
-				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-				c.setAutoCommit(false);
-				System.out.println("conectado com sucesso");
+	    	  conecta();
 				 
 				stmt = c.createStatement();
 		         String sql = "DELETE FROM usuarios WHERE id = '" + id + "';";
@@ -108,10 +97,7 @@ public class DaoUsuarios {
 	   } 
 	 public void atualizaUsuarios(int id, String nome) {    
 	      try {  
-	    	  Class.forName("org.postgresql.Driver");
-				c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-				c.setAutoCommit(false);
-				System.out.println("conectado com sucesso");
+	    	  conecta();
 				 
 				stmt = c.createStatement();
 		         String sql = "UPDATE usuarios set nome = '"+ nome +"' where id='"+ id +"';";
@@ -131,10 +117,7 @@ public class DaoUsuarios {
 	 public void insereUsuarios( String nome, String senha, String email ){
 		 try{
 			 
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-			c.setAutoCommit(false);
-			System.out.println("conectado com sucesso");
+			conecta();
 			stmt = c.createStatement();
 			//String sql = "INSERT INTO usuarios (nome,senha,email) values ('"+nome+"','"+senha+"','"+email+"');";
 			String sql = "INSERT INTO usuarios (nome,senha,email) values ('"+nome+"','"+senha+"','"+email+"');";
@@ -152,5 +135,16 @@ public class DaoUsuarios {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
-	
+	 public void conecta(){
+		 try{
+			 Class.forName("org.postgresql.Driver");
+			 c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
+			 c.setAutoCommit(false);
+			 System.out.println("conectado com sucesso");
+		 }catch( Exception e ) {
+	         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+	         System.exit(0);
+	       }
+	 
+	 }
 }
