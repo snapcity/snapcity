@@ -14,15 +14,15 @@ public class teste {
 	//usuarios.insereUsuarios("timestamp","1212"," marcelohcer@outlook.com");
 	//usuarios.mostrarUsuarios();
 	//usuarios.buscaUsuarios(2);
-	//usuarios.atualizaUsuarios(2, "Marcelo S. Rodrigues");
+	//usuarios.atualizaUsuarios(2, "Andersen");
 	//usuarios.excluiUsuario(3);
-	usuarios.buscaUsuariosEventos(1);
+	//usuarios.buscaUsuariosEventos(1);
 	
 	// Teste eventos
 
-	//eventos.insereEventos("image teste 2", "Foto de descricao 2", -54.90876, -34.98765, 1, "sinaleira estragada");
+	//eventos.insereEventos("image teste 3", "Foto de descricao 3", -54.90876, -34.98765, 1, "posst caido");
 	//eventos.mostrarEventos();
 	//eventos.buscaEventos("Por");
-	//eventos.excluiEventos(4);
+	//eventos.excluiEventos(3);
 	}
 }

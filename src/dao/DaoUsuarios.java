@@ -1,13 +1,11 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;  
-import java.sql.SQLException; 
+import dao.banco.ConectionFactory;
 
-import dao.banco.conexao;
 
 
 public class DaoUsuarios {
@@ -18,7 +16,7 @@ public class DaoUsuarios {
 	public void mostrarUsuarios() {
 
 		try {
-			conecta();
+			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
 			while (rs.next()) {
@@ -48,7 +46,7 @@ public class DaoUsuarios {
 	// Método que busca eventos relacioandos com o usuario
 	public void buscaUsuariosEventos(int id) {  
 		try {
-			conecta();
+			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where  '"+ id + "' = usuarios.id;");
 			while (rs.next()) {
@@ -86,7 +84,7 @@ public class DaoUsuarios {
 	// método que busca usuarios pelo id
 	public void buscaUsuarios(int id) {  
 		try {
-			conecta();
+			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
 			while (rs.next()) {
@@ -117,7 +115,7 @@ public class DaoUsuarios {
 	//Exclui usuário identificado pelo id
 	 public void excluiUsuario(int id) {    
 	      try {  
-	    	  conecta();
+	    	  c = ConectionFactory.getConnection();
 	    	  stmt = c.createStatement();
 		      String sql = "DELETE FROM usuarios WHERE id = '" + id + "';";
 		      stmt.executeUpdate(sql);
@@ -136,7 +134,8 @@ public class DaoUsuarios {
 	 //Atualiza usuarios
 	 public void atualizaUsuarios(int id, String nome) {    
 	      try {  
-	    	  conecta();
+	    	  c = ConectionFactory.getConnection();
+	    	  c.setAutoCommit(false);
 	    	  stmt = c.createStatement();
 		      String sql = "UPDATE usuarios set nome = '"+ nome +"' where id='"+ id +"';";
 		      stmt.executeUpdate(sql);
@@ -155,7 +154,7 @@ public class DaoUsuarios {
 	 //Inser novos usuário, data de criacao pega valor atual da máquina em timestamp
 	 public void insereUsuarios( String nome, String senha, String email ){
 		 try{
-			conecta();
+			 c = ConectionFactory.getConnection();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"');";
@@ -171,17 +170,6 @@ public class DaoUsuarios {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
-	 // Método para conectar no banco de dados
-	 public void conecta(){
-		 try{
-			 Class.forName("org.postgresql.Driver");
-			 c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-			 c.setAutoCommit(false);
-			 System.out.println("conectado com sucesso");
-		 }catch( Exception e ) {
-	         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-	         System.exit(0);
-	       }
+	
 	 
-	 }
 }

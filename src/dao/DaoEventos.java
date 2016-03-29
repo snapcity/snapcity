@@ -1,36 +1,28 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import dao.banco.conexao;
+import dao.banco.ConectionFactory;
+
+
+
 
 public class DaoEventos {
 
 	Connection c = null;
 	Statement stmt = null;
 	
-	// método de conexao
-	public void conecta() {
-		try {
-			Class.forName("org.postgresql.Driver");
-			c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity", "postgres","snap");
-			c.setAutoCommit(false);
-			System.out.println("conectado com sucesso");
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
-		}
 
-	}
 	
 	// mostra todos evento registrados
 	public void mostrarEventos() {
 
 		try {
-			conecta();
+			c = ConectionFactory.getConnection();
+			//ConectionFactory.getConnection().setAutoCommit(false);;
+			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM eventos;");
 			while (rs.next()) {
@@ -52,8 +44,6 @@ public class DaoEventos {
 				System.out.println("Usuario = " + id_usuario);
 				System.out.println();
 			}
-			rs.close();
-			c.close();
 			stmt.close();
 			
 		} catch (Exception e) {
@@ -67,7 +57,7 @@ public class DaoEventos {
 	public void buscaEventos(String eventos) {
 
 		try {
-			conecta();
+			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from eventos where descricao like  '%"+ eventos + "%';");
 			while (rs.next()) {
@@ -103,7 +93,8 @@ public class DaoEventos {
 	//Método para excluir um evento pelo id
 	public void excluiEventos(int id) {    
 	      try {  
-	    	  conecta(); 
+	    	  c = ConectionFactory.getConnection(); 
+	    	  c.setAutoCommit(false);
 	    	  stmt = c.createStatement();
 		      String sql = "DELETE FROM eventos WHERE eventos.\"idEventos\" = '" + id + "';";
 		      stmt.executeUpdate(sql);
@@ -122,7 +113,8 @@ public class DaoEventos {
 	//Atualiza eventos, datahora é atualizado por uma var timestamp que pega data e hora atual.
 	public void atualizaEventos(int id,String foto,String descricao,Float latitude,Float longitude,String tags) {    
 	      try {  
-	    	  conecta();
+	    	  c = ConectionFactory.getConnection();
+	    	  c.setAutoCommit(false);
 	    	  Timestamp datahora = new Timestamp(System.currentTimeMillis());
 	    	  stmt = c.createStatement();
 		      String sql = "UPDATE eventos set foto = '"+ foto +"',descricao = '"+ descricao +"',latitude = '"+ latitude +"',longitude = '"+ longitude +"', tags = '"+ tags +"',datahora = '"+ datahora +"' where idEventos ='"+ id +"';";
@@ -142,7 +134,8 @@ public class DaoEventos {
 	//Insere eventos e datahota insere data e hora atual timestamp
 	public void insereEventos(String foto,String descricao,double latitude,double longitude,int id_usuario,String tags){
 		 try{
-			conecta();
+			 c = ConectionFactory.getConnection();
+			 c.setAutoCommit(false);
 			Timestamp datahora = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
 			String sql = "INSERT INTO eventos (foto,descricao,latitude,longitude,id_usuario,tags,datahora)"
