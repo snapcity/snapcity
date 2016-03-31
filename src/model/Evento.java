@@ -1,6 +1,6 @@
 package model;
 
-public class eventos {
+public class Evento {
 	private String foto;
 	private String descricao;
 	private String tag;

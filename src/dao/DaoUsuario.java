@@ -6,9 +6,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;  
 import dao.banco.ConectionFactory;
 
-
-
-public class DaoUsuarios {
+public class DaoUsuario {
 	Connection c = null;
 	Statement stmt = null;
 

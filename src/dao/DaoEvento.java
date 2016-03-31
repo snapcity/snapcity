@@ -4,18 +4,29 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 import dao.banco.ConectionFactory;
 
-
-
-
-public class DaoEventos {
+public class DaoEvento {
 
 	Connection c = null;
 	Statement stmt = null;
-	
-
-	
+		
 	// mostra todos evento registrados
 	public void mostrarEventos() {
 
@@ -30,8 +41,8 @@ public class DaoEventos {
 				String foto = rs.getString("foto");
 				String descricao = rs.getString("descricao");
 				String tags = rs.getString("tags");
-				int latitude = rs.getInt("latitude");
-				int longitude = rs.getInt("longitude");
+				double latitude = rs.getDouble("latitude");
+				double longitude = rs.getDouble("longitude");
 				String datahora = rs.getString("datahora");
 				int id_usuario = rs.getInt("id_usuario");
 				System.out.println("ID = " + id);
@@ -65,12 +76,13 @@ public class DaoEventos {
 				String foto = rs.getString("foto");
 				String descricao = rs.getString("descricao");
 				String tags = rs.getString("tags");
-				int latitude = rs.getInt("latitude");
-				int longitude = rs.getInt("longitude");
+				double latitude = rs.getDouble("latitude");
+				double longitude = rs.getDouble("longitude");
 				String datahora = rs.getString("datahora");
 				int id_usuario = rs.getInt("id_usuario");
+				 
 				System.out.println("ID = " + id);
-				System.out.println("FOTO = " + foto);
+				System.out.println("FOTO = " + decodeToImage(foto));
 				System.out.println("DESCRICAO = " + descricao);
 				System.out.println("TAGS = " + tags);
 				System.out.println("LATITUDE = " + latitude);
@@ -152,4 +164,37 @@ public class DaoEventos {
       }
       System.out.println("Usuario foi criado com sucesso");
     }
+	
+//encode de imagem
+	
+	public static String encodeToString(byte[] image) {
+        String imageString = null;
+
+        try {
+            BASE64Encoder encoder = new BASE64Encoder();
+            imageString = encoder.encode(image);         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return imageString;
+    }
+	
+	public static BufferedImage decodeToImage(String imageString) {
+
+        BufferedImage image = null;
+        byte[] imageByte;
+        try {
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(imageString);
+            
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
 }
