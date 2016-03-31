@@ -165,8 +165,7 @@ public class DaoEvento {
       System.out.println("Usuario foi criado com sucesso");
     }
 	
-//encode de imagem
-	
+	//Encode de imagem base64	
 	public static String encodeToString(byte[] image) {
         String imageString = null;
 
@@ -179,6 +178,7 @@ public class DaoEvento {
         return imageString;
     }
 	
+	//Decode da imagem 
 	public static BufferedImage decodeToImage(String imageString) {
 
         BufferedImage image = null;
