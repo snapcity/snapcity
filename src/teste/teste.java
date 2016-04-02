@@ -1,4 +1,4 @@
-package snapcity;
+package teste;
 
 import java.util.*; 
 import java.io.File;
