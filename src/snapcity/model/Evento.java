@@ -1,4 +1,4 @@
-package model;
+package snapcity.model;
 
 public class Evento {
 	private String foto;

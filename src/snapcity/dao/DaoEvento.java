@@ -1,4 +1,4 @@
-package dao;
+package snapcity.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,12 +15,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import snapcity.dao.banco.ConectionFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
-import dao.banco.ConectionFactory;
 
 public class DaoEvento {
 
