@@ -12,13 +12,14 @@ public class ConectionFactory {
 		      try {
 		         Class.forName("org.postgresql.Driver");
 		         c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/snapcity","postgres","snap");
-		      } catch (Exception e) {
-		         e.printStackTrace();
-		         System.err.println(e.getClass().getName()+": "+e.getMessage());
-		         System.exit(0);
-		      }
+		      
 		      System.out.println("Postgree conectado");
-		
+		      
+		      } catch (Exception e) {
+			         e.printStackTrace();
+			         System.err.println(e.getClass().getName()+": "+e.getMessage());
+			         System.exit(0);
+			      }
 		 return c;
 	}
 

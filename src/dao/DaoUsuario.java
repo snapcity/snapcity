@@ -130,12 +130,13 @@ public class DaoUsuario {
 	   } 
 	 
 	 //Atualiza usuarios
-	 public void atualizaUsuarios(int id, String nome) {    
+	 public void atualizaUsuarios(int id, String nome, String senha, String email) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  c.setAutoCommit(false);
+	    	  Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 	    	  stmt = c.createStatement();
-		      String sql = "UPDATE usuarios set nome = '"+ nome +"' where id='"+ id +"';";
+		      String sql = "UPDATE usuarios set nome = '"+ nome +"',senha ='"+ senha +"', email = '"+ email +"' where id='"+ id +"';";
 		      stmt.executeUpdate(sql);
 		      c.commit();
 		      c.close();
@@ -153,8 +154,10 @@ public class DaoUsuario {
 	 public void insereUsuarios( String nome, String senha, String email ){
 		 try{
 			 c = ConectionFactory.getConnection();
+			 c.setAutoCommit(false);
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
+			//System.out.println("INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"')");
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -162,7 +165,7 @@ public class DaoUsuario {
 			c.close();
 			
        } catch ( Exception e ) {
-         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+         System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );
          System.exit(0);
        }
        System.out.println("Usuario foi criado com sucesso");

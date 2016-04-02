@@ -13,7 +13,7 @@ import java.io.IOException;
 public class teste {
 	public static void main(String[] args) { 
 		try {
-		File file = new File("/Users/marcelodasrodrigues/Desktop/snapcity.jpg");
+		File file = new File("/Users/informatica/Desktop/snapcity.jpg");
 		FileInputStream imageInFile = new FileInputStream(file);
 		byte imageData[] = new byte[(int)file.length()];
 		
@@ -25,8 +25,8 @@ public class teste {
 	
 	//usuarios.insereUsuarios("timestamp","1212"," marcelohcer@outlook.com");
 	//usuarios.mostrarUsuarios();
-	//usuarios.buscaUsuarios(2);
-	//usuarios.atualizaUsuarios(2, "Andersen");
+	usuarios.buscaUsuarios(20);
+	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
 	//usuarios.excluiUsuario(3);
 	//usuarios.buscaUsuariosEventos(1);
 	
@@ -35,7 +35,7 @@ public class teste {
 	
 	//String foto = eventos.encodeToString(imageData);
 	//eventos.insereEventos(foto, "Foto de descricao 3", -54.90876, -34.98765, 1, "posst caido");
-	eventos.mostrarEventos();
+	//eventos.mostrarEventos();
 	//eventos.buscaEventos("Foto de descricao 3");
 	//eventos.excluiEventos(3);
 	
