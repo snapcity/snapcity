@@ -1,4 +1,4 @@
-Foram criada 5 classes para comunicação onde as classes sao conectadas através da classe ConnectionFactory, essa classe é chamada sempre que é precisa fazer a conexão entre as classes e o banco.
+Foram criadas 5 classes para comunicação onde as classes sao conectadas através da classe ConnectionFactory, essa classe é chamada sempre que é precisa fazer a conexão entre as classes e o banco.
 O Banco de dados foi criado no postgree onde o mesmo contém as tabelas usuario e evento, a tabela usuario contém cinco colunas e a tabela eventos contem 8 colunas, esse banco recebe as informações através do codico ja implementado no software eclipse.
 
 A classe DaoEvento contém as funções mostrarEvento, buscaEvento, excluiEvento, atualizaEvento, insereEvento, encodeToString, decodeToImage. 
