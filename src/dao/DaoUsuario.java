@@ -11,7 +11,7 @@ public class DaoUsuario {
 	Statement stmt = null;
 
 	// mostra todos os usuarios
-	public void mostrarUsuarios() {
+	public void mostrarUsuario() {
 
 		try {
 			c = ConectionFactory.getConnection();
@@ -42,7 +42,7 @@ public class DaoUsuario {
 	}
 	
 	// Método que busca eventos relacioandos com o usuario
-	public void buscaUsuariosEventos(int id) {  
+	public void buscaUsuariosEvento(int id) {  
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
@@ -80,7 +80,7 @@ public class DaoUsuario {
 	  
 	   }
 	// método que busca usuarios pelo id
-	public void buscaUsuarios(int id) {  
+	public void buscaUsuario(int id) {  
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
@@ -130,7 +130,7 @@ public class DaoUsuario {
 	   } 
 	 
 	 //Atualiza usuarios
-	 public void atualizaUsuarios(int id, String nome, String senha, String email) {    
+	 public void atualizaUsuario(int id, String nome, String senha, String email) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  c.setAutoCommit(false);
@@ -151,7 +151,7 @@ public class DaoUsuario {
 	   } 
 	 
 	 //Inser novos usuário, data de criacao pega valor atual da máquina em timestamp
-	 public void insereUsuarios( String nome, String senha, String email ){
+	 public void insereUsuario( String nome, String senha, String email ){
 		 try{
 			 c = ConectionFactory.getConnection();
 			 c.setAutoCommit(false);

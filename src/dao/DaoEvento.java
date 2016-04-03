@@ -28,7 +28,7 @@ public class DaoEvento {
 	Statement stmt = null;
 		
 	// mostra todos evento registrados
-	public void mostrarEventos() {
+	public void mostrarEvento() {
 
 		try {
 			c = ConectionFactory.getConnection();
@@ -65,7 +65,7 @@ public class DaoEvento {
 	}
 
 	//Busca eventos por descricao
-	public void buscaEventos(String eventos) {
+	public void buscaEvento(String eventos) {
 
 		try {
 			c = ConectionFactory.getConnection();
@@ -74,6 +74,7 @@ public class DaoEvento {
 			while (rs.next()) {
 				int id = rs.getInt("idEventos");
 				String foto = rs.getString("foto");
+				
 				String descricao = rs.getString("descricao");
 				String tags = rs.getString("tags");
 				double latitude = rs.getDouble("latitude");
@@ -103,7 +104,7 @@ public class DaoEvento {
 	}
 	
 	//Método para excluir um evento pelo id
-	public void excluiEventos(int id) {    
+	public void excluiEvento(int id) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection(); 
 	    	  c.setAutoCommit(false);
@@ -123,7 +124,7 @@ public class DaoEvento {
 	   }
 	
 	//Atualiza eventos, datahora é atualizado por uma var timestamp que pega data e hora atual.
-	public void atualizaEventos(int id,String foto,String descricao,Float latitude,Float longitude,String tags) {    
+	public void atualizaEvento(int id,String foto,String descricao,Float latitude,Float longitude,String tags) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  c.setAutoCommit(false);

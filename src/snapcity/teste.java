@@ -24,8 +24,8 @@ public class teste {
 	dao.DaoEvento eventos = new DaoEvento();
 	
 	//usuarios.insereUsuarios("timestamp","1212"," marcelohcer@outlook.com");
-	//usuarios.mostrarUsuarios();
-	usuarios.buscaUsuarios(20);
+	usuarios.mostrarUsuario();
+	//usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
 	//usuarios.excluiUsuario(3);
 	//usuarios.buscaUsuariosEventos(1);
