@@ -1,4 +1,4 @@
-package dao.banco;
+package snapcity.dao.banco;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

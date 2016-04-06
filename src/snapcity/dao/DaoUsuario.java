@@ -1,10 +1,11 @@
-package dao;
+package snapcity.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;  
-import dao.banco.ConectionFactory;
+
+import snapcity.dao.banco.ConectionFactory;
 
 public class DaoUsuario {
 	Connection c = null;

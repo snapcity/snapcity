@@ -1,14 +1,14 @@
-package snapcity;
+package teste;
 
 import java.util.*; 
-
-import dao.DaoEvento;
-import dao.DaoUsuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import snapcity.dao.DaoEvento;
+import snapcity.dao.DaoUsuario;
 
 public class teste {
 	public static void main(String[] args) { 
@@ -20,11 +20,11 @@ public class teste {
 			imageInFile.read(imageData);
 			
 		
-	dao.DaoUsuario usuarios = new DaoUsuario();
-	dao.DaoEvento eventos = new DaoEvento();
+	snapcity.dao.DaoUsuario usuarios = new DaoUsuario();
+	snapcity.dao.DaoEvento eventos = new DaoEvento();
 	
-	//usuarios.insereUsuarios("timestamp","1212"," marcelohcer@outlook.com");
-	usuarios.mostrarUsuario();
+	usuarios.insereUsuario("teste","1212"," marcelohcer@outlook.com");
+	//usuarios.mostrarUsuarios();
 	//usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
 	//usuarios.excluiUsuario(3);

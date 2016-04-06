@@ -1,4 +1,4 @@
-package dao;
+package snapcity.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,12 +15,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import snapcity.dao.banco.ConectionFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
-import dao.banco.ConectionFactory;
 
 public class DaoEvento {
 
@@ -74,7 +73,6 @@ public class DaoEvento {
 			while (rs.next()) {
 				int id = rs.getInt("idEventos");
 				String foto = rs.getString("foto");
-				
 				String descricao = rs.getString("descricao");
 				String tags = rs.getString("tags");
 				double latitude = rs.getDouble("latitude");
@@ -145,7 +143,7 @@ public class DaoEvento {
 	   } 
 	
 	//Insere eventos e datahota insere data e hora atual timestamp
-	public void insereEventos(String foto,String descricao,double latitude,double longitude,int id_usuario,String tags){
+	public void insereEvento(String foto,String descricao,double latitude,double longitude,int id_usuario,String tags){
 		 try{
 			 c = ConectionFactory.getConnection();
 			 c.setAutoCommit(false);
