@@ -9,7 +9,7 @@
 <body>
 <!--quando o cliente clicar em enviar vai para pagina de cadastro.recebe.jsp-->
 <form action="Cadastro.recebe.jsp" method="POST">
-Nome Completo: <input type="text" name="usuario"/><br>
+Nome Completo: <input type="text" name="nome"/><br>
 Senha:         <input type="password" name="senha"/><br>
 Email:         <input type="text" name="email"/><br>
 
