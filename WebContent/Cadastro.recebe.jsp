@@ -24,6 +24,8 @@ String email = request.getParameter("email");
 out.println("Cadastro efetuado com sucesso!");
 out.println("Seja bem vindo " + nome);
 
+
+
 JSONArray array = new JSONArray();
 
 /*                  * Criação do Objeto JSONObject                  */   
