@@ -41,10 +41,10 @@ Cadastro de Usuários
 </body>
 
 
-Cadastra Eventos
+
 <!--quando o cliente clicar em Cadastrar Evento vai para pagina de Cadastra.Evento.jsp-->
 <body>
-
+Cadastra Eventos
 <form action="CadastraEvento.jsp" method="POST">
 
 <input type="submit" value="Cadastrar Evento"/>
