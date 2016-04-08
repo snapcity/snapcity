@@ -1,5 +1,6 @@
 package snapcity.model;
 
+
 public class Evento {
 	private String foto;
 	private String descricao;

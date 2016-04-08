@@ -24,40 +24,15 @@ String email = request.getParameter("email");
 out.println("Cadastro efetuado com sucesso!");
 out.println("Seja bem vindo " + nome);
 
+JSONObject obj = new JSONObject();
 
+obj.put("nome", nome);
+obj.put("senha", senha);
+obj.put("email", email);
 
-JSONArray array = new JSONArray();
+String json_string = obj.toString();
+System.out.println("objeto original" + json_string);
 
-/*                  * Criação do Objeto JSONObject                  */   
-
-Usuario json = new Usuario();
-
-	json.setNome("nome" + nome); 
-	json.setSenha("senha" + senha); 
-	json.setEmail("email" + email); 
-
-JSONObject jsonOne = new JSONObject();
-
-	jsonOne.put("nome", json.getNome());
-	jsonOne.put("senha", json.getSenha());
-	jsonOne.put("email", json.getEmail());
-	
-Usuario pTwo = new Usuario();
-
-	pTwo.setNome("nome" + nome); 
-	pTwo.setSenha("senha" + senha); 
-	pTwo.setEmail("email" + email);
-	
-JSONObject jsonTwo = new JSONObject();
-
-	jsonTwo.put("none", pTwo.getNome()); 
-	jsonTwo.put("senha", pTwo.getSenha());
-	jsonTwo.put("email", pTwo.getEmail());
-	
-	array.put(jsonOne);
-	array.put(jsonTwo);
-	
-	System.out.println("JSONArray: "  + array);
 
 %>
 </body>

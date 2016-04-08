@@ -6,12 +6,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import org.json.*;
+import org.json.JSONObject;
 
 import snapcity.dao.DaoEvento;
 import snapcity.dao.DaoUsuario;
 
 public class teste {
-	public static void main(String[] args) { 
+	public static void main(String[] args) throws JSONException { 
 		try {
 		File file = new File("/Users/informatica/Desktop/snapcity.jpg");
 		FileInputStream imageInFile = new FileInputStream(file);
@@ -23,7 +25,15 @@ public class teste {
 	snapcity.dao.DaoUsuario usuarios = new DaoUsuario();
 	snapcity.dao.DaoEvento eventos = new DaoEvento();
 	
-	usuarios.insereUsuario("teste","1212"," marcelohcer@outlook.com");
+	
+String json_str = "{\"senha\":\"753\",\"nome\":\"andersen\",\"email\":\"teste@2152.com.br\"}";
+	
+	JSONObject obj = new JSONObject(json_str);
+	
+	String nome = obj.getString ("nome");
+	String senha = obj.getString ("senha");
+	String email = obj.getString ("email");
+	usuarios.insereUsuario("nome:" + nome, "senha" + senha, "email" + email);
 	//usuarios.mostrarUsuarios();
 	//usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
