@@ -3,7 +3,10 @@ package snapcity.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Timestamp;  
+import java.sql.Timestamp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import snapcity.dao.banco.ConectionFactory;
 
@@ -172,6 +175,19 @@ public class DaoUsuario {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
+	 //public DaoUsuario fromJSON(String jsonString){
+		// DaoUsuario dao = new DaoUsuario(); 
+		// try{
+		//	 JSONObject usuarioObject = new JSONObject(jsonString);
+			// String dao.setNome(usuarioObject.getString("nome"));
+			// dao.setSenha(usuarioObject.getString("senha"));
+			// dao.setEmail(usuarioObject.getString("email"));
+		 //} catch (JSONException e) {
+		//	 e.printStackTrace();
+		 //}
+		 
+		// return dao;
+	 //}
 	
 	 
 }

@@ -21,6 +21,7 @@ String senha = request.getParameter("senha");
 //recebe o valor digitado no campo Email
 String email = request.getParameter("email");
 
+
 out.println("Cadastro efetuado com sucesso!");
 out.println("Seja bem vindo " + nome);
 

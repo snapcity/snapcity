@@ -32,7 +32,7 @@ Cadastro de Usuários
 <!--quando o cliente clicar em Alterar Evento vai para pagina de Altera.Cadastro.jsp-->
 <body>
 
-<form action="AlterarCadastro.jsp" method="POST">
+<form action="Cadastro.Altera.jsp" method="POST">
 
 <input type="submit" value="Alterar Cadastro   "/>
 

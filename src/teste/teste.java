@@ -1,6 +1,6 @@
 package teste;
 
-import java.util.*; 
+import java.util.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,7 +15,7 @@ import snapcity.dao.DaoUsuario;
 public class teste {
 	public static void main(String[] args) throws JSONException { 
 		try {
-		File file = new File("/Users/informatica/Desktop/snapcity.jpg");
+		File file = new File("C:/Users/informatica02.financeiro-05/Desktop/snapcity.jpg");
 		FileInputStream imageInFile = new FileInputStream(file);
 		byte imageData[] = new byte[(int)file.length()];
 		
@@ -34,7 +34,7 @@ String json_str = "{\"senha\":\"753\",\"nome\":\"andersen\",\"email\":\"teste@21
 	String senha = obj.getString ("senha");
 	String email = obj.getString ("email");
 	usuarios.insereUsuario("nome:" + nome, "senha" + senha, "email" + email);
-	//usuarios.mostrarUsuarios();
+	//usuarios.mostrarUsuario();
 	//usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
 	//usuarios.excluiUsuario(3);
