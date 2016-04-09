@@ -14,8 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
 import org.json.*;
+
 import snapcity.dao.banco.ConectionFactory;
+import snapcity.model.Evento;
+import snapcity.model.Usuario;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -203,7 +207,7 @@ public class DaoEvento {
     }
 	
 	// para o Json
-	public String geraJson (String foto, String descricao, String tags,String latitude, String longitude){
+	public String toJson (String foto, String descricao, String tags,String latitude, String longitude){
 		JSONObject evento = new JSONObject();
 		
 		Timestamp datacriaco = new Timestamp(System.currentTimeMillis());
@@ -220,6 +224,31 @@ public class DaoEvento {
 		
 		
 		return eventoJson;
+	}
+	
+	public void fromJson(String strJson, int idUsuario){
+			//	Evento evento = new Evento();
+				
+				JSONObject eventoJson = new JSONObject(strJson);
+				String foto = eventoJson.getString("foto");
+				String descricao = eventoJson.getString("descricao");
+				String tags = eventoJson.getString("tags");
+				String latitude = eventoJson.getString("latitude");
+				String longitude = eventoJson.getString("longitude");
+				String datacriacao = eventoJson.getString("datacriacao");
+				
+				System.out.println("Descricao: "+descricao);	
+				System.out.println("tags: "+tags);
+				System.out.println("latitude: "+latitude);
+				System.out.println("Longitude: "+longitude);
+				System.out.println("data de criacao: "+datacriacao);
+				System.out.println("Foto: "+foto);
+				
+				double longi = Double.parseDouble(longitude);
+				double lati = Double.parseDouble(latitude);
+				
+				insereEvento(foto = foto.replaceAll("[n]","\n"), descricao, lati, longi, idUsuario, tags);
+		
 	}
 
 }

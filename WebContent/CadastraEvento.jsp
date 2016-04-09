@@ -54,20 +54,20 @@
 	</div>
 	<%
 		snapcity.dao.DaoEvento eventos = new DaoEvento();
-		String foto = request.getParameter("foto");
-		foto = eventos.encodeToString("/Users/marcelodasrodrigues/Desktop/"+foto); 
-		String descricao = request.getParameter("descricao");
-		String tags = request.getParameter("tags");
-		String latitude = request.getParameter("latitude");
-		String longitude = request.getParameter("longitude");
-		
-		
-		
-		out.println("Foto: <img SRC=\"data:image/jpeg;base64,"+foto+"\">");
+			String foto = request.getParameter("foto");
+			foto = eventos.encodeToString("/Users/marcelodasrodrigues/Desktop/"+foto); 
+			String descricao = request.getParameter("descricao");
+			String tags = request.getParameter("tags");
+			String latitude = request.getParameter("latitude");
+			String longitude = request.getParameter("longitude");
+			
+			
+			
+			out.println("Foto: <img SRC=\"data:image/jpeg;base64,"+foto+"\">");
 
-		
-		
-		out.println(eventos.geraJson(foto, descricao, tags, latitude, longitude));
+			
+			
+			out.println(eventos.toJson(foto, descricao, tags, latitude, longitude));
 	%>
 </div>
 
