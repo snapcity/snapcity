@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
+import org.json.*;
 import snapcity.dao.banco.ConectionFactory;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -165,17 +165,23 @@ public class DaoEvento {
     }
 	
 	//Encode de imagem base64	
-	public static String encodeToString(byte[] image) {
-        String imageString = null;
+	
+		public static String encodeToString(String ender) {
+	        String imageString = null;
 
-        try {
-            BASE64Encoder encoder = new BASE64Encoder();
-            imageString = encoder.encode(image);         
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return imageString;
-    }
+	        try {
+	        	File file = new File(ender);
+	    		FileInputStream imageInFile = new FileInputStream(file);
+	    		byte imageData[] = new byte[(int)file.length()];
+	    		imageInFile.read(imageData);
+	        	
+	            BASE64Encoder encoder = new BASE64Encoder();
+	            imageString = encoder.encode(imageData);         
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return imageString;
+	    }
 	
 	//Decode da imagem 
 	public static BufferedImage decodeToImage(String imageString) {
@@ -195,5 +201,25 @@ public class DaoEvento {
         }
         return image;
     }
+	
+	// para o Json
+	public String geraJson (String foto, String descricao, String tags,String latitude, String longitude){
+		JSONObject evento = new JSONObject();
+		
+		Timestamp datacriaco = new Timestamp(System.currentTimeMillis());
+		
+		evento.put("foto", foto);
+		evento.put("descricao", descricao);
+		evento.put("tags", tags);
+		evento.put("latitude", latitude);
+		evento.put("longitude", longitude);
+		evento.put("datacriaco", datacriaco);
+		
+		
+		String eventoJson = evento.toString();
+		
+		
+		return eventoJson;
+	}
 
 }
