@@ -2,11 +2,16 @@ package snapcity.model;
 
 
 public class Usuario {
-	
+	private Integer id;
 	private String nome;
 	private String senha;
 	private String email;
 	private String datacriacao;
+	
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -19,6 +24,10 @@ public class Usuario {
 	}
 	public void setDatacriacao(String datacriacao) {
 		this.datacriacao = datacriacao;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 	
 	public String getNome() {

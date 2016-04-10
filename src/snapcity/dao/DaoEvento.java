@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Vector;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,13 +18,14 @@ import javax.imageio.ImageIO;
 
 import org.json.*;
 
+import snapcity.model.*;
 import snapcity.dao.banco.ConectionFactory;
-import snapcity.model.Evento;
 import snapcity.model.Usuario;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class DaoEvento {
 
@@ -31,7 +33,9 @@ public class DaoEvento {
 	Statement stmt = null;
 		
 	// mostra todos evento registrados
-	public void mostrarEvento() {
+	public Vector<Evento> mostrarEvento() {
+		
+		Vector<Evento> resultados = new Vector<Evento>();  
 
 		try {
 			c = ConectionFactory.getConnection();
@@ -39,61 +43,58 @@ public class DaoEvento {
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM eventos;");
+			Evento temp = new Evento();
 			while (rs.next()) {
-				int id = rs.getInt("idEventos");
-				String foto = rs.getString("foto");
-				String descricao = rs.getString("descricao");
-				String tags = rs.getString("tags");
-				double latitude = rs.getDouble("latitude");
-				double longitude = rs.getDouble("longitude");
-				String datahora = rs.getString("datahora");
-				int id_usuario = rs.getInt("id_usuario");
-				System.out.println("ID = " + id);
-				System.out.println("FOTO = " + foto);
-				System.out.println("DESCRICAO = " + descricao);
-				System.out.println("TAGS = " + tags);
-				System.out.println("LATITUDE = " + latitude);
-				System.out.println("LONGITUDE = " + longitude);
-				System.out.println("DATA DE CRIACAO = " + datahora);
-				System.out.println("Usuario = " + id_usuario);
-				System.out.println();
+				temp.setId(rs.getInt("idEventos"));
+				temp.setFoto(rs.getString("foto"));
+				temp.setDescricao(rs.getString("descricao"));
+				temp.setTag(rs.getString("tags"));
+				temp.setLatitude(rs.getDouble("latitude"));
+				temp.setLongintude(rs.getDouble("longitude"));
+				temp.setDatahora(rs.getString("datahora"));
+				resultados.add(temp);
+
 			}
 			stmt.close();
-			
+			return resultados;
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 		System.out.println("Operacao com mostraEventos com sucesso");
+		return resultados;
 	}
 
 	//Busca eventos por descricao
-	public void buscaEvento(String eventos) {
-
+	public Vector<Evento> buscaEvento(String eventos) {
+		
+		Vector<Evento> resultados = new Vector<Evento>();
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from eventos where descricao like  '%"+ eventos + "%';");
 			while (rs.next()) {
-				int id = rs.getInt("idEventos");
-				String foto = rs.getString("foto");
-				String descricao = rs.getString("descricao");
-				String tags = rs.getString("tags");
-				double latitude = rs.getDouble("latitude");
-				double longitude = rs.getDouble("longitude");
-				String datahora = rs.getString("datahora");
-				int id_usuario = rs.getInt("id_usuario");
+				Evento temp = new Evento();
+				temp.setId(rs.getInt("idEventos"));
+				temp.setFoto(rs.getString("foto"));
+				temp.setDescricao(rs.getString("descricao"));
+				temp.setTag(rs.getString("tags"));
+				temp.setLatitude(rs.getDouble("latitude"));
+				temp.setLongintude(rs.getDouble("longitude"));
+				temp.setDatahora(rs.getString("datahora"));
+				resultados.add(temp);
 				 
-				System.out.println("ID = " + id);
-				System.out.println("FOTO = " + decodeToImage(foto));
-				System.out.println("DESCRICAO = " + descricao);
-				System.out.println("TAGS = " + tags);
-				System.out.println("LATITUDE = " + latitude);
-				System.out.println("LONGITUDE = " + longitude);
-				System.out.println("DATA DE CRIACAO = " + datahora);
-				System.out.println("Usuario = " + id_usuario);
-				System.out.println();
+//				System.out.println("ID = " + id);
+//				System.out.println("FOTO = " + decodeToImage(foto));
+//				System.out.println("DESCRICAO = " + descricao);
+//				System.out.println("TAGS = " + tags);
+//				System.out.println("LATITUDE = " + latitude);
+//				System.out.println("LONGITUDE = " + longitude);
+//				System.out.println("DATA DE CRIACAO = " + datahora);
+//				System.out.println("Usuario = " + id_usuario);
+//				System.out.println();
 			}
+			
 			rs.close();
 			c.close();
 			stmt.close();
@@ -103,6 +104,7 @@ public class DaoEvento {
 			System.exit(0);
 		}
 		System.out.println("Operacao com buscaEventos com sucesso");
+		return resultados;
 	}
 	
 	//Método para excluir um evento pelo id
@@ -126,13 +128,17 @@ public class DaoEvento {
 	   }
 	
 	//Atualiza eventos, datahora é atualizado por uma var timestamp que pega data e hora atual.
-	public void atualizaEvento(int id,String foto,String descricao,Float latitude,Float longitude,String tags) {    
+	public void atualizaEvento(Evento evento, Integer id) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  c.setAutoCommit(false);
 	    	  Timestamp datahora = new Timestamp(System.currentTimeMillis());
 	    	  stmt = c.createStatement();
-		      String sql = "UPDATE eventos set foto = '"+ foto +"',descricao = '"+ descricao +"',latitude = '"+ latitude +"',longitude = '"+ longitude +"', tags = '"+ tags +"',datahora = '"+ datahora +"' where idEventos ='"+ id +"';";
+		      String sql = "UPDATE eventos set foto = '"+ evento.getFoto() +
+		    		  "',descricao = '"+ evento.getDescricao()+"',latitude = '"+
+		    		  evento.getLatitude() +"',longitude = '"+ evento.getLongintude() +
+		    		  "', tags = '"+ evento.getTag() +"',datahora = '"+ evento.getDatahora() +"'"
+		    		  		+ " where idEventos ='"+ id+"";
 		      stmt.executeUpdate(sql);
 		      c.commit();
 		      c.close();
@@ -147,14 +153,14 @@ public class DaoEvento {
 	   } 
 	
 	//Insere eventos e datahota insere data e hora atual timestamp
-	public void insereEvento(String foto,String descricao,double latitude,double longitude,int id_usuario,String tags){
+	public void insereEvento(Evento evento, Usuario usuario){
 		 try{
 			 c = ConectionFactory.getConnection();
 			 c.setAutoCommit(false);
 			Timestamp datahora = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
 			String sql = "INSERT INTO eventos (foto,descricao,latitude,longitude,id_usuario,tags,datahora)"
-			+" values ('"+foto+"','"+descricao+"','"+latitude+"','"+longitude+"','"+id_usuario+"','"+tags+"','"+datahora+"');";
+			+" values ('"+evento.getFoto()+"','"+evento.getDescricao()+"','"+evento.getLatitude()+"','"+evento.getLongintude()+"','"+usuario.getId()+"','"+evento.getTag()+"','"+evento.getDatahora()+"');";
 			 
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -170,7 +176,7 @@ public class DaoEvento {
 	
 	//Encode de imagem base64	
 	
-		public static String encodeToString(String ender) {
+	public static String encodeToString(String ender) {
 	        String imageString = null;
 
 	        try {
@@ -237,17 +243,12 @@ public class DaoEvento {
 				String longitude = eventoJson.getString("longitude");
 				String datacriacao = eventoJson.getString("datacriacao");
 				
-				System.out.println("Descricao: "+descricao);	
-				System.out.println("tags: "+tags);
-				System.out.println("latitude: "+latitude);
-				System.out.println("Longitude: "+longitude);
-				System.out.println("data de criacao: "+datacriacao);
-				System.out.println("Foto: "+foto);
 				
 				double longi = Double.parseDouble(longitude);
 				double lati = Double.parseDouble(latitude);
 				
-				insereEvento(foto = foto.replaceAll("[n]","\n"), descricao, lati, longi, idUsuario, tags);
+				String foto2 = foto.replaceAll("\n", "");
+				
 		
 	}
 
