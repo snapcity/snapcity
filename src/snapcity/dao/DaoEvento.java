@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.Vector;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -13,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import org.json.*;
@@ -65,13 +67,13 @@ public class DaoEvento {
 	}
 
 	//Busca eventos por descricao
-	public Vector<Evento> buscaEvento(String eventos) {
+	public Vector<Evento> buscaEvento(Evento evento, String descricao) {
 		
 		Vector<Evento> resultados = new Vector<Evento>();
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from eventos where descricao like  '%"+ eventos + "%';");
+			ResultSet rs = stmt.executeQuery("select * from eventos where descricao like  '%"+ descricao + "%';");
 			while (rs.next()) {
 				Evento temp = new Evento();
 				temp.setId(rs.getInt("idEventos"));
@@ -237,6 +239,8 @@ public class DaoEvento {
 		temp.setDatahora(evento.getString("datacriacao"));
 		temp.setFoto(evento.getString("foto"));
 		resultados.add(temp);
+		
+	
 		
 		return resultados;
 		
