@@ -84,15 +84,6 @@ public class DaoEvento {
 				temp.setDatahora(rs.getString("datahora"));
 				resultados.add(temp);
 				 
-//				System.out.println("ID = " + id);
-//				System.out.println("FOTO = " + decodeToImage(foto));
-//				System.out.println("DESCRICAO = " + descricao);
-//				System.out.println("TAGS = " + tags);
-//				System.out.println("LATITUDE = " + latitude);
-//				System.out.println("LONGITUDE = " + longitude);
-//				System.out.println("DATA DE CRIACAO = " + datahora);
-//				System.out.println("Usuario = " + id_usuario);
-//				System.out.println();
 			}
 			
 			rs.close();
@@ -137,8 +128,8 @@ public class DaoEvento {
 		      String sql = "UPDATE eventos set foto = '"+ evento.getFoto() +
 		    		  "',descricao = '"+ evento.getDescricao()+"',latitude = '"+
 		    		  evento.getLatitude() +"',longitude = '"+ evento.getLongintude() +
-		    		  "', tags = '"+ evento.getTag() +"',datahora = '"+ evento.getDatahora() +"'"
-		    		  		+ " where idEventos ='"+ id+"";
+		    		  "', tags = '"+ evento.getTag() +"',datahora = '"+ datahora+"'"
+		    		  		+ " where eventos.\"idEventos\" = '" + id + "';";
 		      stmt.executeUpdate(sql);
 		      c.commit();
 		      c.close();
@@ -160,7 +151,7 @@ public class DaoEvento {
 			Timestamp datahora = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
 			String sql = "INSERT INTO eventos (foto,descricao,latitude,longitude,id_usuario,tags,datahora)"
-			+" values ('"+evento.getFoto()+"','"+evento.getDescricao()+"','"+evento.getLatitude()+"','"+evento.getLongintude()+"','"+usuario.getId()+"','"+evento.getTag()+"','"+evento.getDatahora()+"');";
+			+" values ('"+evento.getFoto()+"','"+evento.getDescricao()+"','"+evento.getLatitude()+"','"+evento.getLongintude()+"','"+usuario.getId()+"','"+evento.getTag()+"','"+datahora+"');";
 			 
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -232,10 +223,11 @@ public class DaoEvento {
 		return eventoJson;
 	}
 	
-	public void fromJson(String strJson, int idUsuario){
+	public void fromJson(String strJson){
 			//	Evento evento = new Evento();
 				
 				JSONObject eventoJson = new JSONObject(strJson);
+				
 				String foto = eventoJson.getString("foto");
 				String descricao = eventoJson.getString("descricao");
 				String tags = eventoJson.getString("tags");
