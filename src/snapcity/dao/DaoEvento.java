@@ -13,7 +13,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 import org.json.*;
@@ -223,24 +222,23 @@ public class DaoEvento {
 		return eventoJson;
 	}
 	
-	public void fromJson(String strJson){
-			//	Evento evento = new Evento();
-				
-				JSONObject eventoJson = new JSONObject(strJson);
-				
-				String foto = eventoJson.getString("foto");
-				String descricao = eventoJson.getString("descricao");
-				String tags = eventoJson.getString("tags");
-				String latitude = eventoJson.getString("latitude");
-				String longitude = eventoJson.getString("longitude");
-				String datacriacao = eventoJson.getString("datacriacao");
-				
-				
-				double longi = Double.parseDouble(longitude);
-				double lati = Double.parseDouble(latitude);
-				
-				String foto2 = foto.replaceAll("\n", "");
-				
+	public Vector<Evento> fromJson(String strJson){
+		
+		Vector<Evento> resultados = new Vector<Evento>();
+		Evento temp = new Evento();
+		
+		JSONObject evento = new JSONObject(strJson);
+			
+		
+		temp.setDescricao(evento.getString("descricao"));
+		temp.setTag(evento.getString("tags"));
+		temp.setLatitude(evento.getDouble("latitude"));
+		temp.setLongintude(evento.getDouble("longitude"));
+		temp.setDatahora(evento.getString("datacriacao"));
+		temp.setFoto(evento.getString("foto"));
+		resultados.add(temp);
+		
+		return resultados;
 		
 	}
 
