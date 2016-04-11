@@ -35,7 +35,7 @@ String json_str = "{\"senha\":\"753\",\"nome\":\"andersen\",\"email\":\"teste@21
 	String email = obj.getString ("email");
 	usuarios.insereUsuario("nome:" + nome, "senha" + senha, "email" + email);
 	//usuarios.mostrarUsuario();
-	//usuarios.buscaUsuario(20);
+	usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
 	//usuarios.excluiUsuario(3);
 	//usuarios.buscaUsuariosEventos(1);

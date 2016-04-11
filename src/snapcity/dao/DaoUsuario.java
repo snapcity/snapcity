@@ -1,5 +1,6 @@
 package snapcity.dao;
 import snapcity.model.Usuario;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,24 +16,22 @@ public class DaoUsuario {
 	Statement stmt = null;
 
 	// mostra todos os usuarios
-	public void mostrarUsuario() {
-
+	public Usuario mostrarUsuario() {
+		
+		Usuario result = new Usuario();
+		
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
+			Usuario temp = new Usuario();
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String nome = rs.getString("nome");
-				String senha = rs.getString("senha");
-				String email = rs.getString("email");
-				String datacriacao = rs.getString("datacriacao");
-				System.out.println("ID = " + id);
-				System.out.println("NOME = " + nome);
-				System.out.println("SENHA = " + senha);
-				System.out.println("E-MAIL = " + email);
-				System.out.println("DATA DE CRIACAO = " + datacriacao);
-				System.out.println();
+				temp.setNome(rs.getString("nome"));
+				temp.setSenha(rs.getString("senha"));
+				temp.setEmail(rs.getString("email"));
+				temp.setDatacriacao(rs.getString("datacriacao"));
+				result.;
 			}
 			rs.close();
 			c.close();
