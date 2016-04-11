@@ -1,5 +1,5 @@
 package snapcity.dao;
-
+import snapcity.model.Usuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -154,15 +154,14 @@ public class DaoUsuario {
 	      
 	   } 
 	 
-	 //Inser novos usuário, data de criacao pega valor atual da máquina em timestamp
+	 //Insere novo usu�rio, data de criacao pega valor atual da máquina em timestamp
 	 public void insereUsuario( String nome, String senha, String email ){
 		 try{
 			 c = ConectionFactory.getConnection();
 			 c.setAutoCommit(false);
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
-			//System.out.println("INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"')");
-			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"');";
+					String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
@@ -175,19 +174,36 @@ public class DaoUsuario {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
-	 //public DaoUsuario fromJSON(String jsonString){
-		// DaoUsuario dao = new DaoUsuario(); 
-		// try{
-		//	 JSONObject usuarioObject = new JSONObject(jsonString);
-			// String dao.setNome(usuarioObject.getString("nome"));
-			// dao.setSenha(usuarioObject.getString("senha"));
-			// dao.setEmail(usuarioObject.getString("email"));
-		 //} catch (JSONException e) {
-		//	 e.printStackTrace();
-		 //}
-		 
-		// return dao;
-	 //}
-	
+	 public String toJson (String nome, String senha, String email){
+			JSONObject usuario = new JSONObject();
+			
+			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
+			
+			usuario.put("nome", nome);
+			usuario.put("senha", senha);
+			usuario.put("email", email);
+			usuario.put("datacriacao", datacriacao);
+			
+			String usuarioJson = usuario.toString();
+			
+			
+			return usuarioJson;
+	 }
 	 
+	 public Usuario fromJSON(String jsonString){
+		 
+		 JSONObject obj = new JSONObject(jsonString);
+		 
+		 String nome = obj.getString ("nome");
+		 String senha = obj.getString ("senha");
+		 String email = obj.getString ("email");
+		 
+		 Usuario usuario = new Usuario();
+		 
+		 usuario.setDatacriacao(nome);
+		 usuario.setSenha(senha);
+		 usuario.setEmail(email);
+		 
+		return usuario;
+	 }	 
 }
