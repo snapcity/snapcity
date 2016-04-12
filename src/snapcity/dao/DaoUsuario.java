@@ -31,7 +31,7 @@ public class DaoUsuario {
 				temp.setSenha(rs.getString("senha"));
 				temp.setEmail(rs.getString("email"));
 				temp.setDatacriacao(rs.getString("datacriacao"));
-				result.;
+				
 			}
 			rs.close();
 			c.close();
@@ -42,7 +42,9 @@ public class DaoUsuario {
 			System.exit(0);
 		}
 		System.out.println("Operacao com mostarUsuarios com sucesso");
+		return result;
 	}
+	
 	
 	// Método que busca eventos relacioandos com o usuario
 	public void buscaUsuariosEvento(int id) {  
@@ -133,13 +135,13 @@ public class DaoUsuario {
 	   } 
 	 
 	 //Atualiza usuarios
-	 public void atualizaUsuario(int id, String nome, String senha, String email) {    
+	 public void atualizaUsuario(int id, Usuario usuario) {    
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  c.setAutoCommit(false);
 	    	  Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 	    	  stmt = c.createStatement();
-		      String sql = "UPDATE usuarios set nome = '"+ nome +"',senha ='"+ senha +"', email = '"+ email +"' where id='"+ id +"';";
+		      String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +"',senha ='"+ usuario.getSenha() +"', email = '"+ usuario.getEmail() +"' where id='"+ id +"';";
 		      stmt.executeUpdate(sql);
 		      c.commit();
 		      c.close();
@@ -154,13 +156,13 @@ public class DaoUsuario {
 	   } 
 	 
 	 //Insere novo usu�rio, data de criacao pega valor atual da máquina em timestamp
-	 public void insereUsuario( String nome, String senha, String email ){
+	 public void insereUsuario( Usuario usuario ){
 		 try{
 			 c = ConectionFactory.getConnection();
 			 c.setAutoCommit(false);
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			stmt = c.createStatement();
-					String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+nome+"','"+senha+"','"+email+"','"+datacriacao+"');";
+					String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"+usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
@@ -189,7 +191,7 @@ public class DaoUsuario {
 			return usuarioJson;
 	 }
 	 
-	 public Usuario fromJSON(String jsonString){
+	 public static Usuario fromJSON(String jsonString){
 		 
 		 JSONObject obj = new JSONObject(jsonString);
 		 
@@ -199,7 +201,7 @@ public class DaoUsuario {
 		 
 		 Usuario usuario = new Usuario();
 		 
-		 usuario.setDatacriacao(nome);
+		 usuario.setNome(nome);
 		 usuario.setSenha(senha);
 		 usuario.setEmail(email);
 		 
