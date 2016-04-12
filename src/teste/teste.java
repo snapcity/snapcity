@@ -33,9 +33,9 @@ public class teste {
 	dao.insereUsuario(user);
 	
 	//Atualiza Usuario
-	String json_str1 = "{\"nome\":\"andersen1\",\"senha\":\"7534\",\"email\":\"teste1@2152.com.br\"}";
-	Usuario user = DaoUsuario.fromJSON(json_str1);
-	dao.atualizaUsuario(id, user);
+	//String json_str1 = "{\"nome\":\"andersen1\",\"senha\":\"7534\",\"email\":\"teste1@2152.com.br\"}";
+	//Usuario user = DaoUsuario.fromJSON(json_str1);
+	//dao.atualizaUsuario(id, user);
 	//usuarios.mostrarUsuario();
 	//usuarios.buscaUsuario(20);
 	//usuarios.atualizaUsuarios(20,"Andersen","3020","teste1@teste");
