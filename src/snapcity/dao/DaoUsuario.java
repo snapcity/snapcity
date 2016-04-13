@@ -26,7 +26,7 @@ public class DaoUsuario {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
 			Usuario temp = new Usuario();
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				temp.setId(rs.getInt("id"));
 				temp.setNome(rs.getString("nome"));
 				temp.setSenha(rs.getString("senha"));
 				temp.setEmail(rs.getString("email"));
@@ -85,23 +85,21 @@ public class DaoUsuario {
 	  
 	   }
 	// método que busca usuarios pelo id
-	public void buscaUsuario(int id) {  
+	public Usuario buscaUsuario(int id,Usuario usuario) { 
+		
+		Usuario result = new Usuario();
+		
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
+			Usuario temp = new Usuario();
 			while (rs.next()) {
-				int iduser = rs.getInt("id");
-				String nome = rs.getString("nome");
-				String senha = rs.getString("senha");
-				String email = rs.getString("email");
-				String datacriacao = rs.getString("datacriacao");
-				System.out.println("ID = " + iduser);
-				System.out.println("NOME = " + nome);
-				System.out.println("SENHA = " + senha);
-				System.out.println("E-MAIL = " + email);
-				System.out.println("DATA DE CRIACAO = " + datacriacao);
-				System.out.println();
+				temp.setId(rs.getInt("id"));
+				temp.setNome(rs.getString("nome"));
+				temp.setSenha(rs.getString("senha"));
+				temp.setEmail(rs.getString("email"));
+				temp.setDatacriacao(rs.getString("datacriacao"));
 			}
 			rs.close();
 			c.close();
@@ -112,7 +110,7 @@ public class DaoUsuario {
 			System.exit(0);
 		}
 		System.out.println("Operacao com buscaUsuarios com sucesso");
-	  
+		return result;
 	   }  
 	 
 	//Exclui usuário identificado pelo id
@@ -141,7 +139,7 @@ public class DaoUsuario {
 	    	  c.setAutoCommit(false);
 	    	  Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 	    	  stmt = c.createStatement();
-		      String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +"',senha ='"+ usuario.getSenha() +"', email = '"+ usuario.getEmail() +"' where id='"+ id +"';";
+		      String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +"',senha ='"+ usuario.getSenha() +"', email = '"+ usuario.getEmail() +"', datacriacao = '"+ datacriacao +"' where id='"+ id +"';";
 		      stmt.executeUpdate(sql);
 		      c.commit();
 		      c.close();
@@ -213,21 +211,23 @@ public class DaoUsuario {
 		 JSONObject obj = new JSONObject(jsonString);
 		 
 		 String json_string= obj.toString();
-		 
+		 		 
 		 json_string = obj.toString();
 		 
 		 String nome = obj.getString("nome");
 		 String senha = obj.getString("senha");
 		 String email = obj.getString("email");
 		 
+		 
 		 Usuario usuario = new Usuario();
+		 
 		 
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
 		
+		
 		return usuario;		 
 		 	 
 	 }
-	 
 }

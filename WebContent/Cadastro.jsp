@@ -15,6 +15,10 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+$('#myTabs a[href="#profile"]').tab('show') // Select tab by name
+$('#myTabs a:first').tab('show') // Select first tab
+$('#myTabs a:last').tab('show') // Select last tab
+$('#myTabs li:eq(2) a').tab('show') // Select third tab (0-indexed)
 
 <title>Cadastra Usuario</title>
 </head>
@@ -24,7 +28,19 @@
 	  <div class="panel-heading">
 	    <h3 class="panel-title">Cadastra Usuario</h3>
 	  </div>
-	  <div class="panel-body">
+	  <div>
+  		<ul class="nav nav-tabs" role="tablist">
+    		<li role="presentation" class="active"><a href="#Cadastro" aria-controls="home" role="tab" data-toggle="tab">Cadastra</a></li>
+    		<li role="presentation"><a href="#Modifica" aria-controls="Modifica" role="tab" data-toggle="tab">Modifica</a></li>
+    		<li role="presentation"><a href="#messages" aria-controls="Busca" role="tab" data-toggle="tab">Busca</a></li>
+    		<li role="presentation"><a href="#settings" aria-controls="Excluir" role="tab" data-toggle="tab">Excluir</a></li>
+  		</ul>
+
+  
+  	<div class="tab-content">
+    	<div role="tabpanel" class="tab-pane active" id="Cadastro">
+    	
+    	 <div class="panel-body">
 	   <form action="" method="POST">
 	   		 <div class="form-group">
 			    <label for="inputlg">Nome Completo</label>
@@ -41,9 +57,41 @@
 			  <input type="submit" id="cadastrar" class="btn btn-default" value="Enviar"/>
 	   </form>
 	  </div>
+    	</div>
+    	
+    	<div role="tabpanel" class="tab-pane " id="Modifica">
+    		<div class="container">
+				<div class="panel panel-default">
+	 				 <div class="panel-heading">
+	   					 <h3 class="panel-title">Cadastra Usuario</h3>
+	  				</div>
+	  					<div class="panel-body">
+	   						<form action="" method="POST">
+	   							 <div class="form-group">
+			   						 <label for="inputlg">Id</label>
+			    					<input class="form-control" id="id" name="id" type="password" >
+			  					</div>	  
+			  						<input type="submit" id="cadastrar" class="btn btn-default" value="Buscar"/>
+	   						</form>
+	 					 </div>
+					</div>
+			</div>	
+    	
+    	<input class="form-control" id="senha" name="senha" type="text">
+    	</div>
+    	<div role="tabpanel" class="tab-pane" id="Busca">...</div>
+    	<div role="tabpanel" class="tab-pane" id="Excluir">...</div>
+  </div>
+	 
 	</div>
+	<div>
+	#AlteraCadastro
 	
+</div>
+
+  
 <% 
+
 //recebe o valor digitado no campo usuario
 String nome = request.getParameter("nome");
 

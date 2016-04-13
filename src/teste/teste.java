@@ -35,12 +35,13 @@ public class teste {
 	//Atualiza Usuario
 	//String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
 	//Usuario user = DaoUsuario.fromJSON(json_str);
-	//String json_str1 = "{\"nome\":\"andersen1\",\"senha\":\"7534\",\"email\":\"teste1@2152.com.br\"}";
+	//String json_str1 = "{\"nome\":\"Joao\",\"senha\":\"123\",\"email\":\"joao@uol.com.br\"}";
 	//Usuario user1 = DaoUsuario.alteraJSON(json_str1);
 	//dao.atualizaUsuario(28, user1);
 	
 	//usuarios.mostrarUsuario();
 	//usuarios.buscaUsuario(28);
+	
 	//usuarios.excluiUsuario(3);
 	//usuarios.buscaUsuariosEventos(1);
 	
