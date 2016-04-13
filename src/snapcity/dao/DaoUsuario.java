@@ -175,7 +175,7 @@ public class DaoUsuario {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
-	 public String toJson (String nome, String senha, String email){
+	 public  String toJson (String nome, String senha, String email){
 			JSONObject usuario = new JSONObject();
 			
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
@@ -207,4 +207,27 @@ public class DaoUsuario {
 		 
 		return usuario;
 	 }	 
+	 
+	 public static Usuario alteraJSON(String jsonString){
+		 
+		 JSONObject obj = new JSONObject(jsonString);
+		 
+		 String json_string= obj.toString();
+		 
+		 json_string = obj.toString();
+		 
+		 String nome = obj.getString("nome");
+		 String senha = obj.getString("senha");
+		 String email = obj.getString("email");
+		 
+		 Usuario usuario = new Usuario();
+		 
+		usuario.setNome(nome);
+		usuario.setSenha(senha);
+		usuario.setEmail(email);
+		
+		return usuario;		 
+		 	 
+	 }
+	 
 }
