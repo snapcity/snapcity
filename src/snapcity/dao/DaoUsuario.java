@@ -37,6 +37,7 @@ public class DaoUsuario {
 				usuario.setEmail(email);
 				usuario.setSenha(senha);
 				usuario.setDatacriacao(datacriacao);
+				
 			}
 			rs.close();
 			c.close();
@@ -48,6 +49,7 @@ public class DaoUsuario {
 		}
 		System.out.println("Operacao com mostarUsuarios com sucesso");
 		return usuario;
+		
 	}
 	
 	
@@ -114,10 +116,12 @@ public class DaoUsuario {
 	   }  
 	 
 	//Exclui usu√°rio identificado pelo id
-	 public void excluiUsuario(int id) {    
+	 public Usuario excluiUsuario(int id) {    
+		 Usuario usuario = new Usuario();
 	      try {  
 	    	  c = ConectionFactory.getConnection();
 	    	  stmt = c.createStatement();
+	    	  c.setAutoCommit(false);
 		      String sql = "DELETE FROM usuarios WHERE id = '" + id + "';";
 		      stmt.executeUpdate(sql);
 		      c.commit();
@@ -129,7 +133,7 @@ public class DaoUsuario {
 	          System.exit(0);
 	        }
 	        System.out.println("Operacao com excluiUsuario com sucesso");
-	      
+	        return usuario;
 	   } 
 	 
 	 //Atualiza usuarios
@@ -238,11 +242,80 @@ public class DaoUsuario {
 		 
 	 }
 	 
-	 public static String  toJsonArray (Usuario usuario){
-		 JSONObject obj = new JSONObject();
-		 JSONArray usuarios = obj.getJSONArray("usuario");
-		 System.out.printf("",usuarios);
-			return usuarios.toString(); 
+	 public static String toJsonArray (Usuario usuario){
+		 try{
+		 JSONObject user = new JSONObject(usuario);
+		 
+		 JSONArray usuarios = user.getJSONArray("user1");
+		 
+		 for (int i = 0; i <  user.length(); i++){
+		 String nome = user.getString("nome");
+		 String senha = user.getString("senha");
+		 String email = user.getString("email");
+		 int idUser = user.getInt("id");
+		 
+		 //user1.put("nome");
+		 usuarios.put(user.getString(nome));
+		 usuarios.put(user.getString(senha));
+		 usuarios.put(user.getString(email));
+		
+		 System.out.println(nome);
 		 }
+		 } catch ( Exception e ) {
+	         System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );
+	         System.exit(0);
+	       }
+	       System.out.println("Usuario foi criado com sucesso");
+	       return usuario.toString();
+		 }
+	 
+//	 public static String toJsonArray (Usuario usuario){
+//		 try {
+//		 JSONObject user = new JSONObject(usuario);
+//		                
+//		 JSONArray array = new JSONArray();
+//		  
+//		 /*                  * CriaÁ„o do Objeto JSONObject                  */   
+//		 
+//		 String nome = user.getString("nome");
+//		 String senha = user.getString("senha");
+//		 String email = user.getString("email");
+//		 int idUser = user.getInt("id");
+//		  
+//		 Usuario json = new Usuario(); 
+//		  
+//		 json.setNome("nome" + nome); 
+//		 json.setSenha("senha" + senha); 
+//		 json.setEmail("email" + email); 
+//		  
+//		 JSONObject jsonOne = new JSONObject();
+//		  
+//		 jsonOne.put("nome", json.getNome());
+//		 jsonOne.put("senha", json.getSenha());
+//		 jsonOne.put("email", json.getEmail());
+//		  
+//		 Usuario pTwo = new Usuario();
+//		  
+//		 pTwo.setNome("nome" + nome); 
+//		 pTwo.setSenha("senha" + senha); 
+//		 pTwo.setEmail("email" + email);
+//		  
+//		 JSONObject jsonTwo = new JSONObject();
+//		  
+//		 jsonTwo.put("nome", pTwo.getNome()); 
+//		 jsonTwo.put("senha", pTwo.getSenha());
+//		 jsonTwo.put("email", pTwo.getEmail());
+//		  
+//		 array.put(jsonOne);
+//		 array.put(jsonTwo);
+//		  
+//		 System.out.println("JSONArray: " + jsonOne);
+//		 }
+//		 catch (JSONException e) {
+//		 e.printStackTrace();
+//		 } 
+//		 return usuario.toString();
+//		}
+	 
 }
 		 

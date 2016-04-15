@@ -22,21 +22,35 @@
 <div class="container">
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-	    <h3 class="panel-title">Cadastra Usuario</h3>
+	    <h3 class="panel-title">Usuário</h3>
 	  </div>
-	  <div>
-  		<ul class="nav nav-tabs" role="tablist">
-    		<li role="presentation" class="active"><a href="#Cadastro" aria-controls="home" role="tab" data-toggle="tab">Cadastra</a></li>
-    		<li role="presentation" class="active"><a href="#Modifica" aria-controls="Modifica" role="tab" data-toggle="tab">Modifica</a></li>
-    		<li role="presentation"><a href="#messages" aria-controls="Busca" role="tab" data-toggle="tab">Busca</a></li>
-    		<li role="presentation"><a href="#settings" aria-controls="Excluir" role="tab" data-toggle="tab">Excluir</a></li>
-  		</ul>
-
-  
-  	<div class="tab-content">
-    	<div role="tabpanel" class="tab-pane active" id="Cadastro">
-    	
-    	 <div class="panel-body">
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>
+</head>
+<body>
+ 
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Cadastro</a></li>
+    <li><a href="#tabs-2">Alterar Cadastro</a></li>
+    <li><a href="#tabs-3">Buscar Cadastro</a></li>
+    <li><a href="#tabs-4">Excluir Cadastro</a></li>
+  </ul>
+  </ul>
+  <div id="tabs-1">
+    <p><div class="panel-body">
 			   <form action="" method="POST">
 			   		 <div class="form-group">
 					    <label for="inputlg">Nome Completo</label>
@@ -53,22 +67,59 @@
 					  <input type="submit" id="cadastrar" class="btn btn-default" value="Enviar"/>
 			   </form>
 	  		</div>
-    	</div>
-    	
-    	<div role="tabpanel" class="tab-pane" id="Modifica"></br>
-	  		<div class="panel-body">
+	  </p>
+  </div>
+  
+   <div id="tabs-2">
+    <p><div class="panel-body">
+			   <form action="" method="POST">
+			   		 <div class="form-group">
+					    <label for="inputlg">Nome Completo</label>
+					    <input class="form-control" id="nome" name="nome" type="text" >
+					  </div>
+					  <div class="form-group">
+					    <label for="inputlg">Senha</label>
+					    <input class="form-control" id="senha" name="senha" type="text">
+					  </div>
+					  <div class="form-group">
+					    <label for="inputsm">Email</label>
+					    <input class="form-control" id="email" name="email" type="text">
+					  </div>	  
+					  <input type="submit" id="cadastrar" class="btn btn-default" value="Enviar Alteração"/>
+			   </form>
+	  		</div>
+	  </p>
+  </div>
+  
+  <div id="tabs-3">
+    <p><div class="panel-body">
 	   			<form action="" method="POST">
 	   				<div class="form-group">
 			   			<label for="inputlg">Id</label>
 			    			<input class="form-control" id="id" name="id" type="password" >
 			  		</div>	  
-			  				<input type="submit" id="cadastrar" class="btn btn-default" value="Buscar"/>
+			  				<input type="submit" id="Buscar" class="btn btn-default" value="Buscar"/>
 	   			</form>
 	 		</div>
-		</div>
-    	<div role="tabpanel" class="tab-pane" id="Busca"></div>
-    	<div role="tabpanel" class="tab-pane" id="Excluir">...</div>
+	 </p>
   </div>
+  <div id="tabs-4">
+    <p><div class="panel-body">
+	   			<form action="" method="POST">
+	   				<div class="form-group">
+			   			<label for="inputlg">Nome Completo</label>
+			    			<input class="form-control" id="nome" name="nome" type="text" >
+			  		</div>	  
+			  				<input type="submit" id="Excluir" class="btn btn-default" value="Excluir"/>
+	   			</form>
+	 	</div>
+	 </p>
+  </div>
+</div>
+ 
+ 
+</body>
+</html>
 </div>
 </div>	
   
