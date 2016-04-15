@@ -14,12 +14,7 @@ import snapcity.dao.DaoUsuario;
 
 public class teste {
 	public static void main(String[] args) throws JSONException { 
-		try {
-		File file = new File("C:/Users/informatica02.financeiro-05/Desktop/snapcity.jpg");
-		FileInputStream imageInFile = new FileInputStream(file);
-		byte imageData[] = new byte[(int)file.length()];
 		
-			imageInFile.read(imageData);
 			
 		
 	snapcity.dao.DaoUsuario usuarios = new DaoUsuario();
@@ -27,21 +22,28 @@ public class teste {
 	DaoUsuario dao = new DaoUsuario();
 	JSONObject obj = new JSONObject();
 	
-	// Insere Usuario
+	//  ------------>> Insere Usuario <<-----------------------------//
 	//String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
 	//Usuario user = DaoUsuario.fromJSON(json_str);
 	//dao.insereUsuario(user);
 	
-	//Atualiza Usuario
+	// ------------>> Atualiza Usuario <<-----------------------------//
 	//String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
 	//Usuario user = DaoUsuario.fromJSON(json_str);
 	//String json_str1 = "{\"nome\":\"Joao\",\"senha\":\"123\",\"email\":\"joao@uol.com.br\"}";
 	//Usuario user1 = DaoUsuario.alteraJSON(json_str1);
-	//dao.atualizaUsuario(28, user1);
+	//dao.atualizaUsuario(25, user1);
 	
 	//usuarios.mostrarUsuario();
-	//usuarios.buscaUsuario(28);
 	
+	//  ------------>>Busca Usuario <<-----------------------------//
+	//Usuario usuario = dao.buscaUsuario(25);
+	//String userJson = DaoUsuario.toJson(usuario);
+	//System.out.println(userJson);
+	
+	Usuario usuario = dao.mostrarUsuario();
+	String userJson = DaoUsuario.toJsonArray(usuario);
+	System.out.println(userJson);
 	//usuarios.excluiUsuario(3);
 	//usuarios.buscaUsuariosEventos(1);
 	
@@ -54,9 +56,5 @@ public class teste {
 	//eventos.buscaEventos("Foto de descricao 3");
 	//eventos.excluiEventos(3);
 	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

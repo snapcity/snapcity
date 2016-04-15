@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,20 +19,24 @@ public class DaoUsuario {
 	// mostra todos os usuarios
 	public Usuario mostrarUsuario() {
 		
-		Usuario result = new Usuario();
+		Usuario usuario = new Usuario();
 		
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
-			Usuario temp = new Usuario();
 			while (rs.next()) {
-				temp.setId(rs.getInt("id"));
-				temp.setNome(rs.getString("nome"));
-				temp.setSenha(rs.getString("senha"));
-				temp.setEmail(rs.getString("email"));
-				temp.setDatacriacao(rs.getString("datacriacao"));
-				
+				int idUser = rs.getInt("id");
+				String nome = rs.getString("nome");
+				String senha = rs.getString("senha");
+				String email = rs.getString("email");
+				String datacriacao = rs.getString("datacriacao");
+		
+				usuario.setId(idUser);
+				usuario.setNome(nome);
+				usuario.setEmail(email);
+				usuario.setSenha(senha);
+				usuario.setDatacriacao(datacriacao);
 			}
 			rs.close();
 			c.close();
@@ -42,7 +47,7 @@ public class DaoUsuario {
 			System.exit(0);
 		}
 		System.out.println("Operacao com mostarUsuarios com sucesso");
-		return result;
+		return usuario;
 	}
 	
 	
@@ -63,15 +68,6 @@ public class DaoUsuario {
 				String datahora = rs.getString("datahora");
 				int id_usuario = rs.getInt("id_usuario");
 				
-				System.out.println("ID = " + idEventos);
-				System.out.println("FOTO = " + foto);
-				System.out.println("DESCRICAO = " + descricao);
-				System.out.println("TAGS = " + tags);
-				System.out.println("LATITUDE = " + latitude);
-				System.out.println("LONGITUDE = " + longitude);
-				System.out.println("DATA DE CRIACAO = " + datahora);
-				System.out.println("Usuario = " + nome);
-				System.out.println();
 			}
 			rs.close();
 			c.close();
@@ -85,21 +81,25 @@ public class DaoUsuario {
 	  
 	   }
 	// método que busca usuarios pelo id
-	public Usuario buscaUsuario(int id,Usuario usuario) { 
-		
-		Usuario result = new Usuario();
+	public Usuario buscaUsuario(int id) { 
+		Usuario usuario = new Usuario();
 		
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
-			Usuario temp = new Usuario();
 			while (rs.next()) {
-				temp.setId(rs.getInt("id"));
-				temp.setNome(rs.getString("nome"));
-				temp.setSenha(rs.getString("senha"));
-				temp.setEmail(rs.getString("email"));
-				temp.setDatacriacao(rs.getString("datacriacao"));
+				int idUser = rs.getInt("id");
+				String nome = rs.getString("nome");
+				String senha = rs.getString("senha");
+				String email = rs.getString("email");
+				String datacriacao = rs.getString("datacriacao");
+				
+				usuario.setId(idUser);
+				usuario.setNome(nome);
+				usuario.setEmail(email);
+				usuario.setSenha(senha);
+				usuario.setDatacriacao(datacriacao);
 			}
 			rs.close();
 			c.close();
@@ -110,7 +110,7 @@ public class DaoUsuario {
 			System.exit(0);
 		}
 		System.out.println("Operacao com buscaUsuarios com sucesso");
-		return result;
+		return usuario;
 	   }  
 	 
 	//Exclui usuário identificado pelo id
@@ -173,20 +173,26 @@ public class DaoUsuario {
        System.out.println("Usuario foi criado com sucesso");
      }
 	 
-	 public  String toJson (String nome, String senha, String email){
-			JSONObject usuario = new JSONObject();
+	 public static  String toJson (Usuario usuario){
+		 
+			JSONObject user = new JSONObject(usuario);
+			
+			String nome = user.getString("nome");
+			String senha = user.getString("senha");
+			String email = user.getString("email");
+			int idUser = user.getInt("id");
 			
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 			
-			usuario.put("nome", nome);
-			usuario.put("senha", senha);
-			usuario.put("email", email);
-			usuario.put("datacriacao", datacriacao);
-			
-			String usuarioJson = usuario.toString();
+			user.put("nome", nome);
+			user.put("senha", senha);
+			user.put("email", email);
+			user.put("datacriacao", datacriacao);
 			
 			
-			return usuarioJson;
+			
+			
+			return user.toString();
 	 }
 	 
 	 public static Usuario fromJSON(String jsonString){
@@ -207,6 +213,7 @@ public class DaoUsuario {
 	 }	 
 	 
 	 public static Usuario alteraJSON(String jsonString){
+
 		 
 		 JSONObject obj = new JSONObject(jsonString);
 		 
@@ -228,6 +235,14 @@ public class DaoUsuario {
 		
 		
 		return usuario;		 
-		 	 
+		 
 	 }
+	 
+	 public static String  toJsonArray (Usuario usuario){
+		 JSONObject obj = new JSONObject();
+		 JSONArray usuarios = obj.getJSONArray("usuario");
+		 System.out.printf("",usuarios);
+			return usuarios.toString(); 
+		 }
 }
+		 
