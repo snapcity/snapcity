@@ -62,7 +62,7 @@
 		<div id="tabs-1">
 			<p>
 			<div class="panel-body">
-				<form action="" method="POST">
+				<form action="/insereUsuario" method="POST">
 					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
 							class="form-control" id="nome" name="nome" type="text">
