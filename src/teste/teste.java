@@ -24,7 +24,7 @@ public class teste {
 //-------------->> Insere Usuario <<-----------------------------//
 	//String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
 	//Usuario user = DaoUsuario.fromJSON(json_str);
-	//dao.insereUsuario(user);
+    //dao.insereUsuario(user);
 	
 //-------------->> Atualiza Usuario <<-----------------------------//
 	//String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
@@ -36,13 +36,13 @@ public class teste {
 	//usuarios.mostrarUsuario();
 	
 //-------------->>Busca Usuario <<-----------------------------//
-	//Usuario usuario = dao.buscaUsuario(25);
-	//String userJson = DaoUsuario.toJson(usuario);
+	//String usuario = dao.buscaUsuario(25);
+	//Usuario userJson = DaoUsuario.toJson(usuario);
 	//System.out.println(userJson);
 	
-	Usuario usuario = dao.mostrarUsuario();
-	String userJson = DaoUsuario.toJsonArray(usuario);
-	System.out.println(userJson);
+	//List<Usuario> usuario = dao.mostrarUsuario();
+	//String userJson = DaoUsuario.toJsonArray(usuario);
+	//System.out.println(userJson);
 	
 	
 //-------------->>Excluir Usuario <<-----------------------------//
