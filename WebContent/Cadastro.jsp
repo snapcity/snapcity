@@ -108,7 +108,7 @@
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="" method="POST">
+				<form action="rest/usuarios" method="GET">
 					<div class="form-group">
 						<label for="inputlg">Id</label> <input class="form-control"
 							id="id" name="id" type="password">
