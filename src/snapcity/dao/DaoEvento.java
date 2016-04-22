@@ -34,6 +34,10 @@ public class DaoEvento {
 	Statement stmt = null;
 		
 	// mostra todos evento registrados
+	/**
+	 * 
+	 * @return
+	 */
 	public Vector<Evento> mostrarEvento() {
 		
 		Vector<Evento> resultados = new Vector<Evento>();  
