@@ -88,20 +88,7 @@ public class TesteEvento {
 //			daoEvento.insereEvento(modelEvento, modelUsuario);
 
 //        --------- from Json  mostra String Json ok
-		 	Evento jsoevento = new Evento();
-		 	Vector<Evento> evento = daoEvento.fromJson(stringJson);		
-		 	
-			for (Iterator<Evento> iterator = evento.iterator(); iterator.hasNext();) {
-		 	     
-		          Evento p = iterator.next();  
-		          System.out.println("Evento: " +p.getDescricao());  
-		          System.out.println("Tags: " +p.getTag()); 
-		          System.out.println("Longitude: "+p.getLongintude());
-		          System.out.println("Latitude: "+p.getLatitude());
-		          System.out.println("Data de Criaco: "+p.getDatahora());
-		          System.out.println("Foto: "+p.getFoto());
-		     
-		       } 
+	
 		 	
 		 	
 		      

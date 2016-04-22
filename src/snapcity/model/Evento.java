@@ -2,11 +2,11 @@ package snapcity.model;
 
 
 public class Evento {
-	private Integer id;
+	private int id;
 	private String foto;
 	private String descricao;
 	private String tag;
-	private double longintude;
+	private double longitude;
 	private double latitude;
 	private String datahora;
 	
@@ -23,8 +23,8 @@ public class Evento {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	public void setLongintude(double longintude) {
-		this.longintude = longintude;
+	public void setLongitude(double longintude) {
+		this.longitude = longintude;
 	}
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
@@ -33,8 +33,8 @@ public class Evento {
 		this.datahora = datahora;
 	}
 	
-	public void getId(Integer id) {
-		this.id = id;
+	public int getId() {
+		return id;
 	}
 	
 	public String getFoto() {
@@ -46,8 +46,8 @@ public class Evento {
 	public String getTag() {
 		return tag;
 	}
-	public double getLongintude() {
-		return longintude;
+	public double getLongitude() {
+		return longitude;
 	}
 	public double getLatitude() {
 		return latitude;
