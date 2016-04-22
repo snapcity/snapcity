@@ -35,48 +35,18 @@ import sun.rmi.transport.Target;
 @Path ("/usuarios")
 public class UsuarioHandler extends HttpServlet {
 	
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-
-	    out.println("<html>");
-	    out.println("<head>");
-	    out.println("<title>Primeira Servlet</title>");
-	    out.println("</head>");
-	    out.println("<body>");
-	    out.println("<h1>Oi mundo Servlet!</h1>");
-	    out.println("</body>");
-	    out.println("</html>");
-	   
-	}
-	/*@GET
-	@Consumes(MediaType.APPLICATION_JSON)
-	 public Response executa(HttpServletRequest req, HttpServletResponse res)
-		        throws Exception {
-
-		      // Monta a lista de contatos
-		      DaoUsuario array = new DaoUsuario();
-
-		      // Guarda a lista no request
-		      req.setAttribute("usuarios", array);
-		      
-		      return Response.ok(200).entity(array.toString()).build();
-		} 
-		//Response resposta = Response.ok(usuario).build(); return resposta; */
-
-	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUsuarios() {
-		
+	public Response getUsuarios(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
+		PrintWriter out = response.getWriter();
 		DaoUsuario dao = new DaoUsuario();
 		List<Usuario> user =  dao.mostrarUsuario();
-		
+		out.println("<h1>teste!</h1>");
 		JSONArray array = new JSONArray();
 		
 		for (Usuario usuarios : user){
-			array.put(dao.toString());
-			//System.out.println("usuarios");
+			array.put(usuarios.toString());
+			System.out.println("usuarios");
 		}
 		
 		return Response.ok(200).entity(array.toString()).build();

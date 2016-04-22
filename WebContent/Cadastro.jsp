@@ -102,22 +102,21 @@
 						value="Enviar Alteração" />
 				</form>
 			</div>
-			</p>
+			
 		</div>
 
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="rest/usuarios" method="GET">
+				<form action="rest/usuarios" method="POST">
 					<div class="form-group">
-						<label for="inputlg">Id</label> <input class="form-control"
-							id="id" name="id" type="password">
+
 					</div>
 					<input type="submit" id="Buscar" class="btn btn-default"
 						value="Buscar" />
 				</form>
 			</div>
-			</p>
+			
 		</div>
 		<div id="tabs-4">
 			<p>
@@ -139,7 +138,7 @@
 </body>
 			</html>
 		</div>
-	</div>
+
 
 	<%
 		//recebe o valor digitado no campo usuario

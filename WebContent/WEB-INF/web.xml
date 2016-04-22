@@ -3,10 +3,10 @@
   <display-name>snapcity</display-name>
  <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
-    <servlet-class>snapcity.UsuarioHandler</servlet-class>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
      <!-- Register resources and providers under snapcity.model package. -->
     <init-param>
-        <param-name>snapcity.config.server.provider.packages</param-name>
+        <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>snapcity</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>

@@ -66,9 +66,9 @@ public class DaoUsuario {
 			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where  '"+ usuario.getId() + "' = usuarios.id;");
 			while (rs.next()) {
 				int idEvento = rs.getInt("idEventos");
-				Evento evento = daoEvento.buscaEvento(idEvento);
-				if (evento != null)
-					eventos.add(evento);
+				//Evento evento = daoEvento.buscaEvento(idEvento);
+				//if (evento != null)
+					//eventos.add(evento);
 			}
 			rs.close();
 			c.close();
@@ -248,7 +248,7 @@ public class DaoUsuario {
 		obj.put("senha", ((Usuario) usuario).getSenha());
 		obj.put("email", ((Usuario) usuario).getEmail());
 		//obj.put("datacriacao", ((Usuario) usuario).getDatacriacao());
-		obj.put("id", ((Evento) usuario).getId());
+		//obj.put("id", ((Evento) usuario).getId());
 		return obj.toString();
 	}
 }
