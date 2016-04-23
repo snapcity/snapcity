@@ -188,7 +188,7 @@ public class DaoUsuario {
 		}
 	}
 
-	public static String toJson (Usuario usuario){
+	public String toJson (Usuario usuario){
 		JSONObject obj = new JSONObject();
 		obj.put("nome", usuario.getNome());
 		obj.put("senha", usuario.getSenha());

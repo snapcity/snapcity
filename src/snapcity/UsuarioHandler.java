@@ -18,9 +18,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
+
+import java.net.URI;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.json.JSONArray;
@@ -32,41 +37,31 @@ import sun.rmi.transport.Target;
 
 
 
-@Path ("/usuarios")
-public class UsuarioHandler extends HttpServlet {
+@Path("/usuarios")
+public class UsuarioHandler {
+
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON })
+	public List<Usuario> getUsuarios() {
+		System.out.println("oi");
+		DaoUsuario dao = new DaoUsuario();
+		List<Usuario> usuario = new ArrayList<Usuario>();
+		usuario.addAll(dao.mostrarUsuario());
+		return usuario;
+	}
 	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUsuarios(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException  {
-		PrintWriter out = response.getWriter();
+	public Response getUsuario() {
+		System.out.println("oi");
 		DaoUsuario dao = new DaoUsuario();
-		List<Usuario> user =  dao.mostrarUsuario();
-		out.println("<h1>teste!</h1>");
+		List<Usuario> usuarios = dao.mostrarUsuario();
 		JSONArray array = new JSONArray();
-		
-		for (Usuario usuarios : user){
-			array.put(usuarios.toString());
-			System.out.println("usuarios");
-		}
-		
+		for (Usuario user : usuarios)
+			array.put(dao.toJson(user));
 		return Response.ok(200).entity(array.toString()).build();
-	
+		
 	}
-}	
-/*	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response postUsuario(Usuario usuario) {
-		DaoUsuario dao = new DaoUsuario();
-		Usuario user = dao.insereUsuario();
-		
-		JSONObject obj = new JSONObject();
-		
-		//for (Usuario usuarios : user){
-		//obj.put(usuarios);
-		//}
-		return Response.ok(200).entity(obj.toString()).build();
-		
-		
-	}*/
 
-	
+} 

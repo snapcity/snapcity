@@ -108,7 +108,7 @@
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="rest/usuarios" method="POST">
+				<form action="rest/usuarios" method="GET">
 					<div class="form-group">
 
 					</div>
