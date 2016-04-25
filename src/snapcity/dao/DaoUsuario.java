@@ -173,7 +173,7 @@ public class DaoUsuario {
 	@Path ("/insereUsuario")
 	public void insereUsuario( Usuario usuario ){
 		try{
-			c = ConectionFactory.getConnection();
+ 
 			c.setAutoCommit(false); 
 			stmt = c.createStatement();
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
@@ -247,7 +247,7 @@ public class DaoUsuario {
 		obj.put("nome", ((Usuario) usuario).getNome());
 		obj.put("senha", ((Usuario) usuario).getSenha());
 		obj.put("email", ((Usuario) usuario).getEmail());
-		//obj.put("datacriacao", ((Usuario) usuario).getDatacriacao());
+		obj.put("datacriacao", ((Usuario) usuario).getDatacriacao());
 		//obj.put("id", ((Evento) usuario).getId());
 		return obj.toString();
 	}

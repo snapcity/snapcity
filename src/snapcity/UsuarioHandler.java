@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,9 +39,22 @@ import sun.rmi.transport.Target;
 
 
 @Path("/usuarios")
-public class UsuarioHandler {
-
-
+public class UsuarioHandler extends HttpServlet {
+	private static final long serialVersionUID = 1L;  
+	  
+    public UsuarioHandler() {  
+        super();  
+        // TODO Auto-generated constructor stub  
+    }
+	DaoUsuario dao = new DaoUsuario();
+/*
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getUsuarios() {
+	return Response.ok(200).entity("deu certo").build();
+	}*/
+	
+	/*
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON })
 	public List<Usuario> getUsuarios() {
@@ -49,13 +63,12 @@ public class UsuarioHandler {
 		List<Usuario> usuario = new ArrayList<Usuario>();
 		usuario.addAll(dao.mostrarUsuario());
 		return usuario;
-	}
+	}*/
+
 	
 	@GET
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUsuario() {
-		System.out.println("oi");
-		DaoUsuario dao = new DaoUsuario();
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUsuario(Usuario usuario) {
 		List<Usuario> usuarios = dao.mostrarUsuario();
 		JSONArray array = new JSONArray();
 		for (Usuario user : usuarios)
@@ -63,5 +76,22 @@ public class UsuarioHandler {
 		return Response.ok(200).entity(array.toString()).build();
 		
 	}
+	
+	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
+	      
+	        PrintWriter out= response.getWriter();  
+	        JSONObject json = new JSONObject();  
+	        json.put("name", "Sameera Jayasekara");  
+	        json.put("email", "codesstore@blogspot.com");  
+	        out.print(json);  
+	      
+	    } 
+	
+	/*@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response postUsuario(Usuario usuario) {
+    return this.Response.insereUsuario(usuario);
+    return Response.ok(200).entity(usuario).build();
+	}*/
 
 } 

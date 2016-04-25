@@ -62,7 +62,7 @@
 		<div id="tabs-1">
 			<p>
 			<div class="panel-body">
-				<form action="/insereUsuario" method="POST">
+				<form action="" method="POST">
 					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
 							class="form-control" id="nome" name="nome" type="text">
@@ -77,6 +77,7 @@
 					</div>
 					<input type="submit" id="cadastrar" class="btn btn-default"
 						value="Enviar" />
+						
 				</form>
 			</div>
 			</p>
@@ -108,9 +109,10 @@
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="rest/usuarios" method="GET">
+				<form action="http://localhost:8080/snapcity/rest/usuarios" method="GET">
 					<div class="form-group">
-
+					<label for="inputlg">ID</label> <input class="form-control"
+							id="id" name="id" type="text">
 					</div>
 					<input type="submit" id="Buscar" class="btn btn-default"
 						value="Buscar" />
