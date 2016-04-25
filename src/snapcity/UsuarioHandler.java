@@ -41,8 +41,8 @@ import sun.rmi.transport.Target;
 
 
 @Path("/usuarios")
-public class UsuarioHandler extends HttpServlet {
-	private static final long serialVersionUID = 1L;  
+public class UsuarioHandler  {
+	
 	  
     public UsuarioHandler() {  
         super();  
@@ -84,8 +84,8 @@ public class UsuarioHandler extends HttpServlet {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postUsuario(Usuario usuario) {
-		Usuario usuarios = new Usuario();
-		dao.insereUsuario(usuario);
+		//Usuario usuarios = new Usuario();
+		Usuario usuarios = dao.insereUsuario(usuario);
 		return Response.status(200).build();
 	}		
 
