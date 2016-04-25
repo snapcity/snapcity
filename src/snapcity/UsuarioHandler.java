@@ -32,6 +32,8 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.sun.org.apache.xerces.internal.util.Status;
+
 import snapcity.dao.DaoUsuario;
 import snapcity.model.Usuario;
 import sun.rmi.transport.Target;
@@ -77,21 +79,14 @@ public class UsuarioHandler extends HttpServlet {
 		
 	}
 	
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
-	      
-	        PrintWriter out= response.getWriter();  
-	        JSONObject json = new JSONObject();  
-	        json.put("name", "Sameera Jayasekara");  
-	        json.put("email", "codesstore@blogspot.com");  
-	        out.print(json);  
-	      
-	    } 
 	
-	/*@POST
+	
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postUsuario(Usuario usuario) {
-    return this.Response.insereUsuario(usuario);
-    return Response.ok(200).entity(usuario).build();
-	}*/
+		Usuario usuarios = new Usuario();
+		dao.insereUsuario(usuario);
+		return Response.status(200).build();
+	}		
 
 } 

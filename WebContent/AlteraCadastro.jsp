@@ -10,7 +10,7 @@
     $(document).ready(function(){   
             $('#getData').click(function(){  
                 $.ajax({  
-                    url:'UsuarioHandler',  
+                    url:'UsuarioHandler.java',  
                     type:'post',  
                     dataType: 'json',  
                     success: function(data) {  

@@ -171,7 +171,7 @@ public class DaoUsuario {
 	 * @return Lista de {@link insereUsuarios} cadastros.
 	 */
 	@Path ("/insereUsuario")
-	public void insereUsuario( Usuario usuario ){
+	public Usuario insereUsuario( Usuario usuario ){
 		try{
  
 			c.setAutoCommit(false); 
@@ -186,6 +186,7 @@ public class DaoUsuario {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );			
 		}
+		return usuario;
 	}
 
 	public String toJson (Usuario usuario){

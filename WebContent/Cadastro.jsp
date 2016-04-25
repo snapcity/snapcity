@@ -47,6 +47,20 @@
 	$(function() {
 		$("#tabs").tabs();
 	});
+	 $(document).ready(function(){   
+         $('#cadastrar').click(function(){  
+             $.ajax({  
+                 url:'UsuarioHandler.java',  
+                 type:'post',  
+                 dataType: 'json',  
+                 success: function(data) {  
+                     $('#nome').val(data.nome);  
+                     $('#senha').val(data.senha);
+                     $('#email').val(data.email);
+                 }  
+             });  
+         });  
+ });
 </script>
 </head>
 <body>
@@ -99,7 +113,7 @@
 						<label for="inputsm">Email</label> <input class="form-control"
 							id="email" name="email" type="text">
 					</div>
-					<input type="submit" id="cadastrar" class="btn btn-default"
+					<input type="submit" id="alterar" class="btn btn-default"
 						value="Enviar Alteração" />
 				</form>
 			</div>
@@ -109,7 +123,7 @@
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="http://localhost:8080/snapcity/rest/usuarios" method="GET">
+				<form action="rest/usuarios" method="GET">
 					<div class="form-group">
 					<label for="inputlg">ID</label> <input class="form-control"
 							id="id" name="id" type="text">
@@ -142,26 +156,7 @@
 		</div>
 
 
-	<%
-		//recebe o valor digitado no campo usuario
-		String nome = request.getParameter("nome");
 
-		//recebe o valor digitado no campo senha
-		String senha = request.getParameter("senha");
-
-		//recebe o valor digitado no campo Email
-		String email = request.getParameter("email");
-
-		JSONObject usuario = new JSONObject();
-
-		usuario.put("nome", nome);
-		usuario.put("senha", senha);
-		usuario.put("email", email);
-
-		String user = usuario.toString();
-		out.println("objeto original -> " + user);
-		System.out.println("objeto original -> " + user);
-	%>
 	</div>
 
 </body>

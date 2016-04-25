@@ -71,6 +71,12 @@ public class DaoEvento {
 	}
 
 	//Busca eventos por descricao
+	/**
+	 * 
+	 * @param evento
+	 * @param descricao
+	 * @return
+	 */
 	public Vector<Evento> buscaEvento(Evento evento, String descricao) {
 		
 		Vector<Evento> resultados = new Vector<Evento>();
