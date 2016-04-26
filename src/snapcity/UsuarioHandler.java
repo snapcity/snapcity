@@ -32,11 +32,15 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.sun.org.apache.xerces.internal.util.Status;
 
+import javafx.scene.chart.PieChart.Data;
 import snapcity.dao.DaoUsuario;
 import snapcity.model.Usuario;
 import sun.rmi.transport.Target;
+
+
 
 
 
@@ -49,23 +53,6 @@ public class UsuarioHandler  {
         // TODO Auto-generated constructor stub  
     }
 	DaoUsuario dao = new DaoUsuario();
-/*
-	@GET
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUsuarios() {
-	return Response.ok(200).entity("deu certo").build();
-	}*/
-	
-	/*
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON })
-	public List<Usuario> getUsuarios() {
-		System.out.println("oi");
-		DaoUsuario dao = new DaoUsuario();
-		List<Usuario> usuario = new ArrayList<Usuario>();
-		usuario.addAll(dao.mostrarUsuario());
-		return usuario;
-	}*/
 
 	
 	@GET
@@ -78,15 +65,22 @@ public class UsuarioHandler  {
 		return Response.ok(200).entity(array.toString()).build();
 		
 	}
-	
-	
+		
 	
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response postUsuario(Usuario usuario) {
-		//Usuario usuarios = new Usuario();
-		Usuario usuarios = dao.insereUsuario(usuario);
-		return Response.status(200).build();
-	}		
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response postUsuario(String jsonString) {
+		System.out.println(jsonString);	
+		String json_srt = jsonString;
+		Usuario user = DaoUsuario.fromJSON(json_srt);
+		System.out.println(user);
+		dao.insereUsuario(user);
+		
+		return Response.ok().entity(("").toString()).build();
+		//Usuario user = dao.fromJSON(json_str);
+		
+		//Usuario usuarioInserido = dao.insereUsuario(user);
+	    //return Response.ok().entity(dao.insereUsuario(json_str).toString()).build();
+	}	
 
 } 

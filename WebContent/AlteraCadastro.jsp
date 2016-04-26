@@ -1,35 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"  
-    pageEncoding="ISO-8859-1"%>  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">  
-<html>  
-<head>  
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">  
-<title>Insert title here</title>  
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<script type="text/javascript">  
-    $(document).ready(function(){   
-            $('#getData').click(function(){  
-                $.ajax({  
-                    url:'UsuarioHandler.java',  
-                    type:'post',  
-                    dataType: 'json',  
-                    success: function(data) {  
-                        $('#nome').val(data.nome);  
-                        $('#senha').val(data.senha);
-                        $('#email').val(data.email);
-                    }  
-                });  
-            });  
-    });  
-</script>  
-</head>  
-<body>  
-  
-    Nome:<input type="text" id="nome"/><br/>  
-    Senha:<input type="text" id="senha"/> 
-    Email:<input type="text" id="email"/>  
-      
-    <input type="button" id="getData" value="Get Data"/>   
-  
-</body>  
-</html> 
+<html>
+
+   <head>
+     
+      </script>
+   </head>
+	
+   <body>
+	
+      <p>Click on the button to load result.json file −</p>
+		
+      <div id = "stage" style = "background-color:#eee;">
+         STAGE
+      </div>
+		
+      <input type = "button" id = "driver" value = "Load Data" />
+		
+   </body>
+	
+</html>

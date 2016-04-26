@@ -3,6 +3,7 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONException"%>
 
+
 <%@page language="java" import="snapcity.dao.DaoUsuario"%>
 <html>
 <head>
@@ -47,20 +48,28 @@
 	$(function() {
 		$("#tabs").tabs();
 	});
-	 $(document).ready(function(){   
-         $('#cadastrar').click(function(){  
-             $.ajax({  
-                 url:'UsuarioHandler.java',  
-                 type:'post',  
-                 dataType: 'json',  
-                 success: function(data) {  
-                     $('#nome').val(data.nome);  
-                     $('#senha').val(data.senha);
-                     $('#email').val(data.email);
-                 }  
-             });  
-         });  
- });
+	$(document).ready(function() {
+	        $("#cadastrar").click(function() {
+	          data= {
+	               nome: $("#nome").val(),
+	               senha: $("#senha").val(),
+	               email: $("#email").val(),
+	           }
+
+	           $.ajax({
+	               url: "http://localhost:2020/snapcity/rest/usuarios",
+	               contentType: "application/json; charset=utf-8",
+	               type: "post",
+	               dataType:"json",
+	               data: JSON.stringify({nome : $('#nome').val(), senha : $('#senha').val(), email : $('#email').val()} ),
+	               success: function(data) {
+	                   console.log(data);
+	               }
+	               
+	           });
+	       });
+	       
+	   });
 </script>
 </head>
 <body>
@@ -71,7 +80,6 @@
 			<li><a href="#tabs-2">Alterar Cadastro</a></li>
 			<li><a href="#tabs-3">Buscar Cadastro</a></li>
 			<li><a href="#tabs-4">Excluir Cadastro</a></li>
-		</ul>
 		</ul>
 		<div id="tabs-1">
 			<p>
@@ -91,7 +99,7 @@
 					</div>
 					<input type="submit" id="cadastrar" class="btn btn-default"
 						value="Enviar" />
-						
+
 				</form>
 			</div>
 			</p>
@@ -117,7 +125,7 @@
 						value="Enviar Alteração" />
 				</form>
 			</div>
-			
+
 		</div>
 
 		<div id="tabs-3">
@@ -125,14 +133,14 @@
 			<div class="panel-body">
 				<form action="rest/usuarios" method="GET">
 					<div class="form-group">
-					<label for="inputlg">ID</label> <input class="form-control"
+						<label for="inputlg">ID</label> <input class="form-control"
 							id="id" name="id" type="text">
 					</div>
 					<input type="submit" id="Buscar" class="btn btn-default"
 						value="Buscar" />
 				</form>
 			</div>
-			
+
 		</div>
 		<div id="tabs-4">
 			<p>
@@ -154,10 +162,7 @@
 </body>
 			</html>
 		</div>
-
-
-
+		
 	</div>
-
 </body>
 </html>

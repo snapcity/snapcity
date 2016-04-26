@@ -171,7 +171,7 @@ public class DaoUsuario {
 	 * @return Lista de {@link insereUsuarios} cadastros.
 	 */
 	@Path ("/insereUsuario")
-	public Usuario insereUsuario( Usuario usuario ){
+	public void insereUsuario( Usuario usuario ){
 		try{
  
 			c.setAutoCommit(false); 
@@ -186,7 +186,6 @@ public class DaoUsuario {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );			
 		}
-		return usuario;
 	}
 
 	public String toJson (Usuario usuario){
@@ -204,15 +203,15 @@ public class DaoUsuario {
 		String nome = obj.getString ("nome");
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
-		String datacriacao = obj.getString("datacriacao");
-		int id = obj.getInt("id");
+		//String datacriacao = obj.getString("datacriacao");
+		//int id = obj.getInt("id");
 
 		Usuario usuario = new Usuario();
 		usuario.setDatacriacao(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
-		usuario.setDatacriacao(datacriacao);
-		usuario.setId(id);
+		//usuario.setDatacriacao(datacriacao);
+		//usuario.setId(id);
 
 		return usuario;
 	}	
