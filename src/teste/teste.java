@@ -20,10 +20,9 @@ public class teste {
 		JSONObject obj = new JSONObject();
 
 		// -------------->> Insere Usuario <<-----------------------------//
-		// String json_str =
-		// "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
-		// Usuario user = DaoUsuario.fromJSON(json_str);
-		// dao.insereUsuario(user);
+		 String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
+		 Usuario user = DaoUsuario.fromJSON(json_str);
+		 dao.insereUsuario(user);
 
 		// -------------->> Atualiza Usuario <<-----------------------------//
 		// String json_str =

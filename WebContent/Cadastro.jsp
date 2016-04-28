@@ -44,19 +44,14 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
 	$(document).ready(function() {
 	        $("#cadastrar").click(function() {
-	          data= {
-	               nome: $("#nome").val(),
-	               senha: $("#senha").val(),
-	               email: $("#email").val(),
-	           }
-
-	           $.ajax({
+	               $.ajax({
 	               url: "http://localhost:2020/snapcity/rest/usuarios",
 	               contentType: "application/json; charset=utf-8",
 	               type: "post",
@@ -70,6 +65,42 @@
 	       });
 	       
 	   });
+	$(document).ready(function() {
+        $("#alterar").click(function() {
+               $.ajax({
+               url: "http://localhost:2020/snapcity/rest/usuarios",
+               contentType: "application/json; charset=utf-8",
+               type: "put",
+               dataType:"json",
+               data: JSON.stringify({id : $('#id1').val(), nome : $('#nome1').val(), senha : $('#senha1').val(), email : $('#email1').val()} ),
+               success: function(data) {
+                   console.log(data);
+               }
+               
+           });
+       });
+       
+   });
+	$(document).ready(function(){
+		$("#excluir").click(function(){
+		     $.ajax({
+		         type: "delete",
+		         url: "http://localhost:2020/snapcity/rest/usuarios/{id}",
+		         contentType: "application/json; charset=utf-8",
+		         data: JSON.stringify($('#id2').val() ),
+		         dataType: "string",
+		         success: function (data, status, jqXHR) {
+		             // do something
+		         },
+		     
+		         error: function (jqXHR, status) {
+		             // error handler
+		         }
+		     });
+		});
+	});
+	
+
 </script>
 </head>
 <body>
@@ -110,19 +141,24 @@
 			<div class="panel-body">
 				<form action="" method="POST">
 					<div class="form-group">
+						<label for="inputlg">Id</label> <input class="form-control"
+							id="id1" name="id1" type="text">
+					</div>
+					
+					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
-							class="form-control" id="nome" name="nome" type="text">
+							class="form-control" id="nome1" name="nome1" type="text">
 					</div>
 					<div class="form-group">
 						<label for="inputlg">Senha</label> <input class="form-control"
-							id="senha" name="senha" type="text">
+							id="senha1" name="senha1" type="text">
 					</div>
 					<div class="form-group">
 						<label for="inputsm">Email</label> <input class="form-control"
-							id="email" name="email" type="text">
+							id="email1" name="email1" type="text">
 					</div>
 					<input type="submit" id="alterar" class="btn btn-default"
-						value="Enviar Alteração" />
+						value="Alterar Cadastro" />
 				</form>
 			</div>
 
@@ -136,7 +172,7 @@
 						<label for="inputlg">ID</label> <input class="form-control"
 							id="id" name="id" type="text">
 					</div>
-					<input type="submit" id="Buscar" class="btn btn-default"
+					<input type="submit" id="buscar" class="btn btn-default"
 						value="Buscar" />
 				</form>
 			</div>
@@ -145,12 +181,12 @@
 		<div id="tabs-4">
 			<p>
 			<div class="panel-body">
-				<form action="" method="POST">
+				<form action="/rest/usuarios/{id}" method="POST">
 					<div class="form-group">
-						<label for="inputlg">Nome Completo</label> <input
-							class="form-control" id="nome" name="nome" type="text">
+						<label for="inputlg">ID</label> <input
+							class="form-control" id="id2" name="id" type="text">
 					</div>
-					<input type="submit" id="Excluir" class="btn btn-default"
+					<input type="submit" id="excluir" class="btn btn-default"
 						value="Excluir" />
 				</form>
 			</div>

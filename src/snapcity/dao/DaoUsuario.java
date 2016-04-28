@@ -5,6 +5,7 @@ import snapcity.model.Usuario;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,22 +171,23 @@ public class DaoUsuario {
 	 * @param usuario
 	 * @return Lista de {@link insereUsuarios} cadastros.
 	 */
-	@Path ("/insereUsuario")
-	public void insereUsuario( Usuario usuario ){
+	public Usuario insereUsuario( Usuario usuario ){
 		try{
- 
+			c = ConectionFactory.getConnection();
 			c.setAutoCommit(false); 
 			stmt = c.createStatement();
-			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
-			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+usuario.getDatacriacao()+"');";
+			String sql = "INSERT INTO usuarios (nome,senha,email) values ('"
+			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
 			c.close();
 			System.out.println("Usuario foi criado com sucesso");
 		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );			
+			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );		
+			System.exit(0);
 		}
+		return usuario;
 	}
 
 	public String toJson (Usuario usuario){
@@ -203,43 +205,27 @@ public class DaoUsuario {
 		String nome = obj.getString ("nome");
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
-		//String datacriacao = obj.getString("datacriacao");
-		//int id = obj.getInt("id");
-
+	
 		Usuario usuario = new Usuario();
-		usuario.setDatacriacao(nome);
-		usuario.setSenha(senha);
-		usuario.setEmail(email);
-		//usuario.setDatacriacao(datacriacao);
-		//usuario.setId(id);
-
-		return usuario;
-	}	
-
-	public static Usuario alteraJSON(String jsonString){
-
-		 
-		 JSONObject obj = new JSONObject(jsonString);
-		 
-		 String json_string= obj.toString();
-		 		 
-		 json_string = obj.toString();
-		 
-		 String nome = obj.getString("nome");
-		 String senha = obj.getString("senha");
-		 String email = obj.getString("email");
-		 
-		 
-		 Usuario usuario = new Usuario();
-		 
-		 
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
+		return usuario;
+	}	
+
+	public static Usuario fromJSONal(String jsonString){
+		JSONObject obj = new JSONObject(jsonString);
+		String nome = obj.getString ("nome");
+		String senha = obj.getString ("senha");
+		String email = obj.getString ("email");
+		Integer id = obj.getInt("id");
 		
-		
-		return usuario;		 
-		 
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		usuario.setSenha(senha);
+		usuario.setEmail(email);
+		usuario.setId(id);
+		return usuario;
 	 }
 	
 	public static String toJsonArray (List<Usuario> usuario){
