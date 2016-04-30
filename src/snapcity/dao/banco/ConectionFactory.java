@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author informatica02
+ *
+ */
 public class ConectionFactory {
 	public static Connection getConnection() throws SQLException {
 		Connection c = null;

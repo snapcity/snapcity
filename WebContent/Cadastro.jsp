@@ -3,6 +3,7 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONException"%>
 
+
 <%@page language="java" import="snapcity.dao.DaoUsuario"%>
 <html>
 <head>
@@ -43,10 +44,62 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="/resources/demos/style.css">
+
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
+	$(document).ready(function() {
+	        $("#cadastrar").click(function() {
+	               $.ajax({
+	               url: "http://localhost:8080/snapcity/rest/usuarios",
+	               contentType: "application/json; charset=utf-8",
+	               type: "post",
+	               dataType:"json",
+	               data: JSON.stringify({nome : $('#nome').val(), senha : $('#senha').val(), email : $('#email').val()} ),
+	               success: function(data) {
+	                   console.log(data);
+	               }
+	               
+	           });
+	       });
+	       
+	   });
+	$(document).ready(function() {
+        $("#alterar").click(function() {
+               $.ajax({
+               url: "http://localhost:8080/snapcity/rest/usuarios",
+               contentType: "application/json; charset=utf-8",
+               type: "put",
+               dataType:"json",
+               data: JSON.stringify({id : $('#id1').val(), nome : $('#nome1').val(), senha : $('#senha1').val(), email : $('#email1').val()} ),
+               success: function(data) {
+                   console.log(data);
+               }
+               
+           });
+       });
+       
+   });
+	$(document).ready(function(){
+		$("#excluir").click(function(){
+		     $.ajax({
+		         type: "delete",
+		         url: "http://localhost:8080/snapcity/rest/usuarios/{id}",
+		         contentType: "application/json; charset=utf-8",
+		         data: JSON.stringify($('#id2').val() ),
+		         dataType: "string",
+		         success: function (data, status, jqXHR) {
+		             // do something
+		         },
+		     
+		         error: function (jqXHR, status) {
+		             // error handler
+		         }
+		     });
+		});
+	});
+	
 </script>
 </head>
 <body>
@@ -58,11 +111,10 @@
 			<li><a href="#tabs-3">Buscar Cadastro</a></li>
 			<li><a href="#tabs-4">Excluir Cadastro</a></li>
 		</ul>
-		</ul>
 		<div id="tabs-1">
 			<p>
 			<div class="panel-body">
-				<form action="/insereUsuario" method="POST">
+				<form action="" method="POST">
 					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
 							class="form-control" id="nome" name="nome" type="text">
@@ -77,6 +129,7 @@
 					</div>
 					<input type="submit" id="cadastrar" class="btn btn-default"
 						value="Enviar" />
+
 				</form>
 			</div>
 			</p>
@@ -87,46 +140,52 @@
 			<div class="panel-body">
 				<form action="" method="POST">
 					<div class="form-group">
+						<label for="inputlg">Id</label> <input class="form-control"
+							id="id1" name="id1" type="text">
+					</div>
+					
+					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
-							class="form-control" id="nome" name="nome" type="text">
+							class="form-control" id="nome1" name="nome1" type="text">
 					</div>
 					<div class="form-group">
 						<label for="inputlg">Senha</label> <input class="form-control"
-							id="senha" name="senha" type="text">
+							id="senha1" name="senha1" type="text">
 					</div>
 					<div class="form-group">
 						<label for="inputsm">Email</label> <input class="form-control"
-							id="email" name="email" type="text">
+							id="email1" name="email1" type="text">
 					</div>
-					<input type="submit" id="cadastrar" class="btn btn-default"
-						value="Enviar Alteração" />
+					<input type="submit" id="alterar" class="btn btn-default"
+						value="Alterar Cadastro" />
 				</form>
 			</div>
-			
+
 		</div>
 
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="rest/usuarios" method="POST">
+				<form action="rest/usuarios" method="GET">
 					<div class="form-group">
-
+						<label for="inputlg">ID</label> <input class="form-control"
+							id="id" name="id" type="text">
 					</div>
-					<input type="submit" id="Buscar" class="btn btn-default"
+					<input type="submit" id="buscar" class="btn btn-default"
 						value="Buscar" />
 				</form>
 			</div>
-			
+
 		</div>
 		<div id="tabs-4">
 			<p>
 			<div class="panel-body">
-				<form action="" method="POST">
+				<form action="/rest/usuarios/{id}" method="POST">
 					<div class="form-group">
-						<label for="inputlg">Nome Completo</label> <input
-							class="form-control" id="nome" name="nome" type="text">
+						<label for="inputlg">ID</label> <input
+							class="form-control" id="id2" name="id" type="text">
 					</div>
-					<input type="submit" id="Excluir" class="btn btn-default"
+					<input type="submit" id="excluir" class="btn btn-default"
 						value="Excluir" />
 				</form>
 			</div>
@@ -138,29 +197,9 @@
 </body>
 			</html>
 		</div>
-
-
-	<%
-		//recebe o valor digitado no campo usuario
-		String nome = request.getParameter("nome");
-
-		//recebe o valor digitado no campo senha
-		String senha = request.getParameter("senha");
-
-		//recebe o valor digitado no campo Email
-		String email = request.getParameter("email");
-
-		JSONObject usuario = new JSONObject();
-
-		usuario.put("nome", nome);
-		usuario.put("senha", senha);
-		usuario.put("email", email);
-
-		String user = usuario.toString();
-		out.println("objeto original -> " + user);
-		System.out.println("objeto original -> " + user);
-	%>
+		
 	</div>
-
 </body>
 </html>
+Status API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Contact Help
