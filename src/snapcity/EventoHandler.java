@@ -48,9 +48,9 @@ public class EventoHandler   {
 				 json.put(DaoEvento.toJson(e));
 			}
 			
-		//o.put("eventos", json);
+		o.put("eventos", json);
 		
-		return Response.ok(200).entity(json.toString()).build();
+		return Response.ok(200).entity(o.toString()).build();
 		
 		
 	}
