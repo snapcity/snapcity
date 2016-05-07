@@ -26,9 +26,7 @@
     				    itens += "<td>" + retorno[i].longitude + "</td>";
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";
-    				    itens += "<td>" + retorno[i].datahora + "</td>";
-//    				    itens += "<td>" + retorno[i].Empresa + "</td>";
-//    				    itens += "<td>" + retorno[i].Setor + "</td>";
+    				    itens += "<td>" + retorno[i].datacriacao + "</td>"; 				 
     				    itens += "</tr>";
     			    }
     			    //Preencher a Tabela

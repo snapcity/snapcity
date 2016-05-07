@@ -1,7 +1,6 @@
 <%@page import="snapcity.model.Evento"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.List"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.List"%>
 <%@page language="java" import="snapcity.dao.DaoEvento"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,181 +20,75 @@
 	crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script
+<script>
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 	
-<script type="text/javascript">
-var Base64 = {
+<meta charset="utf-8">
+<title>jQuery UI Tabs - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
 
 
-	    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
-
-	    encode: function(input) {
-	        var output = "";
-	        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-	        var i = 0;
-
-	        input = Base64._utf8_encode(input);
-
-	        while (i < input.length) {
-
-	            chr1 = input.charCodeAt(i++);
-	            chr2 = input.charCodeAt(i++);
-	            chr3 = input.charCodeAt(i++);
-
-	            enc1 = chr1 >> 2;
-	            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-	            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-	            enc4 = chr3 & 63;
-
-	            if (isNaN(chr2)) {
-	                enc3 = enc4 = 64;
-	            } else if (isNaN(chr3)) {
-	                enc4 = 64;
-	            }
-
-	            output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
-
-	        }
-
-	        return output;
-	    },
-
-
-	    decode: function(input) {
-	        var output = "";
-	        var chr1, chr2, chr3;
-	        var enc1, enc2, enc3, enc4;
-	        var i = 0;
-
-	        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-	        while (i < input.length) {
-
-	            enc1 = this._keyStr.indexOf(input.charAt(i++));
-	            enc2 = this._keyStr.indexOf(input.charAt(i++));
-	            enc3 = this._keyStr.indexOf(input.charAt(i++));
-	            enc4 = this._keyStr.indexOf(input.charAt(i++));
-
-	            chr1 = (enc1 << 2) | (enc2 >> 4);
-	            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-	            chr3 = ((enc3 & 3) << 6) | enc4;
-
-	            output = output + String.fromCharCode(chr1);
-
-	            if (enc3 != 64) {
-	                output = output + String.fromCharCode(chr2);
-	            }
-	            if (enc4 != 64) {
-	                output = output + String.fromCharCode(chr3);
-	            }
-
-	        }
-
-	        output = Base64._utf8_decode(output);
-
-	        return output;
-
-	    },
-
-	    _utf8_encode: function(string) {
-	        string = string.replace(/\r\n/g, "\n");
-	        var utftext = "";
-
-	        for (var n = 0; n < string.length; n++) {
-
-	            var c = string.charCodeAt(n);
-
-	            if (c < 128) {
-	                utftext += String.fromCharCode(c);
-	            }
-	            else if ((c > 127) && (c < 2048)) {
-	                utftext += String.fromCharCode((c >> 6) | 192);
-	                utftext += String.fromCharCode((c & 63) | 128);
-	            }
-	            else {
-	                utftext += String.fromCharCode((c >> 12) | 224);
-	                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-	                utftext += String.fromCharCode((c & 63) | 128);
-	            }
-
-	        }
-
-	        return utftext;
-	    },
-
-	    _utf8_decode: function(utftext) {
-	        var string = "";
-	        var i = 0;
-	        var c = c1 = c2 = 0;
-
-	        while (i < utftext.length) {
-
-	            c = utftext.charCodeAt(i);
-
-	            if (c < 128) {
-	                string += String.fromCharCode(c);
-	                i++;
-	            }
-	            else if ((c > 191) && (c < 224)) {
-	                c2 = utftext.charCodeAt(i + 1);
-	                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-	                i += 2;
-	            }
-	            else {
-	                c2 = utftext.charCodeAt(i + 1);
-	                c3 = utftext.charCodeAt(i + 2);
-	                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-	                i += 3;
-	            }
-
-	        }
-
-	        return string;
-	    }
-
-	}
-	    
-	    
-	    
-	var encode = document.getElementById('encode'),
-	    decode = document.getElementById('decode'),
-	    output = document.getElementById('output'),
-	    input = document.getElementById('input');
-
-
-	encode.onclick = function() {
-	    output.innerHTML = Base64.encode(input.value);
-	}
-	    
-	decode.onclick = function() {
-	    var $str = output.innerHTML;
-	    output.innerHTML = Base64.decode($str);
-	}  
-</script>	
+<script type='text/javascript'>
 	
-	<script type="text/javascript">
-	$(document).ready(function() {
-        $("#cadastrar").click(function() {
-               $.ajax({
-               url: "http://localhost:8080/snapcity/rest/evento",
-               contentType: "application/json; charset=utf-8",
-               type: "post",
-               dataType:"json",
-               data: JSON.stringify({id : $('#id').val(), descricao : $('#descricao').val(), longitude : $('#longitude').val(),  latitude : $('#latitude').val()),
-               success: function(data) {
-                   console.log(data);
-               }
-               
-           });
-       });
-       
-   });
-</script>
+function encodeImageFileAsURL() {
 
+  var filesSelected = document.getElementById("foto").files;
+  if (filesSelected.length > 0) {
+    var fileToLoad = filesSelected[0];
+
+    var fileReader = new FileReader();
+
+    fileReader.onload = function(fileLoadedEvent) {
+      var srcData = fileLoadedEvent.target.result; // <--- data: base64
+	  console.log(srcData);
+      var newImage = document.createElement('img');
+      newImage.src = srcData; 
+   
+
+      document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+    //  jsonString = "Converted Base64 version is " + document.getElementById("imgTest").innerHTML;
+      jsonString = document.getElementById("imgTest").innerHTML;
+      
+     // console.log(jsonString);
+    }
+    fileReader.readAsDataURL(fileToLoad);
+    return encodeImageFileAsURL;
+  }
+}
+</script>
+<script>
+$(document).ready(function() {
+    $("#cadastrar").click(function() {
+    	
+	    	var p = new Object();
+	        p.foto = srcData;
+	      // p.foto = "sdfsdfsdfbsdfsdfdsf";
+        
+           $.ajax({
+           url: "http://localhost:8080/snapcity/rest/evento",
+           contentType: "application/json; charset=utf-8",
+           type: "post",
+           dataType:"json",
+          data: JSON.stringify({foto : p.foto, descricao : $('#descricao').val(), longitude : $('#longitude').val(),  latitude : $('#latitude').val(), tags : $('#tags').val(),  id_usuario : $('#id_usuario').val()}),
+        
+           success: function(data) {
+               console.log(data);
+               
+           }
+           
+       });
+   });
+   
+});
+
+</script>
+		
 <title>Cadastra Eventos</title>
 </head>
 <body>
@@ -207,8 +100,9 @@ var Base64 = {
 			<div class="panel-body">
 				<form action="" method="POST">
 					<div class="form-group">
-						<label for="inputdefault">Foto</label> <input class="form-control"
-							id="foto" name="foto" type="file" accept="image/*">
+						<input id="foto" type="file" onchange="encodeImageFileAsURL();" /> 
+						<!-- <input id="foto" type="text" name="foto" value="asdasdasd" />-->
+						
 					</div> 
 					<div class="form-group">
 						<label for="inputlg">Descrição</label> <input class="form-control"
@@ -220,36 +114,23 @@ var Base64 = {
 					</div>
 					<div class="form-group">
 						<label for="inputsm">Latitude</label> <input class="form-control"
-							id="latitude" name="latitude" type="text">
+							id="latitude" name="latitude" type="number" min="0">
 					</div>
-					<input type="hidden" name="id" id="id" value="20" >
+					
 					<div class="form-group">
 						<label for="inputsm">Longitude</label> <input class="form-control"
-							id="longitude" name="longitude" type="text">
+							id="longitude" name="longitude" type="number" min="0">
 					</div>
-
+					
+					 <input id="id_usuario" name="id_usuario" type="hidden" value="20">
+					
 					<input type="submit" id="cadastrar" class="btn btn-default"
 						value="Enviar" />
+						
 				</form>
 			</div>
 		</div>
-<%
-		    snapcity.dao.DaoEvento eventos = new DaoEvento();
-			String foto = request.getParameter("foto");
-			foto = eventos.encodeToString("/Users/marcelodasrodrigues/Desktop/"+foto); 
-			String descricao = request.getParameter("descricao");
-			String tags = request.getParameter("tags");
-			String latitude = request.getParameter("latitude");
-			String longitude = request.getParameter("longitude");
-			
-			
-			
-			out.println("Foto: <img SRC=\"data:image/jpeg;base64,"+foto+"\">");
-			
-			
-			
-	%>
-	</div>
-
+		
+		<div id="imgTest"></div>
 </body>
 </html>

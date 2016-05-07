@@ -1,26 +1,30 @@
-package snapcity.dao;
+ package snapcity.dao;
 	
 	import java.sql.Connection;
-	import java.sql.ResultSet;
-	import java.sql.Statement;
-	import java.sql.Timestamp;
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.awt.image.BufferedImage;
-	import java.io.ByteArrayInputStream;
-	import java.io.File;
-	import java.io.FileInputStream;
-	
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
 	import javax.imageio.ImageIO;
-	
+
 	import org.json.*;
-	
+
 	import snapcity.model.*;
-	import snapcity.dao.banco.ConectionFactory;
-	import snapcity.model.Usuario;
-	import sun.misc.BASE64Decoder;
-	import sun.misc.BASE64Encoder;
-	
+import snapcity.dao.banco.ConectionFactory;
+import snapcity.model.Usuario;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+	/**
+	 * Classe de Dao de Eventos
+	 * @author Marcelo e Andersen
+	 *
+	 */
 	public class DaoEvento {
 	
 		Connection c = null;
@@ -28,7 +32,7 @@ package snapcity.dao;
 	
 		/**
 		 * Retorna todos os eventos cadastros.
-		 * @return Lista de {@link Evento} cadastros.
+		 * @return Lista de {@link Evento} mostra todos eventos.
 		 */
 		public List<Evento> mostrarEvento() {
 	
@@ -60,17 +64,19 @@ package snapcity.dao;
 			return eventos;
 		}
 	
-		//Busca eventos por descricao
-		public Evento buscaEvento(int idevento) {
+		/**
+		 * Retorna evento por ID
+		 * @param idEvento
+		 * @return Mostra {@link buscaEvento} Evento
+		 */
+		public Evento buscaEvento(int idEvento) {
 	
-	
-			try {
-	
+			try {	
 				Evento evento = new Evento();
 	
 				c = ConectionFactory.getConnection();
 				stmt = c.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from eventos where eventos.\"idEventos\"="+ idevento + ";");
+				ResultSet rs = stmt.executeQuery("select * from eventos where eventos.\"idEventos\"="+ idEvento + ";");
 				while (rs.next()) {
 	
 					int id = rs.getInt("idEventos");
@@ -104,13 +110,17 @@ package snapcity.dao;
 			}
 		}
 	
-		//M�todo para excluir um evento pelo id
-		public void excluiEvento(int id) {    
+		/**
+		 * Método que Exclui evento por ID
+		 * @param idEvento
+		 * @return Exclui {@link excluiEvento} evento
+		 */
+		public void excluiEvento(int idEvento) {    
 			try {  
 				c = ConectionFactory.getConnection(); 
 				c.setAutoCommit(false);
 				stmt = c.createStatement();
-				String sql = "DELETE FROM eventos WHERE eventos.\"idEventos\" = '" + id + "';";
+				String sql = "DELETE FROM eventos WHERE eventos.\"idEventos\" = '" + idEvento + "';";
 				stmt.executeUpdate(sql);
 				c.commit();
 				c.close();
@@ -122,8 +132,12 @@ package snapcity.dao;
 				System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 			}
 		}
-	
-		//Atualiza eventos, datahora � atualizado por uma var timestamp que pega data e hora atual.
+		
+		/**
+		 * Atualiza evento o campo datahora pega valores de data e hora atual do sistema em timestamp
+		 * @param evento
+		 * @return Atualiza {@link Evento}
+		 */
 		public void atualizaEvento(Evento evento) {    
 			try {  
 				c = ConectionFactory.getConnection();
@@ -145,7 +159,11 @@ package snapcity.dao;
 			}
 		} 
 	
-		//Insere eventos e datahota insere data e hora atual timestamp
+		
+		/**
+		 * Cadastra Evento, datahora insere data atual do sistema em timestamp
+		 * @param evento
+		 */
 		public void insereEvento(Evento evento){
 			try{
 				c = ConectionFactory.getConnection();
@@ -165,13 +183,18 @@ package snapcity.dao;
 			}
 		}
 	
-		//Encode de imagem base64	
+		
+		/** 
+		 * Método que retorna imagem codificada em base64
+		 * @param endereco
+		 * @return {@link encodeToString}
+		 */
 	
-		public static String encodeToString(String ender) {
+		public static String encodeToString(String endereco) {
 			String imageString = null;
 	
 			try {
-				File file = new File(ender);
+				File file = new File(endereco);
 				FileInputStream imageInFile = new FileInputStream(file);
 				byte imageData[] = new byte[(int)file.length()];
 				imageInFile.read(imageData);
@@ -186,7 +209,11 @@ package snapcity.dao;
 			return imageString;
 		}
 	
-		//Decode da imagem 
+		/**
+		 * Método de decodificação de imagem codificada em base64
+		 * @param imageString
+		 * @return {@link decodeToImage}
+		 */
 		public static BufferedImage decodeToImage(String imageString) {
 	
 			BufferedImage image = null;
@@ -205,25 +232,11 @@ package snapcity.dao;
 			return image;
 		}
 	
-		// para o Json
-		//	public String toJson (String foto, String descricao, String tags,String latitude, String longitude){
-		//		JSONObject evento = new JSONObject();
-		//		
-		//		Timestamp datacriaco = new Timestamp(System.currentTimeMillis());
-		//		
-		//		evento.put("foto", foto);
-		//		evento.put("descricao", descricao);
-		//		evento.put("tags", tags);
-		//		evento.put("latitude", latitude);
-		//		evento.put("longitude", longitude);
-		//		evento.put("datacriaco", datacriaco);
-		//		
-		//		
-		//		String eventoJson = evento.toString();
-		//		
-		//		
-		//		return eventoJson;
-		//	}
+		/**
+		 * Retorna objeto Evento para Json
+		 * @param evento
+		 * @return {@link toJson}
+		 */
 	
 		public static JSONObject toJson(Evento evento){
 			JSONObject obj = new JSONObject();
@@ -235,26 +248,57 @@ package snapcity.dao;
 			obj.put("datacriaco", evento.getDatahora());
 			return obj;
 		}
-	
+		
+		/**
+		 * Método que retorna Json para dados de Evento
+		 * @param strJson
+		 * @return {@link fromJson}
+		 */
 		public Evento fromJson(String strJson){
 			JSONObject eventoJson = new JSONObject(strJson);
-			Integer id = eventoJson.getInt("id");
-			String descricao = eventoJson.getString("descricao");
-			String tags = eventoJson.getString("tags");
-			Double latitude = eventoJson.getDouble("latitude");
-			Double longitude = eventoJson.getDouble("longitude");
-			String datacriacao = eventoJson.getString("datacriacao");
-			String foto = eventoJson.getString("foto");
-	
 			Evento evento = new Evento();
-			evento.setId(id);
-			evento.setDescricao(descricao);
-			evento.setTag(tags);
-			evento.setLatitude(latitude);
-			evento.setLongintude(longitude);
-			evento.setDatahora(datacriacao);
-			evento.setFoto(foto);
+			
 	
+			
+			if(eventoJson.has("id")){
+				
+				Integer id = eventoJson.getInt("id");
+				String descricao = eventoJson.getString("descricao");
+				String tags = eventoJson.getString("tags");
+				Double latitude = eventoJson.getDouble("latitude");
+				Double longitude = eventoJson.getDouble("longitude");
+				Integer id_usuario = eventoJson.getInt("id_usuario");
+
+				String foto = eventoJson.getString("foto");
+		
+				
+				evento.setId(id);
+				evento.setDescricao(descricao);
+				evento.setTag(tags);
+				evento.setLatitude(latitude);
+				evento.setLongintude(longitude);
+				evento.setUsuario(id_usuario);
+
+				evento.setFoto(foto);
+			}else{
+			
+				String descricao = eventoJson.getString("descricao");
+				String tags = eventoJson.getString("tags");
+				Double latitude = eventoJson.getDouble("latitude");
+				Double longitude = eventoJson.getDouble("longitude");
+				Integer id_usuario = eventoJson.getInt("id_usuario");
+				System.out.println(id_usuario);
+				String foto = eventoJson.getString("foto");
+		
+				
+				evento.setDescricao(descricao);
+				evento.setTag(tags);
+				evento.setLatitude(latitude);
+				evento.setLongintude(longitude);
+				evento.setUsuario(id_usuario);
+				evento.setFoto(foto);
+				
+			}
 			return evento;
 		}
 	

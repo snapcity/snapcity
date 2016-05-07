@@ -59,6 +59,7 @@
 	               data: JSON.stringify({nome : $('#nome').val(), senha : $('#senha').val(), email : $('#email').val()} ),
 	               success: function(data) {
 	                   console.log(data);
+	                   alert(data);
 	               }
 	               
 	           });
@@ -81,24 +82,27 @@
        });
        
    });
-	$(document).ready(function(){
-		$("#excluir").click(function(){
-		     $.ajax({
-		         type: "delete",
-		         url: "http://localhost:8080/snapcity/rest/usuarios/{id}",
-		         contentType: "application/json; charset=utf-8",
-		         data: JSON.stringify($('#id2').val() ),
-		         dataType: "string",
-		         success: function (data, status, jqXHR) {
-		             // do something
-		         },
-		     
-		         error: function (jqXHR, status) {
-		             // error handler
-		         }
-		     });
-		});
-	});
+	$(document).ready(function () {
+        $("#exclui").click(function () {
+           
+            var del = new Object();
+            del.id = $('#id2').val();
+            
+
+            $.ajax({
+                url: 'http://localhost:8080/snapcity/rest/usuarios/'+del.id,
+                type: 'DELETE',
+                dataType: 'json',
+                //data:del,
+                success: function (data, textStatus, xhr) {
+                    console.log(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+        });
+    });
 	
 </script>
 </head>
@@ -177,13 +181,14 @@
 			</div>
 
 		</div>
+		<!--  EXCLUIR -->
 		<div id="tabs-4">
 			<p>
 			<div class="panel-body">
-				<form action="/rest/usuarios/{id}" method="POST">
+				<form>
 					<div class="form-group">
 						<label for="inputlg">ID</label> <input
-							class="form-control" id="id2" name="id" type="text">
+							class="form-control" id="id2" name="id2" type="text">
 					</div>
 					<input type="submit" id="excluir" class="btn btn-default"
 						value="Excluir" />
