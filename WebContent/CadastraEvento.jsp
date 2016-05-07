@@ -67,7 +67,7 @@ $(document).ready(function() {
     $("#cadastrar").click(function() {
     	
 	    	var p = new Object();
-	        p.foto = srcData;
+	        p.foto = jsonString;
 	      // p.foto = "sdfsdfsdfbsdfsdfdsf";
         
            $.ajax({
