@@ -51,8 +51,9 @@ function encodeImageFileAsURL() {
       newImage.src = srcData; 
    
 
-      document.getElementById("imgTest").innerHTML = newImage.outerHTML;
-    //  jsonString = "Converted Base64 version is " + document.getElementById("imgTest").innerHTML;
+    //  document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+      document.getElementById("imgTest").innerHTML = srcData;
+    
       jsonString = document.getElementById("imgTest").innerHTML;
       
      // console.log(jsonString);
@@ -67,18 +68,21 @@ $(document).ready(function() {
     $("#cadastrar").click(function() {
     	
 	    	var p = new Object();
-	        p.foto = jsonString;
-	      // p.foto = "sdfsdfsdfbsdfsdfdsf";
+	    	
+	    	
+	       p.foto = jsonString;
+	       //p.foto = "sdfsdfsdfbsdfsdfdsf";
         
            $.ajax({
            url: "http://localhost:8080/snapcity/rest/evento",
            contentType: "application/json; charset=utf-8",
            type: "post",
            dataType:"json",
-          data: JSON.stringify({foto : p.foto, descricao : $('#descricao').val(), longitude : $('#longitude').val(),  latitude : $('#latitude').val(), tags : $('#tags').val(),  id_usuario : $('#id_usuario').val()}),
+          data: JSON.stringify({id : $('#id').val(), foto : p.foto, descricao : $('#descricao').val(), longitude : $('#longitude').val(),  latitude : $('#latitude').val(), tags : $('#tags').val(),  id_usuario : $('#id_usuario').val()}),
         
            success: function(data) {
                console.log(data);
+          
                
            }
            
@@ -93,15 +97,17 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="container">
+	<%@ include file="menu.jsp" %>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Cadastra Evento</h3>
 			</div>
 			<div class="panel-body">
+			<div id="msg"></div>
 				<form action="" method="POST">
 					<div class="form-group">
 						<input id="foto" type="file" onchange="encodeImageFileAsURL();" /> 
-						<!-- <input id="foto" type="text" name="foto" value="asdasdasd" />-->
+						<!-- <input id="foto" type="text" name="foto" value="asdasdasd" /> -->
 						
 					</div> 
 					<div class="form-group">
@@ -121,8 +127,11 @@ $(document).ready(function() {
 						<label for="inputsm">Longitude</label> <input class="form-control"
 							id="longitude" name="longitude" type="number" min="0">
 					</div>
-					
-					 <input id="id_usuario" name="id_usuario" type="hidden" value="20">
+					 <!-- Id do usuário -->
+					 <input id="id_usuario" name="id_usuario" type="hidden" value="21">
+					 
+					 <!-- input criado para poder gravar em evento -->
+					 <input id="id" name="id" type="hidden" value="0">
 					
 					<input type="submit" id="cadastrar" class="btn btn-default"
 						value="Enviar" />

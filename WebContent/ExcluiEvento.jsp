@@ -62,7 +62,12 @@
 <title>Exclui Eventos</title>
 </head>
 <body>
-	<div class="container">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+		<%@ include file="menu.jsp" %>
+	
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Exclui Evento</h3>
@@ -82,6 +87,8 @@
 		</div>
 	
 	</div>
+</div>
+</div>
 
 </body>
 </html>

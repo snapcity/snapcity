@@ -28,22 +28,21 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script>
          $(document).ready(function () {
-             $("#cadastrar").click(function () {
-                
+             $("#buscar").click(function () {
                  var mostra = new Object();
                  mostra.id = $('#id').val();
-                 
- 
                  $.ajax({
                      url: 'http://localhost:8080/snapcity/rest/evento/'+mostra.id,
                      type: 'GET',
                      dataType: 'json',
                      data:mostra,
-                     success: function (data, textStatus, xhr) {
-                         console.log(data);
+                     error: function (data, textStatus, xhr) {
+                    	 $("#resBusca").html('Não foi encontrado nada');
                      },
-                     error: function (xhr, textStatus, errorThrown) {
-                         console.log('Error in Operation');
+                     success: function (data, textStatus, xhr) {
+                    	 
+                    	 	$('#carregando').hide();
+ 						 	$("#resBusca").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td><img height="100" width="100" SRC="'+data.foto+'"></td> <td></br>Descrição: '+ data.descricao +'</td> </tr><tr> <td>Latitude: '+ data.latitude +'</td> </tr><tr> <td>Longitude: '+ data.longitude+'</td> </tr><tr> <td>Tags: '+ data.tags+'</td> </tr><tr> <td>Data de criação: '+ data.datacriacao+'</td> </tr></table>');
                      }
                  });
              });
@@ -54,23 +53,25 @@
 </head>
 <body>
 	<div class="container">
+	<%@ include file="menu.jsp" %>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Busca Eventos </h3>
+				<h3 class="panel-title">Busca Evento </h3>
 			</div>
 			<div class="panel-body">
 				<form >	
 					<div class="form-group">
 						<label for="inputlg">ID</label> <input class="form-control"
-							id="id" name="id" type="text">
+							id="id" name="id" type="number" min="0">
 					</div>
-					
-
-					<input type="button" id="cadastrar" value="Buscar" />
+					<input type="button" id="buscar" value="Buscar" />
 				</form>
-			</div>
+			</div>	
 		</div>
-		
+	<br/>
+	<div id="carregando" style="display:none;"><img src="img/carregandoAjax.gif" /></div>
+	<!--Aqui é onde vai aparecer o resultado da busca-->
+	<div id="resBusca"></div>	
 	</div>
 
 </body>

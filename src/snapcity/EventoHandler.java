@@ -1,45 +1,28 @@
 package snapcity;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.URI;
-
-import snapcity.dao.DaoEvento;
-import snapcity.dao.DaoUsuario;
-import snapcity.model.Evento;
-import snapcity.model.Usuario;
+import java.util.Iterator;
+ import java.util.List;
+ import java.io.*;
+ 
+ import javax.servlet.http.HttpServlet;
+ import javax.ws.rs.Consumes;
+ import javax.ws.rs.DELETE;
+ import javax.ws.rs.GET;
+ import javax.ws.rs.POST;
+ import javax.ws.rs.PUT;
+ import javax.ws.rs.Path;
+ import javax.ws.rs.PathParam;
+ import javax.ws.rs.Produces;
+ import javax.ws.rs.core.MediaType;
+ import javax.ws.rs.core.Response;
+ 
+ import org.json.JSONArray;
+ import org.json.JSONObject;
+ 
+ import snapcity.dao.DaoEvento;
+ import snapcity.dao.DaoUsuario;
+ import snapcity.model.Evento;
+ import snapcity.model.Usuario;
 
 
 
@@ -65,15 +48,15 @@ public class EventoHandler   {
 				 json.put(DaoEvento.toJson(e));
 			}
 			
-		o.put("eventos", json);
+	//	o.put("eventos", json);
 		
-		return Response.ok(200).entity(o.toString()).build();
+		return Response.ok(200).entity(json.toString()).build();
 		
 		
 	}
 	
 	
-	
+	//ok
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postEvento(String jsonString) {
@@ -99,9 +82,9 @@ public class EventoHandler   {
     @Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") Integer id) {
-		
+		System.out.println(id);
 		daoEventos.excluiEvento(id);
-		return Response.ok(200).entity("Evento de numero "+id+" foi removido").build();
+		return Response.ok(200).entity("Evento de numero " +id+ " foi removido").build();
     }
 	
 	@PUT

@@ -171,7 +171,7 @@ import sun.misc.BASE64Encoder;
 				Timestamp datahora = new Timestamp(System.currentTimeMillis()); 
 				stmt = c.createStatement();
 				String sql = "INSERT INTO eventos (foto,descricao,latitude,longitude,id_usuario,tags,datahora)"
-						+" values ('"+evento.getFoto()+"','"+evento.getDescricao()+"','"+evento.getLatitude()+"','"+evento.getLongintude()+"','"+evento.getId()+"','"+evento.getTag()+"','"+datahora+"');";
+						+" values ('"+evento.getFoto()+"','"+evento.getDescricao()+"','"+evento.getLatitude()+"','"+evento.getLongintude()+"','"+evento.getIdUsuario()+"','"+evento.getTag()+"','"+datahora+"');";
 	
 				stmt.executeUpdate(sql);
 				c.commit();
@@ -240,12 +240,13 @@ import sun.misc.BASE64Encoder;
 	
 		public static JSONObject toJson(Evento evento){
 			JSONObject obj = new JSONObject();
+			obj.put("id", evento.getId());
 			obj.put("descricao", evento.getDescricao());
 			obj.put("foto", evento.getFoto());
 			obj.put("longitude", evento.getLongintude());
 			obj.put("latitude", evento.getLatitude());
 			obj.put("tags", evento.getTag());
-			obj.put("datacriaco", evento.getDatahora());
+			obj.put("datacriacao", evento.getDatahora());
 			return obj;
 		}
 		
