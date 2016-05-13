@@ -1,7 +1,8 @@
  function carregarItens(){
-	 
-	 
-    	var itens = "", url = "http://localhost:8080/snapcity/rest/evento";
+    	
+    	var itens = "", url = "http://localhost:8080/snapcity/rest/usuarios";
+	  
+    	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
     	    url: url,
     	    cache: false,
@@ -21,9 +22,9 @@
     			    for(var i = 0; i<retorno.length; i++){
     				    itens += "<tr>";
     				    itens += "<td>" + retorno[i].id + "</td>";
-    				    itens += "<td>" + retorno[i].longitude + "</td>";
-    				    itens += "<td>" + retorno[i].latitude + "</td>";
-    				    itens += "<td>" + retorno[i].descricao + "</td>";
+    				    itens += "<td>" + retorno[i].nome + "</td>";
+    				    itens += "<td>" + retorno[i].senha + "</td>";
+    				    itens += "<td>" + retorno[i].email + "</td>";
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
     				    itens += "</tr>";
     			    }
@@ -34,7 +35,5 @@
     			    $("h2").html("Carregado");
     		    }
     	    }
-    	    
         });
-        
     }

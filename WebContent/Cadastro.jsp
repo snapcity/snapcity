@@ -25,6 +25,12 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
+	
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="js/scriptUsuario.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <title>Cadastra Usuario</title>
 </head>
@@ -37,73 +43,129 @@
 			<!doctype html>
 			<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>jQuery UI Tabs - Default functionality</title>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
 
 <script>
 	$(function() {
 		$("#tabs").tabs();
 	});
-	$(document).ready(function() {
-	        $("#cadastrar").click(function() {
-	               $.ajax({
-	               url: "http://localhost:8080/snapcity/rest/usuarios",
-	               contentType: "application/json; charset=utf-8",
-	               type: "post",
-	               dataType:"json",
-	               data: JSON.stringify({nome : $('#nome').val(), senha : $('#senha').val(), email : $('#email').val()} ),
-	               success: function(data) {
-	                   console.log(data);
-	                   alert(data);
-	               }
-	               
-	           });
-	       });
-	       
-	   });
-	$(document).ready(function() {
-        $("#alterar").click(function() {
-               $.ajax({
-               url: "http://localhost:8080/snapcity/rest/usuarios",
-               contentType: "application/json; charset=utf-8",
-               type: "put",
-               dataType:"json",
-               data: JSON.stringify({id : $('#id1').val(), nome : $('#nome1').val(), senha : $('#senha1').val(), email : $('#email1').val()} ),
-               success: function(data) {
-                   console.log(data);
-               }
-               
-           });
-       });
-       
-   });
-	$(document).ready(function () {
-        $("#exclui").click(function () {
-           
-            var del = new Object();
-            del.id = $('#id2').val();
-            
 
-            $.ajax({
-                url: 'http://localhost:8080/snapcity/rest/usuarios/'+del.id,
-                type: 'DELETE',
-                dataType: 'json',
-                //data:del,
-                success: function (data, textStatus, xhr) {
-                    console.log(data);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error in Operation');
-                }
-            });
-        });
-    });
+	//Metodo chamada Ajax para cadastro de usuario
+	$(document).ready(function() {
+		$("#cadastrar").click(function() {
+			$.ajax({
+				url : "http://localhost:8080/snapcity/rest/usuarios",
+				contentType : "application/json; charset=utf-8",
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify({
+					nome : $('#nome').val(),
+					senha : $('#senha').val(),
+					email : $('#email').val()
+				}),
+				success : function(data) {
+					console.log(data);
+
+				}
+
+			});
+		});
+
+	});
+
+	// Metodo de chamada Ajax para Alterar o Cadastro
+	$(document).ready(function() {
+		$("#alterar").click(function() {
+			$.ajax({
+				url : "http://localhost:8080/snapcity/rest/usuarios",
+				contentType : "application/json; charset=utf-8",
+				type : "put",
+				dataType : "json",
+				data : JSON.stringify({
+					id : $('#id1').val(),
+					nome : $('#nome1').val(),
+					senha : $('#senha1').val(),
+					email : $('#email1').val()
+				}),
+				success : function(data) {
+					console.log(data);
+				}
+
+			});
+		});
+
+	});
+
 	
+	//Metodo de chamada Ajax para buscar um Usuario pelo ID
+	$(document).ready(function() {
+		$("#buscar").click(function() {
+			var mostra = new Object();
+			mostra.id = $('#id').val();
+				$.ajax({
+					url : "http://localhost:8080/snapcity/rest/usuarios/"+ mostra.id,
+					type : 'GET',
+					dataType : 'json',
+					data : mostra,
+					error: function (data, textStatus, xhr) {
+                   	 $("#resBusca1").html('Não foi encontrado nada');
+                    },
+                    success: function (data, textStatus, xhr) {
+                   	 
+                   	 	$('#carregando').hide();
+						 	$("#resBusca1").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td>Id='+data.id+'</td> </tr> <td>Nome: '+ data.nome +'</td> </tr><tr> <td>Senha: '+ data.senha +'</td> </tr><tr> <td>Email: '+ data.email+'</td> </tr><tr>  <td>Data de criação: '+ data.datacriacao+'</td> </tr></table>');
+                    }
+
+				});
+			});
+	});
+
+	$(document).ready(function() {
+		$("#buscarEvento").click(function() {
+			var mostra = new Object();
+			mostra.id = $('#id5').val();
+				$.ajax({
+					url : "http://localhost:8080/snapcity/rest/usuarios/evento/"+ mostra.id,
+					type : 'GET',
+					dataType : 'json',
+					data : mostra,
+					error: function (data, textStatus, xhr) {
+		                   	 $("#resBusca").html('Não foi encontrado nada');
+		                    },
+		            success: function (data, textStatus, xhr) {
+		            	 for(var i = 0; i<data.length; i++){
+		                   	 	$('#carregando').hide();
+		                   	 $("#resBusca").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td><img height="100" width="100" SRC="'+data[i].foto+'"></td> <td></br>Nome: '+ data[i].nome +'</td><td></br>Descrição: '+ data[i].descricao +'</td> </tr><tr> <td>Latitude: '+ data[i].latitude +'</td> </tr><tr> <td>Longitude: '+ data[i].longitude+'</td> </tr><tr> <td>Tags: '+ data[i].tags+'</td> </tr><tr> <td>Data de criação: '+ data[i].datacriacao+'</td> </tr></table>');
+		            	 }
+		                    }
+
+				});
+			});
+	});
+	
+
+	//Metodo de chamada Ajax para excluir usuario pelo seu ID
+	$(document).ready(function() {
+		$("#excluir").click(function() {
+
+			var del = new Object();
+			del.id = $('#id2').val();
+
+			$.ajax({
+				url : 'http://localhost:8080/snapcity/rest/usuarios/' + del.id,
+				type : 'DELETE',
+				dataType : 'json',
+				//data:del,
+				success : function(data, textStatus, xhr) {
+					console.log(data);
+
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					console.log('Error in Operation');
+				}
+			});
+		});
+	});
+
 </script>
 </head>
 <body>
@@ -113,8 +175,11 @@
 			<li><a href="#tabs-1">Cadastro</a></li>
 			<li><a href="#tabs-2">Alterar Cadastro</a></li>
 			<li><a href="#tabs-3">Buscar Cadastro</a></li>
+			<li><a href="#tabs-5">Mostra Usuarios</a></li>
 			<li><a href="#tabs-4">Excluir Cadastro</a></li>
+			<li><a href="#tabs-6">Mostra Eventos </a></li>
 		</ul>
+
 		<div id="tabs-1">
 			<p>
 			<div class="panel-body">
@@ -147,7 +212,7 @@
 						<label for="inputlg">Id</label> <input class="form-control"
 							id="id1" name="id1" type="text">
 					</div>
-					
+
 					<div class="form-group">
 						<label for="inputlg">Nome Completo</label> <input
 							class="form-control" id="nome1" name="nome1" type="text">
@@ -170,41 +235,82 @@
 		<div id="tabs-3">
 			<p>
 			<div class="panel-body">
-				<form action="rest/usuarios" method="GET">
+				<form>
 					<div class="form-group">
 						<label for="inputlg">ID</label> <input class="form-control"
-							id="id" name="id" type="text">
+							id="id" name="id" type="number" min="0">
 					</div>
-					<input type="submit" id="buscar" class="btn btn-default"
-						value="Buscar" />
+					<input type="button" id="buscar" value="Buscar" />
 				</form>
 			</div>
-
+			<!--Aqui é onde vai aparecer o resultado da busca-->
+			<div id="resBusca1"></div>
 		</div>
-		<!--  EXCLUIR -->
 		<div id="tabs-4">
 			<p>
 			<div class="panel-body">
-				<form>
-					<div class="form-group">
-						<label for="inputlg">ID</label> <input
-							class="form-control" id="id2" name="id2" type="text">
-					</div>
-					<input type="submit" id="excluir" class="btn btn-default"
-						value="Excluir" />
-				</form>
+				<div class="form-group">
+					<label for="inputlg">ID</label> <input class="form-control"
+						id="id2" name="id" type="text">
+				</div>
+				<input type="submit" id="excluir" class="btn btn-default"
+					value="Excluir" />
 			</div>
 			</p>
 		</div>
-	</div>
+		<div id="tabs-5">
+			<p>
+			<div class="panel-body">
+				<title>Mostra Usuarios</title>
+				<body onload="carregarItens()">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Mostra Todos os Usuario</h3>
+					</div>
 
 
-</body>
-			</html>
+					<section>
+						<h1>Usuarios</h1>
+						<!--Área que mostrará carregando-->
+						<h2></h2>
+						<!--Tabela-->
+						<table id="minhaTabela" class="table table-striped">
+							<caption>Retorno de dados</caption>
+							<thead>
+								<th>id</th>
+								<th>Nome</th>
+								<th>Senha</th>
+								<th>Email</th>
+								<th>Data de Criação</th>
+								<th>Ações</th>
+
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</section>
+			</div>
 		</div>
-		
+		</div>
+		<div id="tabs-6">
+			<p>
+			<div class="panel-body">
+				<form >
+					<div class="form-group">
+						<label for="inputlg">ID Usuario</label> <input class="form-control"
+							id="id5" name="id" type="number" min="0">
+					</div>
+					<input type="button" id="buscarEvento" value="Buscar" />
+				</form>
+			</div>
+	<!--Aqui é onde vai aparecer o resultado da busca-->
+	<div id="resBusca"></div>
+		</div>
+</body>
+		</div>
+		</p>
+</div>
 	</div>
 </body>
+	
 </html>
-Status API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help

@@ -1,68 +1,65 @@
 package snapcity;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
-
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import snapcity.dao.DaoEvento;
 import snapcity.dao.DaoUsuario;
+import snapcity.model.Evento;
 import snapcity.model.Usuario;
 
-import java.net.URI;
-
-
-
-
-
-
-
 @Path("/usuarios")
-public class UsuarioHandler  {
+public class UsuarioHandler {
+	
 		DaoUsuario dao = new DaoUsuario();
 
 	
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getUsuario(Usuario usuario) {
 		List<Usuario> usuarios = dao.mostrarUsuario();
 		JSONArray array = new JSONArray();
 		for (Usuario user : usuarios)
-			array.put(dao.toJson(user));
-		return Response.ok().entity(array.toString()).build();		
+			array.put(DaoUsuario.toJson(user));
+		return Response.ok().entity(array.toString()).build();
+				
 	}
-
+	
+	
+	@GET
+	@Path("/evento/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response BuscaEventoUsuario(@PathParam("id") Integer id) {
+		List<Evento> evento = dao.buscaUsuariosEvento(id);
+		JSONArray array = new JSONArray();
+		for (Evento user : evento)
+			array.put(DaoEvento.toJson(user));
+		return Response.ok().entity(array.toString()).build();
+	}
+		
+		
+	@GET
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response buscaUsuario(@PathParam("id") Integer id) {
+		Usuario usuario = dao.buscaUsuario(id);
+		JSONObject json = DaoUsuario.toJson(usuario);
+		return Response.ok(200).entity(json.toString()).build();		
+	}
+	
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postUsuario(String jsonString) {
-		System.out.println(jsonString);
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.insereUsuario(user);
 		return Response.ok().entity("Cadastro Efetuado com Sucesso!").build();
@@ -72,7 +69,7 @@ public class UsuarioHandler  {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response putUsuario(String jsonString){
-		Usuario user = DaoUsuario.fromJSONal(jsonString);
+		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.atualizaUsuario(user);
 		return Response.status(200).entity("Cadastro Alterado com Sucesso!").build();
 	}
@@ -80,9 +77,8 @@ public class UsuarioHandler  {
 	@DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id2") Usuario id) {
-        
+    public Response delete(@PathParam("id") Integer id) {
         dao.excluiUsuario(id);
-        return Response.ok(200).entity("Evento de numero "+id+" foi removido").build();
+        return Response.ok().build();
     }
 }

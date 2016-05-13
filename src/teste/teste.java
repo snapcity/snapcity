@@ -1,4 +1,5 @@
 package teste;
+import snapcity.model.Evento;
 import snapcity.model.Usuario;
 import java.util.*;
 import java.io.File;
@@ -20,11 +21,16 @@ public class teste {
 		JSONObject obj = new JSONObject();
 
 		// -------------->> Insere Usuario <<-----------------------------//
-		// String json_str =
-		// "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
-		// Usuario user = DaoUsuario.fromJSON(json_str);
-		// dao.insereUsuario(user);
+//		 String json_str = "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
+//		 Usuario user = DaoUsuario.fromJSON(json_str);
+//		 dao.insereUsuario(user);
 
+		 List<Evento> evento = dao.buscaUsuariosEvento(28);
+		 JSONArray array = new JSONArray();
+		 for(Evento user : evento)
+			 array.put(DaoEvento.toJson(user)); 	
+		 System.out.println(array);
+		 
 		// -------------->> Atualiza Usuario <<-----------------------------//
 		// String json_str =
 		// "{\"nome\":\"andersen\",\"senha\":\"753\",\"email\":\"teste@2152.com.br\"}";
@@ -38,8 +44,8 @@ public class teste {
 
 		// -------------->>Busca Usuario <<-----------------------------//
 		// String usuario = dao.buscaUsuario(25);
-//		 Usuario userJson = DaoUsuario.toJson(usuario);
-//		 System.out.println(userJson);
+		// Usuario userJson = DaoUsuario.toJson(usuario);
+		// System.out.println(userJson);
 
 		// List<Usuario> usuario = dao.mostrarUsuario();
 		// String userJson = DaoUsuario.toJsonArray(usuario);

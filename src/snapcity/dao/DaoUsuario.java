@@ -1,25 +1,25 @@
 package snapcity.dao;
 import snapcity.model.Evento;
 import snapcity.model.Usuario;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.ws.rs.Path;
-
 import org.json.JSONObject;
-
 import snapcity.dao.banco.ConectionFactory;
 
+/**
+ * classe DaoUsuario faz a conexão dos metodos solicitados com o banco de dados
+ * @author Andersen Silva e Marcelo
+ *
+ */
 public class DaoUsuario {
 	Connection c = null;
 	Statement stmt = null;
 
-	// mostra todos os usuarios
+
 	/**
 	 * Mostra todos os Usuarios cadastrados
 	 * @return Lista de {@link mostrarUsuarios} cadastros.
@@ -51,25 +51,25 @@ public class DaoUsuario {
 		return usuarios;
 	}
 
-	// Método que busca eventos relacioandos com o usuario
+
 	/**
 	 * Método busca todos os eventos que um usuario esteja cadastrado
 	 * @param usuario
 	 * @return Lista de {@link buscaUsuariosEventos} cadastros.
 	 */
-	public List<Evento> buscaUsuariosEvento(Usuario usuario) {
+	public List<Evento> buscaUsuariosEvento(int id) {
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 
 			DaoEvento daoEvento = new DaoEvento();
-			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where  '"+ usuario.getId() + "' = usuarios.id;");
+			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where usuarios.id = '"+ id + "' and eventos.id_usuario ='"+ id +"';");
 			while (rs.next()) {
 				int idEvento = rs.getInt("idEventos");
-				//Evento evento = daoEvento.buscaEvento(idEvento);
-				//if (evento != null)
-					//eventos.add(evento);
+				Evento event = daoEvento.buscaEvento(idEvento);
+				if (event != null)
+					eventos.add(event);
 			}
 			rs.close();
 			c.close();
@@ -82,13 +82,13 @@ public class DaoUsuario {
 
 		return eventos;
 	}
-	// método que busca usuarios pelo id
+
 	/**
 	 * Busca todos usuario pelo seu ID de usuario
 	 * @return Lista de {@link buscaUsuarios} cadastros.
 	 * @param id
 	 */
-	public String buscaUsuario(int id) {  
+	public Usuario buscaUsuario(int id) {  
 		Usuario usuarios = new Usuario();
 		try {
 			c = ConectionFactory.getConnection();
@@ -110,21 +110,20 @@ public class DaoUsuario {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		return usuarios.toString();
-
+		return usuarios;
 	}  
 
-	//Exclui usuário identificado pelo id
 	/**
 	 * Exclui o usuario através de seu ID
-	 * @param usuario
+	 * @param id
 	 * @return Lista de {@link excluiUsuarios} cadastros.
 	 */
-	public Usuario excluiUsuario(Usuario usuario) {    
-		try {  
+	public void excluiUsuario(Integer id) {    
+		try {   
 			c = ConectionFactory.getConnection();
+			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql = "DELETE FROM usuarios WHERE id = '" + usuario.getId() + "';";
+			String sql = "DELETE FROM usuarios WHERE id = '" +id + "';";
 			stmt.executeUpdate(sql);
 			c.commit();
 			c.close();
@@ -134,10 +133,8 @@ public class DaoUsuario {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
 		System.out.println("Operacao com excluiUsuario com sucesso");
-		return usuario;
 	} 
 
-	//Atualiza usuarios
 	/**
 	 * Faz atualização de um usuario cadastrado
 	 * @param usuario
@@ -148,9 +145,11 @@ public class DaoUsuario {
 			c = ConectionFactory.getConnection();
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
+			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 			String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +
 					"',senha ='"+ usuario.getSenha() +
-					"', email = '"+ usuario.getId() +
+					"', email = '"+ usuario.getEmail() +
+					"', datacriacao = '"+datacriacao+
 					"' where id='"+ usuario.getId() +"';";
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -164,8 +163,6 @@ public class DaoUsuario {
 		System.out.println("Operacao com atualizaUsuarios com sucesso");
 
 	} 
-
-	
 	/**
 	 * Método para cadastrar um novo Usuário
 	 * @param usuario
@@ -176,8 +173,9 @@ public class DaoUsuario {
 			c = ConectionFactory.getConnection();
 			c.setAutoCommit(false); 
 			stmt = c.createStatement();
-			String sql = "INSERT INTO usuarios (nome,senha,email) values ('"
-			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"');";
+			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
+			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
+			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
@@ -190,51 +188,41 @@ public class DaoUsuario {
 		return usuario;
 	}
 
-	public String toJson (Usuario usuario){
+	public static JSONObject toJson (Usuario usuario){
 		JSONObject obj = new JSONObject();
 		obj.put("nome", usuario.getNome());
 		obj.put("senha", usuario.getSenha());
 		obj.put("email", usuario.getEmail());
 		obj.put("datacriacao", usuario.getDatacriacao());
 		obj.put("id", usuario.getId());
-		return obj.toString();
+		return obj;
 	}
+	
 
 	public static Usuario fromJSON(String jsonString){
 		JSONObject obj = new JSONObject(jsonString);
+		Usuario usuario = new Usuario();
+		if (obj.has("id")){
+		Integer id = obj.getInt("id");
 		String nome = obj.getString ("nome");
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
-	
-		Usuario usuario = new Usuario();
+		
+		usuario.setId(id);
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
+		}
+		else{
+		String nome = obj.getString ("nome");
+		String senha = obj.getString ("senha");
+		String email = obj.getString ("email");
+		
+		usuario.setNome(nome);
+		usuario.setSenha(senha);
+		usuario.setEmail(email);
+		}
 		return usuario;
 	}	
-
-	public static Usuario fromJSONal(String jsonString){
-		JSONObject obj = new JSONObject(jsonString);
-		String nome = obj.getString ("nome");
-		String senha = obj.getString ("senha");
-		String email = obj.getString ("email");
-		Integer id = obj.getInt("id");
-		
-		Usuario usuario = new Usuario();
-		usuario.setNome(nome);
-		usuario.setSenha(senha);
-		usuario.setEmail(email);
-		usuario.setId(id);
-		return usuario;
-	 }
 	
-	public static String toJsonArray (List<Usuario> usuario){
-		JSONObject obj = new JSONObject();
-		obj.put("nome", ((Usuario) usuario).getNome());
-		obj.put("senha", ((Usuario) usuario).getSenha());
-		obj.put("email", ((Usuario) usuario).getEmail());
-		obj.put("datacriacao", ((Usuario) usuario).getDatacriacao());
-		//obj.put("id", ((Evento) usuario).getId());
-		return obj.toString();
-	}
 }

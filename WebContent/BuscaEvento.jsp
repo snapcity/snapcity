@@ -1,4 +1,3 @@
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
@@ -29,6 +28,9 @@
 	<script>
          $(document).ready(function () {
              $("#buscar").click(function () {
+            	 
+            	 
+            	 
                  var mostra = new Object();
                  mostra.id = $('#id').val();
                  $.ajax({
@@ -36,13 +38,36 @@
                      type: 'GET',
                      dataType: 'json',
                      data:mostra,
-                     error: function (data, textStatus, xhr) {
-                    	 $("#resBusca").html('Não foi encontrado nada');
-                     },
+                     
                      success: function (data, textStatus, xhr) {
-                    	 
+                    	 	$('#formExclui').css("display","block");
                     	 	$('#carregando').hide();
  						 	$("#resBusca").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td><img height="100" width="100" SRC="'+data.foto+'"></td> <td></br>Descrição: '+ data.descricao +'</td> </tr><tr> <td>Latitude: '+ data.latitude +'</td> </tr><tr> <td>Longitude: '+ data.longitude+'</td> </tr><tr> <td>Tags: '+ data.tags+'</td> </tr><tr> <td>Data de criação: '+ data.datacriacao+'</td> </tr></table>');
+ 						 
+                     }
+                 
+                 });
+             }); 
+         });
+
+        
+         $(document).ready(function () {
+             $("#exclui").click(function () {
+                
+                 var del = new Object();
+                 del.id = $('#id').val();
+                 
+ 
+                 $.ajax({
+                     url: 'http://localhost:8080/snapcity/rest/evento/'+del.id,
+                     type: 'DELETE',
+                     dataType: 'json',
+                     //data:del,
+                     success: function (data, textStatus, xhr) {
+                         console.log(data);
+                     },
+                     error: function (xhr, textStatus, errorThrown) {
+                         console.log('Error in Operation');
                      }
                  });
              });
@@ -71,8 +96,13 @@
 	<br/>
 	<div id="carregando" style="display:none;"><img src="img/carregandoAjax.gif" /></div>
 	<!--Aqui é onde vai aparecer o resultado da busca-->
-	<div id="resBusca"></div>	
+	<div id="resBusca"><div>	
+	
+	<div id="formExclui" name="formExclui" style="display:none;">
+	<form >	<input type="button" id="exclui" value="Excluir" /></form>
 	</div>
-
+	
+	</div> 
+	
 </body>
 </html>

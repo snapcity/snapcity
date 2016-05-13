@@ -4,9 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import javax.ws.rs.core.Response;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +11,6 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 
 import snapcity.model.*;
 import snapcity.dao.DaoEvento;
-import snapcity.dao.DaoUsuario;
 import snapcity.model.Evento;
 import sun.text.normalizer.ReplaceableString;
 
@@ -33,22 +29,36 @@ public class TesteEvento {
 		snapcity.model.Evento modelEvento = new Evento();
 
 		// ----------- Mostra eventos OK
-		 List<Evento> resultado = daoEvento.mostrarEvento();
+		// Vector<Evento> resultado = daoEvento.mostrarEvento();
 
-		 JSONArray json = new JSONArray();
-			for (Evento e : resultado) {
-				 json.put(daoEvento.toJson(e));
-					
-			}
-			System.out.println(json);
-			
-			//return;
+		// for (Iterator<Evento> iterator = resultado.iterator();
+		// iterator.hasNext();) {
+		//
+		// Evento p = iterator.next();
+		// System.out.println("Evento: " +p.getDescricao());
+		// System.out.println("Tags: " +p.getTag());
+		// System.out.println("Longitude: " +p.getLongintude());
+		// System.out.println("Latitude: " +p.getLatitude());
+		// System.out.println("Data e Hora: " +p.getDatahora());
+		// System.out.println("Foto: " +p.getFoto());
+		// System.out.println("---------");
+		// }
 		//
 		// ----------- Busca OK
-//		 Evento resultado = daoEvento.buscaEvento(9);
-//		
-//		 String userJson = daoEvento.toJson(resultado);
-//		 System.out.println(userJson);
+		// Vector<Evento> resultado = daoEvento.buscaEvento("testebusca");
+		//
+		// for (Iterator<Evento> iterator = resultado.iterator();
+		// iterator.hasNext();) {
+		//
+		// Evento p = iterator.next();
+		// System.out.println("Evento: " +p.getDescricao());
+		// System.out.println("Tags: " +p.getTag());
+		// System.out.println("Longitude: " +p.getLongintude());
+		// System.out.println("Latitude: " +p.getLatitude());
+		// System.out.println("Data e Hora: " +p.getDatahora());
+		// System.out.println("Foto: " +p.getFoto());
+		// System.out.println("---------");
+		// }
 
 		// --------- Exclui Evento OK
 
@@ -76,9 +86,24 @@ public class TesteEvento {
 		// modelUsuario.setId(21);
 		// daoEvento.insereEvento(modelEvento, modelUsuario);
 
+		// --------- from Json mostra String Json ok
+//		Evento jsoevento = new Evento();
+//		Vector<Evento> evento = daoEvento.fromJson(stringJson);
+
+//		for (Iterator<Evento> iterator = evento.iterator(); iterator.hasNext();) {
+//
+//			Evento p = iterator.next();
+//			System.out.println("Evento: " + p.getDescricao());
+//			System.out.println("Tags: " + p.getTag());
+//			System.out.println("Longitude: " + p.getLongintude());
+//			System.out.println("Latitude: " + p.getLatitude());
+//			System.out.println("Data de Criaco: " + p.getDatahora());
+//			System.out.println("Foto: " + p.getFoto());
+//
+//		}
 
 		// --------- from Json Incluir String Json ok
-			//daoEvento.in
+
 	}
 
 }
