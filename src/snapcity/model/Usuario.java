@@ -1,5 +1,5 @@
 package snapcity.model;
-
+// TODO javadoc
 public class Usuario {
 	private Integer id;
 	private String nome;

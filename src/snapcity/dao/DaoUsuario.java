@@ -16,6 +16,8 @@ import snapcity.dao.banco.ConectionFactory;
  *
  */
 public class DaoUsuario {
+
+	// TODO remover atributos e coloca-los como variavel de metodo
 	Connection c = null;
 	Statement stmt = null;
 
@@ -25,12 +27,13 @@ public class DaoUsuario {
 	 * @return Lista de {@link mostrarUsuarios} cadastros.
 	 */
 	public List<Usuario> mostrarUsuario() {
+		// TODO renomear para buscarUsuarios
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
 			c = ConectionFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
-			
+
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setId(rs.getInt("id"));
@@ -58,6 +61,7 @@ public class DaoUsuario {
 	 * @return Lista de {@link buscaUsuariosEventos} cadastros.
 	 */
 	public List<Evento> buscaUsuariosEvento(int id) {
+		// TODO renomear buscarEventosDoUsuario
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 		try {
 			c = ConectionFactory.getConnection();
@@ -168,14 +172,14 @@ public class DaoUsuario {
 	 * @param usuario
 	 * @return Lista de {@link insereUsuarios} cadastros.
 	 */
-	public Usuario insereUsuario( Usuario usuario ){
+	public Usuario insereUsuario(Usuario usuario){
 		try{
 			c = ConectionFactory.getConnection();
 			c.setAutoCommit(false); 
 			stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
-			+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
+					+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
 			stmt.executeUpdate(sql);
 			c.commit();
 			stmt.close();
@@ -188,7 +192,7 @@ public class DaoUsuario {
 		return usuario;
 	}
 
-	public static JSONObject toJson (Usuario usuario){
+	public static JSONObject toJson (Usuario usuario) {
 		JSONObject obj = new JSONObject();
 		obj.put("nome", usuario.getNome());
 		obj.put("senha", usuario.getSenha());
@@ -197,32 +201,26 @@ public class DaoUsuario {
 		obj.put("id", usuario.getId());
 		return obj;
 	}
-	
+
 
 	public static Usuario fromJSON(String jsonString){
 		JSONObject obj = new JSONObject(jsonString);
 		Usuario usuario = new Usuario();
+
 		if (obj.has("id")){
-		Integer id = obj.getInt("id");
+			Integer id = obj.getInt("id");
+			usuario.setId(id);
+		}
+
 		String nome = obj.getString ("nome");
 		String senha = obj.getString ("senha");
 		String email = obj.getString ("email");
-		
-		usuario.setId(id);
+
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
 		usuario.setEmail(email);
-		}
-		else{
-		String nome = obj.getString ("nome");
-		String senha = obj.getString ("senha");
-		String email = obj.getString ("email");
-		
-		usuario.setNome(nome);
-		usuario.setSenha(senha);
-		usuario.setEmail(email);
-		}
+
 		return usuario;
 	}	
-	
+
 }
