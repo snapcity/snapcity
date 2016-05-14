@@ -1,7 +1,9 @@
  function carregarItens(){
-	 
-	 
+    	//Empresa":"RedenÃ§Ã£o Espelho DAgua","Site":"","Logomarca":"","NomeRede":"Redenção","Endereco":"","Longitude":"-51.21726500","Latitude":"-30.03550000","Setor":"Poder Público"}
+    	//variáveis
     	var itens = "", url = "http://localhost:8080/snapcity/rest/evento";
+	  //var itens = "", url = "http://www.portoalegrelivre.com.br/php/services/WSPoaLivreRedes.php";
+    	//Capturar Dados Usando Método AJAX do jQuery
         $.ajax({
     	    url: url,
     	    cache: false,
@@ -21,11 +23,12 @@
     			    for(var i = 0; i<retorno.length; i++){
     				    itens += "<tr>";
     				    itens += "<td>" + retorno[i].id + "</td>";
+    				    itens += '<td><img height="100" width="100" SRC="'+retorno[i].foto+'"></td>'
     				    itens += "<td>" + retorno[i].longitude + "</td>";
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";
     				    itens += "<td>" + retorno[i].datacriacao + "</td>";
-    				    itens += "</tr>";
+    				    itens += "<td> ";
     			    }
     			    //Preencher a Tabela
     			    $("#minhaTabela tbody").html(itens);

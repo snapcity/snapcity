@@ -63,7 +63,7 @@
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
 		<%@ include file="menu.jsp" %>
@@ -73,14 +73,11 @@
 				<h3 class="panel-title">Exclui Evento</h3>
 			</div>
 			<div class="panel-body">
-				
 				<form >	
 					<div class="form-group">
 						<label for="inputlg">ID</label> <input class="form-control"
 							id="id" name="id" type="text">
 					</div>
-					
-
 					<input type="button" id="exclui" value="Excluir" />
 				</form>
 			</div>

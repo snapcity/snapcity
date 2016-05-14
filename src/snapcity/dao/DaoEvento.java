@@ -47,7 +47,7 @@ import sun.misc.BASE64Encoder;
 				while (rs.next()) {
 					Evento evento = new Evento();
 					evento.setId(rs.getInt("idEventos"));
-				//	evento.setFoto(rs.getString("foto"));
+					evento.setFoto(rs.getString("foto"));
 					evento.setDescricao(rs.getString("descricao"));
 					evento.setTag(rs.getString("tags"));
 					evento.setLatitude(rs.getDouble("latitude"));

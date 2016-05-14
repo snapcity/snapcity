@@ -37,8 +37,9 @@
 	            	 
 	            	google.maps.event.addListener(marker, 'click', (function(marker, i) {
 	            	    return function() {
-	            	        infowindow.setContent("<h3>"+evento.descricao+"</h3><p> <strong>Tags: </strong> "+ evento.tags + "</p>");
-	            	       
+	            	    	
+	            	        infowindow.setContent("<h3>"+evento.descricao+"</h3><p>Tags: "+evento.tags+"</p>");
+	            	        
 	            	        infowindow.open(map, marker);
 	            	    }
 	            	})(marker))
@@ -61,7 +62,7 @@
                  
  
                  $.ajax({
-                     url: 'http://localhost:8080/snapcity/rest/evento/'+del.id,
+                     url: 'http://localhost:2020/snapcity/rest/evento/'+del.id,
                      type: 'DELETE',
                      dataType: 'json',
                      //data:del,
@@ -99,12 +100,12 @@
 				<caption>Retorno de dados</caption>
 				<thead>
 					<th>id</th>
+					<th>Foto</th>
 					<th>Longitude</th>
 					<th>Latitude</th>
 					<th>Descricao</th>
 					<th>Data de Cadastro</th>
-					
-					
+				
 				</thead>
 				<tbody>
 				</tbody>
@@ -118,7 +119,7 @@
     </head>
  
     <body>
-     <div id="mapa" style="height: 500px; width: 700px">
+     <div id="mapa" style="height: 500px; width: 100%">
         </div>
  
         <!-- Maps API Javascript -->

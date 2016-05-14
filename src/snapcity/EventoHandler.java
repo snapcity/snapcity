@@ -89,7 +89,8 @@ public class EventoHandler   {
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response putUsuario(String jsonString){
+	public Response putEvento(String jsonString){
+		System.out.println("--------- chegou");
 		Evento evento = daoEventos.fromJson(jsonString);
 		daoEventos.atualizaEvento(evento);
 		return Response.status(200).entity("Cadastro Alterado com Sucesso!").build();

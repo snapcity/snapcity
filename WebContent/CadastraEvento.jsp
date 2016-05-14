@@ -151,6 +151,7 @@ $(document).ready(function() {
         
            success: function(data) {
                console.log(data);
+          
                
            }
            
@@ -164,7 +165,7 @@ $(document).ready(function() {
 </head>
 <body>
 	<div class="container">
-		<%@ include file="menu.jsp"%>
+		<%@ include file="submenu.jsp"%>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Cadastra Evento</h3>
