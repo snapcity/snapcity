@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@page language="java" import="snapcity.dao.DaoEvento"%>
 
@@ -24,70 +23,42 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-	<script>
-         $(document).ready(function () {
-             $("#buscar").click(function () {
-            	 
-            	 
-            	 
-                 var mostra = new Object();
-                 mostra.id = $('#id').val();
-                 $.ajax({
-                     url: 'http://localhost:8080/snapcity/rest/evento/'+mostra.id,
-                     type: 'GET',
-                     dataType: 'json',
-                     data:mostra,
-                     
-                     success: function (data, textStatus, xhr) {
-                    	 	$('#formExclui').css("display","block");
-                    	 	$('#carregando').hide();
- 						 	$("#resBusca").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td><img height="100" width="100" SRC="'+data.foto+'"></td> <td></br>Descrição: '+ data.descricao +'</td> </tr><tr> <td>Latitude: '+ data.latitude +'</td> </tr><tr> <td>Longitude: '+ data.longitude+'</td> </tr><tr> <td>Tags: '+ data.tags+'</td> </tr><tr> <td>Data de criação: '+ data.datacriacao+'</td> </tr></table>');
- 						 
-                     }
-                 
-                 });
-             }); 
-         });
-
-        
-         $(document).ready(function () {
-             $("#exclui").click(function () {
-                
-                 var del = new Object();
-                 del.id = $('#id').val();
-                 
+<script src="js/jquery-1.12.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#buscar").click(function () {
+       	 	var mostra = new Object();
+            mostra.id = $('#id').val();
+            $.ajax({
+                url: 'http://localhost:8080/snapcity/rest/evento/'+mostra.id,
+                type: 'GET',
+                dataType: 'json',
+                data:mostra, 
+                success: function (data, textStatus, xhr) {
+               	 	$('#formExclui').css("display","block");
+               	 	$('#carregando').hide();
+		 			$("#resBusca").html('<b>Resultado da busca</b><br /><br/><table class="table"><tr><th rowspan="5" ><img class="img-thumbnail" height="200px" width="200px" src="'+ data.foto + '"</th> <td> Descrição: '+data.descricao+'</td></tr><tr><td> Tags:'+data.tags+' </td></tr><tr><td> Latitude: '+data.latitude+' </td></tr><tr><td> Longitude: '+data.longitude+'</td></tr><tr><td> Data de Criação: '+data.datacriacao+'</td></tr></table>');
+                } 
+            });
+        }); 
+    });
  
-                 $.ajax({
-                     url: 'http://localhost:8080/snapcity/rest/evento/'+del.id,
-                     type: 'DELETE',
-                     dataType: 'json',
-                     //data:del,
-                     success: function (data, textStatus, xhr) {
-                         console.log(data);
-                     },
-                     error: function (xhr, textStatus, errorThrown) {
-                         console.log('Error in Operation');
-                     }
-                 });
-             });
-         });
-    </script>
+</script>
 
 <title>Busca Eventos</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	<%@ include file="menu.jsp" %>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Busca Evento </h3>
 			</div>
 			<div class="panel-body">
-				<form >	
+				<form>	
 					<div class="form-group">
-						<label for="inputlg">ID</label> <input class="form-control"
-							id="id" name="id" type="number" min="0">
+						<label for="inputlg">ID</label> 
+						<input class="form-control" id="id" name="id" type="number" min="0">
 					</div>
 					<input type="button" id="buscar" value="Buscar" />
 				</form>
@@ -99,10 +70,10 @@
 	<div id="resBusca"><div>	
 	
 	<div id="formExclui" name="formExclui" style="display:none;">
-	<form >	<input type="button" id="exclui" value="Excluir" /></form>
+		<form >	<input type="button" id="exclui" value="Excluir" /></form>
 	</div>
 	
-	</div> 
+</div> 
 	
 </body>
 </html>

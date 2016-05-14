@@ -1,6 +1,5 @@
 <%@page import="snapcity.model.Evento"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List"%>
 <%@page language="java" import="snapcity.dao.DaoEvento"%>
 
@@ -21,13 +20,13 @@
 	crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script>
+<script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
-<meta charset="utf-8">
-<title>jQuery UI Tabs - Default functionality</title>
+
+
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -50,12 +49,12 @@ function encodeImageFileAsURL() {
       var newImage = document.createElement('img');
       newImage.src = srcData; 
    
-    //  document.getElementById("imgTest").innerHTML = newImage.outerHTML;
+   
       document.getElementById("imgTest").innerHTML = srcData;
     
       jsonString = document.getElementById("imgTest").innerHTML;
       
-     // console.log(jsonString);
+     
     }
     fileReader.readAsDataURL(fileToLoad);
     return encodeImageFileAsURL;
@@ -134,38 +133,42 @@ $(document).ready(function () {
 
 
 $(document).ready(function() {
-    $("#cadastrar").click(function() {
-    	
-	    	var p = new Object();
-	    	
-	    	
-	       p.foto = jsonString;
-	       //p.foto = "sdfsdfsdfbsdfsdfdsf";
-        
-           $.ajax({
-           url: "http://localhost:8080/snapcity/rest/evento",
-           contentType: "application/json; charset=utf-8",
-           type: "post",
-           dataType:"json",
-          data: JSON.stringify({id : $('#id').val(), foto : p.foto, descricao : $('#descricao').val(), longitude : $('#txtLongitude').val(),  latitude : $('#txtLatitude').val(), tags : $('#tags').val(),  id_usuario : $('#id_usuario').val()}),
-        
-           success: function(data) {
-               console.log(data);
-          
-               
-           }
-           
-       });
-   });
    
-});
+	$("#cadastrar").click(function() {
+
+			var p = new Object();
+			p.foto = jsonString;
+			$.ajax({
+				url : "http://localhost:8080/snapcity/rest/evento",
+				contentType : "application/json; charset=utf-8",
+				type : "post",
+				dataType : "json",
+				data : JSON.stringify({
+					id : $('#id').val(),
+					foto : p.foto,
+					descricao : $('#descricao').val(),
+					longitude : $('#txtLongitude').val(),
+					latitude : $('#txtLatitude').val(),
+					tags : $('#tags').val(),
+					id_usuario : $('#id_usuario').val()
+				}),
+
+				success : function(data) {
+					console.log(data);
+
+				}
+
+			});
+		});
+
+	});
 </script>
 
 <title>Cadastra Eventos</title>
 </head>
 <body>
 	<div class="container">
-		<%@ include file="submenu.jsp"%>
+		<%@ include file="menu.jsp"%>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Cadastra Evento</h3>
@@ -198,7 +201,7 @@ $(document).ready(function() {
 							<input type="button" id="btnEndereco" name="btnEndereco"
 								value="Mostrar no mapa" />
 						</div>
-						<div id="mapa" style="height: 500px; width: 500px">
+						<div id="mapa" style="height: 500px; width: 100%">
 							<script type="text/javascript"
 								src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCE_c3WG1QxjcPrwWNtp3MBZGnrues5Nk0&amp;sensor=false"></script>
 						</div>
@@ -217,7 +220,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-	<div id="imgTest"></div>
+	<div id="imgTest" style="color:#FFF"></div>
 
 
 </body>

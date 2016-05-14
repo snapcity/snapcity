@@ -23,7 +23,7 @@
     			    for(var i = 0; i<retorno.length; i++){
     				    itens += "<tr>";
     				    itens += "<td>" + retorno[i].id + "</td>";
-    				    itens += '<td><img height="100" width="100" SRC="'+retorno[i].foto+'"></td>'
+    				    itens += '<td><img height="100" width="100" SRC="'+retorno[i].foto+'"></td>';
     				    itens += "<td>" + retorno[i].longitude + "</td>";
     				    itens += "<td>" + retorno[i].latitude + "</td>";
     				    itens += "<td>" + retorno[i].descricao + "</td>";

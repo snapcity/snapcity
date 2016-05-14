@@ -1,6 +1,5 @@
 <%@page import="snapcity.model.Evento"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@page language="java" import="snapcity.dao.DaoEvento"%>
 
@@ -33,29 +32,27 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
- <script>
-         $(document).ready(function () {
-             $("#exclui").click(function () {
-                
-                 var del = new Object();
-                 del.id = $('#id').val();
-                 
- 
-                 $.ajax({
-                     url: 'http://localhost:8080/snapcity/rest/evento/'+del.id,
-                     type: 'DELETE',
-                     dataType: 'json',
-                     //data:del,
-                     success: function (data, textStatus, xhr) {
-                         console.log(data);
-                     },
-                     error: function (xhr, textStatus, errorThrown) {
-                         console.log('Error in Operation');
-                     }
-                 });
-             });
-         });
-    </script>
+<script>
+	$(document).ready(function() {
+		$("#exclui").click(function() {
+
+			var del = new Object();
+			del.id = $('#id').val();
+
+			$.ajax({
+				url : 'http://localhost:8080/snapcity/rest/evento/' + del.id,
+				type : 'DELETE',
+				dataType : 'json',
+				success : function(data, textStatus, xhr) {
+					alert("Evento "+ del.id + "foi excluído com sucesso.");
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					console.log('Error in Operation');
+				}
+			});
+		});
+	});
+</script>
 
 
 
@@ -73,11 +70,14 @@
 				<h3 class="panel-title">Exclui Evento</h3>
 			</div>
 			<div class="panel-body">
+				
 				<form >	
 					<div class="form-group">
-						<label for="inputlg">ID</label> <input class="form-control"
-							id="id" name="id" type="text">
+						<label for="inputlg">ID</label> 
+						<input class="form-control" id="id" name="id" type="text">
 					</div>
+					
+
 					<input type="button" id="exclui" value="Excluir" />
 				</form>
 			</div>

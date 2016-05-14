@@ -34,8 +34,10 @@ public class EventoHandler   {
 	Evento modelEventos = new Evento();
 	Usuario usuario = new Usuario();
 	
-	
-	//ok
+	/**
+	 * Retorna todos os eventos em formato json
+	 * @return
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEvento() {
@@ -48,15 +50,17 @@ public class EventoHandler   {
 				 json.put(DaoEvento.toJson(e));
 			}
 			
-	//	o.put("eventos", json);
 		
 		return Response.ok(200).entity(json.toString()).build();
 		
 		
 	}
 	
-	
-	//ok
+	/**
+	 * Grava eventos recebendo dados em formato json
+	 * @param jsonString
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postEvento(String jsonString) {
@@ -67,7 +71,11 @@ public class EventoHandler   {
 		}
 	
 	
-	// ok
+	/**
+	 * Mostra usuário pesquisado por id
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -77,7 +85,13 @@ public class EventoHandler   {
 		
 		return Response.ok(200).entity(json.toString()).build();		
 	}
-	// ok
+	
+	
+	/**
+	 * Remove evento pelo id do evento
+	 * @param id
+	 * @return
+	 */
 	@DELETE
     @Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -87,10 +101,15 @@ public class EventoHandler   {
 		return Response.ok(200).entity("Evento de numero " +id+ " foi removido").build();
     }
 	
+	
+	/**
+	 * Atualiza Evento
+	 * @param jsonString
+	 * @return
+	 */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response putEvento(String jsonString){
-		System.out.println("--------- chegou");
+	public Response putUsuario(String jsonString){
 		Evento evento = daoEventos.fromJson(jsonString);
 		daoEventos.atualizaEvento(evento);
 		return Response.status(200).entity("Cadastro Alterado com Sucesso!").build();

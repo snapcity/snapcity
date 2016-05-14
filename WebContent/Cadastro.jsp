@@ -33,8 +33,16 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <title>Cadastra Usuario</title>
-
-
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Usuário</h3>
+			</div>
+			<!doctype html>
+			<html lang="en">
+<head>
 
 <script>
 	$(function() {
@@ -161,15 +169,6 @@
 </script>
 </head>
 <body>
-	<div class="container">
-	<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="index.jsp">Home</a></li>
-  <li role="presentation"><a href="CadastraEvento.jsp">Evento</a></li>
-</ul>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Usuário</h3>
-			</div>
 
 	<div id="tabs">
 		<ul>
@@ -179,7 +178,6 @@
 			<li><a href="#tabs-5">Mostra Usuarios</a></li>
 			<li><a href="#tabs-4">Excluir Cadastro</a></li>
 			<li><a href="#tabs-6">Mostra Eventos </a></li>
-			
 		</ul>
 
 		<div id="tabs-1">
@@ -209,7 +207,7 @@
 		<div id="tabs-2">
 			<p>
 			<div class="panel-body">
-				<form action="">
+				<form action="" method="POST">
 					<div class="form-group">
 						<label for="inputlg">Id</label> <input class="form-control"
 							id="id1" name="id1" type="text">
@@ -311,9 +309,8 @@
 </body>
 		</div>
 		</p>
-	</div>
-		
 </div>
+	</div>
 </body>
 	
 </html>
