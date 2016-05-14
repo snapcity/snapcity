@@ -11,8 +11,8 @@ import java.sql.SQLException;
  * @author informatica02
  *
  */
-public class ConectionFactory {
-	// TODO renomear para ConexaoFactory
+public class ConexaoFactory {
+	
 	public static Connection getConnection() throws SQLException {
 		Connection c = null;
 		      try {

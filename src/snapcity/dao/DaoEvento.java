@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import org.json.*;
 
 import snapcity.model.*;
-import snapcity.dao.banco.ConectionFactory;
+import snapcity.dao.banco.ConexaoFactory;
 import snapcity.model.Usuario;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -31,14 +31,13 @@ public class DaoEvento {
 	 * Retorna todos os eventos cadastros.
 	 * @return Lista de {@link Evento} mostra todos eventos.
 	 */
-	public List<Evento> mostrarEvento() {
+	public List<Evento> buscaEventos() {
 
-		// TODO buscaEventos
 
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 
 		try {
-			Connection c = ConectionFactory.getConnection();
+			Connection c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false);
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM eventos;");
@@ -59,8 +58,6 @@ public class DaoEvento {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		// TODO remover todos os System.out
-		System.out.println("Operacao com mostraEventos com sucesso");
 		return eventos;
 	}
 
@@ -74,7 +71,7 @@ public class DaoEvento {
 		try {	
 			Evento evento = new Evento();
 
-			Connection c = ConectionFactory.getConnection();
+			Connection c = ConexaoFactory.getConnection();
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from eventos where eventos.\"idEventos\"="+ idEvento + ";");
 			while (rs.next()) {
@@ -101,8 +98,6 @@ public class DaoEvento {
 			c.close();
 			stmt.close();
 
-			System.out.println("Operacao com buscaEventos com sucesso");
-
 			return evento;
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -117,7 +112,7 @@ public class DaoEvento {
 	 */
 	public void excluiEvento(int idEvento) {    
 		try {  
-			Connection c = ConectionFactory.getConnection(); 
+			Connection c = ConexaoFactory.getConnection(); 
 			c.setAutoCommit(false);
 			Statement stmt = c.createStatement();
 			String sql = "DELETE FROM eventos WHERE eventos.\"idEventos\" = '" + idEvento + "';";
@@ -125,9 +120,6 @@ public class DaoEvento {
 			c.commit();
 			c.close();
 			stmt.close();
-
-			// TODO remover system.out TODOS eles
-			System.out.println("Operacao com exluirEventos com sucesso");
 
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
@@ -141,7 +133,7 @@ public class DaoEvento {
 	 */
 	public void atualizaEvento(Evento evento) {    
 		try {  
-			Connection c = ConectionFactory.getConnection();
+			Connection c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false);
 			Timestamp datahora = new Timestamp(System.currentTimeMillis());
 			Statement stmt = c.createStatement();
@@ -154,7 +146,7 @@ public class DaoEvento {
 			c.commit();
 			c.close();
 			stmt.close();
-			System.out.println("Operacao com atualizaEventos com sucesso");
+			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
@@ -167,7 +159,7 @@ public class DaoEvento {
 	 */
 	public void insereEvento(Evento evento){
 		try{
-			Connection c = ConectionFactory.getConnection();
+			Connection c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false);
 			Timestamp datahora = new Timestamp(System.currentTimeMillis()); 
 			Statement stmt = c.createStatement();
@@ -178,7 +170,7 @@ public class DaoEvento {
 			c.commit();
 			stmt.close();
 			c.close();
-			System.out.println("Evento foi criado com sucesso");
+			
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
@@ -270,7 +262,6 @@ public class DaoEvento {
 		Double latitude = eventoJson.getDouble("latitude");
 		Double longitude = eventoJson.getDouble("longitude");
 		Integer id_usuario = eventoJson.getInt("id_usuario");
-		System.out.println(id_usuario);
 		String foto = eventoJson.getString("foto");
 
 		evento.setDescricao(descricao);

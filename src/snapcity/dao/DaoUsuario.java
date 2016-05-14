@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
-import snapcity.dao.banco.ConectionFactory;
+import snapcity.dao.banco.ConexaoFactory;
 
 /**
  * classe DaoUsuario faz a conexão dos metodos solicitados com o banco de dados
@@ -30,7 +30,7 @@ public class DaoUsuario {
 		// TODO renomear para buscarUsuarios
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
 
@@ -64,7 +64,7 @@ public class DaoUsuario {
 		// TODO renomear buscarEventosDoUsuario
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 		try {
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			stmt = c.createStatement();
 
 			DaoEvento daoEvento = new DaoEvento();
@@ -95,7 +95,7 @@ public class DaoUsuario {
 	public Usuario buscaUsuario(int id) {  
 		Usuario usuarios = new Usuario();
 		try {
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
 			while (rs.next()) {
@@ -124,7 +124,7 @@ public class DaoUsuario {
 	 */
 	public void excluiUsuario(Integer id) {    
 		try {   
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql = "DELETE FROM usuarios WHERE id = '" +id + "';";
@@ -146,7 +146,7 @@ public class DaoUsuario {
 	 */
 	public void atualizaUsuario(Usuario usuario) {    
 		try {  
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
@@ -174,7 +174,7 @@ public class DaoUsuario {
 	 */
 	public Usuario insereUsuario(Usuario usuario){
 		try{
-			c = ConectionFactory.getConnection();
+			c = ConexaoFactory.getConnection();
 			c.setAutoCommit(false); 
 			stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
