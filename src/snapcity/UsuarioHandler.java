@@ -20,52 +20,43 @@ import snapcity.dao.DaoUsuario;
 import snapcity.model.Evento;
 import snapcity.model.Usuario;
 
-//TODO javadoc
-
+/**
+ * Classe que trata o rest
+ * @author  Andersen Silva e Marcelo
+ *
+ */
 @Path("/usuarios")
 public class UsuarioHandler {
 	
-	// TODO enviar DaoUsuario para metodo
-		DaoUsuario dao = new DaoUsuario();
-
-	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response getUsuario() {
-		//TODO renomear para getUsuarios
-		List<Usuario> usuarios = dao.mostrarUsuario();
+	public Response getUsuarios() {
+		DaoUsuario dao = new DaoUsuario();
+		List<Usuario> usuarios = dao.mostrarUsuarios();
 		JSONArray array = new JSONArray();
 		for (Usuario user : usuarios)
 			array.put(DaoUsuario.toJson(user));
 		
-		JSONObject o = new JSONObject();
-		o.put("usuarios", array);
-		
-		return Response.ok().entity(o.toString()).build();
+		return Response.ok().entity(array.toString()).build();
 				
 	}
 	
 	
 	@GET
-	//@Path("/{id}/evento")
-	@Path("/evento/{id}")
+	@Path("/{id}/evento")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response BuscaEventoUsuario(@PathParam("id") Integer id) {
-		
-		// TODO renomear metodo para comecar com letra minuscula, buscaEventosUsuario
-		
+	public Response buscaEventosUsuario(@PathParam("id") Integer id) {
+		DaoUsuario dao = new DaoUsuario();
 		Usuario u = dao.buscaUsuario(id);
-		
-		List<Evento> evento = dao.buscaUsuariosEvento(id);
+		List<Evento> evento = dao.buscaEventosDoUsuario(id);
 		JSONArray array = new JSONArray();
 		for (Evento user : evento)
 			array.put(DaoEvento.toJson(user));
-		
-		JSONObject o = new JSONObject();
-		o.put("usuario", DaoUsuario.toJson(u));
-		o.put("eventos", array);
-		
-		return Response.ok().entity(o.toString()).build();
+			array.put(DaoUsuario.toJson(u));
+		//JSONObject o = new JSONObject();
+		//o.put("usuario", DaoUsuario.toJson(u));
+		//o.put("eventos", array);
+		return Response.ok().entity(array.toString()).build();
 	}
 		
 		
@@ -73,6 +64,7 @@ public class UsuarioHandler {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response buscaUsuario(@PathParam("id") Integer id) {
+		DaoUsuario dao = new DaoUsuario();
 		Usuario usuario = dao.buscaUsuario(id);
 		JSONObject json = DaoUsuario.toJson(usuario);
 		return Response.ok().entity(json.toString()).build();		
@@ -82,6 +74,7 @@ public class UsuarioHandler {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response postUsuario(String jsonString) {
+		DaoUsuario dao = new DaoUsuario();
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.insereUsuario(user);
 		return Response.ok().build();
@@ -91,6 +84,7 @@ public class UsuarioHandler {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response putUsuario(String jsonString){
+		DaoUsuario dao = new DaoUsuario(); 
 		Usuario user = DaoUsuario.fromJSON(jsonString);
 		dao.atualizaUsuario(user);
 		return Response.ok().build();
@@ -99,8 +93,8 @@ public class UsuarioHandler {
 	@DELETE
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") Integer id) {
-		// TODO renomear para excluiUsuario
+    public Response excluiUsuario(@PathParam("id") Integer id) {
+		DaoUsuario dao = new DaoUsuario();
         dao.excluiUsuario(id);
         return Response.ok().build();
     }

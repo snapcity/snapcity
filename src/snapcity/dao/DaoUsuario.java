@@ -17,21 +17,16 @@ import snapcity.dao.banco.ConexaoFactory;
  */
 public class DaoUsuario {
 
-	// TODO remover atributos e coloca-los como variavel de metodo
-	Connection c = null;
-	Statement stmt = null;
-
-
 	/**
 	 * Mostra todos os Usuarios cadastrados
 	 * @return Lista de {@link mostrarUsuarios} cadastros.
 	 */
-	public List<Usuario> mostrarUsuario() {
-		// TODO renomear para buscarUsuarios
+	public List<Usuario> mostrarUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try {
-			c = ConexaoFactory.getConnection();
-			stmt = c.createStatement();
+
+			Connection c = ConexaoFactory.getConnection();
+			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios;");
 
 			while (rs.next()) {
@@ -50,7 +45,6 @@ public class DaoUsuario {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		System.out.println("Operacao com mostarUsuarios com sucesso");
 		return usuarios;
 	}
 
@@ -60,12 +54,12 @@ public class DaoUsuario {
 	 * @param usuario
 	 * @return Lista de {@link buscaUsuariosEventos} cadastros.
 	 */
-	public List<Evento> buscaUsuariosEvento(int id) {
-		// TODO renomear buscarEventosDoUsuario
+	public List<Evento> buscaEventosDoUsuario(int id) {
 		ArrayList<Evento> eventos = new ArrayList<Evento>();
 		try {
-			c = ConexaoFactory.getConnection();
-			stmt = c.createStatement();
+
+			Connection c = ConexaoFactory.getConnection();
+			Statement stmt = c.createStatement();
 
 			DaoEvento daoEvento = new DaoEvento();
 			ResultSet rs = stmt.executeQuery("select usuarios.nome, eventos.* from eventos,usuarios where usuarios.id = '"+ id + "' and eventos.id_usuario ='"+ id +"';");
@@ -77,8 +71,7 @@ public class DaoUsuario {
 			}
 			rs.close();
 			c.close();
-			stmt.close();
-			System.out.println("Operacao com buscaUsuarios com sucesso");	
+			stmt.close();	
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -95,8 +88,10 @@ public class DaoUsuario {
 	public Usuario buscaUsuario(int id) {  
 		Usuario usuarios = new Usuario();
 		try {
-			c = ConexaoFactory.getConnection();
-			stmt = c.createStatement();
+
+			Connection c = ConexaoFactory.getConnection();
+			Statement stmt = c.createStatement();
+
 			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE id = '"+ id + "';");
 			while (rs.next()) {
 				usuarios.setId(rs.getInt("id"));
@@ -108,7 +103,6 @@ public class DaoUsuario {
 			rs.close();
 			c.close();
 			stmt.close();
-			System.out.println("Operacao com buscaUsuarios com sucesso");
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -124,9 +118,11 @@ public class DaoUsuario {
 	 */
 	public void excluiUsuario(Integer id) {    
 		try {   
-			c = ConexaoFactory.getConnection();
+
+			Connection c = ConexaoFactory.getConnection();
+
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			String sql = "DELETE FROM usuarios WHERE id = '" +id + "';";
 			stmt.executeUpdate(sql);
 			c.commit();
@@ -136,7 +132,6 @@ public class DaoUsuario {
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 		}
-		System.out.println("Operacao com excluiUsuario com sucesso");
 	} 
 
 	/**
@@ -146,9 +141,11 @@ public class DaoUsuario {
 	 */
 	public void atualizaUsuario(Usuario usuario) {    
 		try {  
-			c = ConexaoFactory.getConnection();
+
+			Connection c = ConexaoFactory.getConnection();
+
 			c.setAutoCommit(false);
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis());
 			String sql = "UPDATE usuarios set nome = '"+ usuario.getNome() +
 					"',senha ='"+ usuario.getSenha() +
@@ -164,9 +161,8 @@ public class DaoUsuario {
 			System.err.println( e.getClass().getName()+": "+ e.getMessage() );
 			System.exit(0);
 		}
-		System.out.println("Operacao com atualizaUsuarios com sucesso");
-
 	} 
+	
 	/**
 	 * Método para cadastrar um novo Usuário
 	 * @param usuario
@@ -174,9 +170,11 @@ public class DaoUsuario {
 	 */
 	public Usuario insereUsuario(Usuario usuario){
 		try{
-			c = ConexaoFactory.getConnection();
+
+			Connection c = ConexaoFactory.getConnection();
+
 			c.setAutoCommit(false); 
-			stmt = c.createStatement();
+			Statement stmt = c.createStatement();
 			Timestamp datacriacao = new Timestamp(System.currentTimeMillis()); 
 			String sql = "INSERT INTO usuarios (nome,senha,email,datacriacao) values ('"
 					+ usuario.getNome()+"','"+usuario.getSenha()+"','"+usuario.getEmail()+"','"+datacriacao+"');";
@@ -184,7 +182,6 @@ public class DaoUsuario {
 			c.commit();
 			stmt.close();
 			c.close();
-			System.out.println("Usuario foi criado com sucesso");
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName()+" Erro: "+ e.getMessage() );		
 			System.exit(0);

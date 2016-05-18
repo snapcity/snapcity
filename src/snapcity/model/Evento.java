@@ -8,10 +8,8 @@ public class Evento {
 	private String descricao;
 	private String tag;
 	private Integer id_usuario;
-	// TODO remover atributo id_usuario e renomear longitude
-	private double longintude;
+	private double longitude;
 	private double latitude;
-	// TODO 
 	private String datahora;
 	
 	public Evento(){
@@ -26,7 +24,7 @@ public class Evento {
 		this.descricao = descricao;
 		this.tag = tag;
 		this.id_usuario = id_usuario;
-		this.longintude = longintude;
+		this.longitude = longintude;
 		this.latitude = latitude;
 		this.datahora = datahora;
 	}
@@ -52,7 +50,7 @@ public class Evento {
 	}
 
 	public void setLongintude(double longintude) {
-		this.longintude = longintude;
+		this.longitude = longintude;
 	}
 
 	public void setLatitude(double latitude) {
@@ -86,7 +84,7 @@ public class Evento {
 	}
 
 	public double getLongintude() {
-		return longintude;
+		return longitude;
 	}
 
 	public double getLatitude() {

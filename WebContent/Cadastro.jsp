@@ -27,25 +27,11 @@
 	
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="js/scriptUsuario.js" type="text/javascript"></script>
+<script src="js/BuscaEvento.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-<title>Cadastra Usuario</title>
-
-
-	<div class="container">
-	<ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="index.jsp">Home</a></li>
-  <li role="presentation"><a href="CadastraEvento.jsp">Eventos</a></li>
-</ul>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Usuário</h3>
-			</div>
-			
-
-
+	
 <script>
 	$(function() {
 		$("#tabs").tabs();
@@ -126,7 +112,7 @@
 			var mostra = new Object();
 			mostra.id = $('#id5').val();
 				$.ajax({
-					url : "http://localhost:8080/snapcity/rest/usuarios/evento/"+ mostra.id,
+					url : "http://localhost:8080/snapcity/rest/usuarios/"+ mostra.id +"/evento",
 					type : 'GET',
 					dataType : 'json',
 					data : mostra,
@@ -136,7 +122,7 @@
 		            success: function (data, textStatus, xhr) {
 		            	 for(var i = 0; i<data.length; i++){
 		                   	 	$('#carregando').hide();
-		                   	 $("#resBusca").html('<b>Resultado da busca</b><br /><br/><table> <tr> <th></th> </tr><tr><td><img height="100" width="100" SRC="'+data[i].foto+'"></td> <td></br>Nome: '+ data[i].nome +'</td><td></br>Descrição: '+ data[i].descricao +'</td> </tr><tr> <td>Latitude: '+ data[i].latitude +'</td> </tr><tr> <td>Longitude: '+ data[i].longitude+'</td> </tr><tr> <td>Tags: '+ data[i].tags+'</td> </tr><tr> <td>Data de criação: '+ data[i].datacriacao+'</td> </tr></table>');
+		                   	 $("#resBusca2").html('<br /><br/><table> <tr> <th></th> </tr><tr> <td><h3>Nome: '+ data[i].nome +'</h3></td> </tr></table>');
 		            	 }
 		                    }
 
@@ -171,6 +157,17 @@
 </script>
 </head>
 <body>
+			
+<title>Cadastra Usuario</title>
+	<div class="container">
+	<ul class="nav nav-pills">
+  		<li role="presentation" class="active"><a href="index.jsp">Home</a></li>
+  		<li role="presentation"><a href="CadastraEvento.jsp">Cadastra Eventos</a></li>
+	</ul>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Usuário</h3>
+			</div>
 
 	<div id="tabs">
 		<ul>
@@ -302,17 +299,34 @@
 						<label for="inputlg">ID Usuario</label> <input class="form-control"
 							id="id5" name="id" type="number" min="0">
 					</div>
-					<input type="button" id="buscarEvento" value="Buscar" />
+					<input type="button" id="buscarEvento" value="Buscar" onclick="carregarItensBusca()" />
 				</form>
+				<section>
+			<h1>Usuario</h1> <div id="resBusca2"></div>
+			<!--Área que mostrará carregando-->
+			<h2></h2>
+			<!--Tabela-->
+			<table id="minhaTabelaBusca" class="table table-striped">
+				<caption>Retorno de dados</caption>
+				<thead>
+					<th>id</th>
+					<th>Foto</th>
+					<th>Longitude</th>
+					<th>Latitude</th>
+					<th>Descricao</th>
+					<th>Data de Cadastro</th>
+				
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</section>
 			</div>
-	<!--Aqui é onde vai aparecer o resultado da busca-->
-	<div id="resBusca"></div>
 		</div>
-</body>
+
+		</div>
 		</div>
 		</p>
 </div>
-	</div>
 </body>
-	
 </html>
